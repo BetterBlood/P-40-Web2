@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\elementType;
+
 /**
  * ETML
  * Auteur : Moi
@@ -43,7 +46,17 @@ class RecipeController extends Controller {
         $startIndex = 0;
         if (array_key_exists("start", $_GET) && $_GET["start"] > 0)
         {
-            $startIndex = $_GET["start"]; // TODO : vérifier que le start est possible (ptetre faire une méthgode count pour vérifier le nombre de recette )
+            if($database->CountRecipes() > $_GET["start"])
+            {
+                $startIndex = $_GET["start"]; // TODO : vérifier que le start est possible (ptetre faire une méthgode count pour vérifier le nombre de recette )
+            }
+            else
+            {
+                $startIndex = $database->CountRecipes() - $database->CountRecipes()%5;
+                $_GET['start'] = $startIndex;
+                //$startIndex = $_GET['start'];
+            }
+            var_dump($database->CountRecipes());
         }
         $lengthRecipe = 5; // TODO : modifier si on veut pouvoir modifier le nombre de recette affichée
 

@@ -70,6 +70,13 @@ class Database {
         unset($this->connector);
     }
 
+    public function CountRecipes()
+    {
+        $req = $this->queryPrepareExecute('SELECT Count(idRecipe) FROM t_recipe', null);// appeler la méthode pour executer la requète
+        $recipes = $this->formatData($req);
+        return $recipes[0]['Count(idRecipe)'];
+    }
+
     /**
      * récupère tous les recettes de la database
      *
