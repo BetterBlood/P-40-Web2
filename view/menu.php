@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="index.php?controller=home&action=index&image=0">Menu</a>
-        <a class="navbar-brand js-scroll-trigger" href="index.php?controller=recette&action=list">Recettes</a>
+        <a class="navbar-brand js-scroll-trigger" href="index.php?controller=recipe&action=list">Recettes</a>
         <a class="navbar-brand js-scroll-trigger" href="index.php?controller=home&action=contact">Contact</a>
         
         <div class="collapse navbar-collapse" id="navbarResponsive">
