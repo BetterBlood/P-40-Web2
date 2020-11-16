@@ -21,6 +21,7 @@ include_once 'controller/HomeController.php';
 include_once 'controller/CustomerController.php';
 include_once 'controller/FactureController.php';
 include_once 'controller/RecipeController.php';
+include_once 'controller/LoginController.php';
 
 
 class MainController {
@@ -60,6 +61,9 @@ class MainController {
                 break;
             case 'recipe':
                 $link = new RecipeController();
+                break;
+            case 'login':
+                $link = new LoginController();
                 break;
             default:
                 $link = new HomeController();

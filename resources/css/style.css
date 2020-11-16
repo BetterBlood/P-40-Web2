@@ -75,10 +75,9 @@ h2 {
   #mainNav .navbar-nav .nav-item .nav-link {
     padding: 1.1em 1em;
   }
-  #mainNav.navbar-shrink {
-    padding-top: 0;
-    padding-bottom: 0;
-    background-color: darkslategrey;
+  
+  .mastHead{
+    margin-top: 7vh;
   }
   #mainNav.navbar-shrink .navbar-brand {
     font-size: 1.25em;
