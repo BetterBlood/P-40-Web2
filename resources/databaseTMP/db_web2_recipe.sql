@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Lun 16 Novembre 2020 à 13:34
+-- Généré le :  Lun 16 Novembre 2020 à 13:41
 -- Version du serveur :  5.7.11
 -- Version de PHP :  7.0.3
 

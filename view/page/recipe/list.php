@@ -48,7 +48,7 @@
 		
 		</table>
 		
-		<div class="justify-content-right" style="width: 500px" aria-label="Page navigation">
+		<div class="justify-content-right" style="width: 100%" aria-label="Page navigation">
 			<ul class="pagination justify-content-center">
 				<li class="page-item">
 				<a class="page-link" href="#" aria-label="Previous">
