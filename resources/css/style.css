@@ -169,3 +169,11 @@ html, body {
   ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons li a:hover {
     background-color: #fed136;
   }
+  
+  .mastHead{
+    margin-top: 5vh;
+  }
+
+  #indexPage{
+    width: 100%;
+  }

@@ -48,7 +48,7 @@
 		
 		</table>
 		
-		<div class="justify-content-right" style="width: 100%" aria-label="Page navigation">
+		<div class="justify-content-right" aria-label="Page navigation" id="indexPage">
 			<ul class="pagination justify-content-center">
 				<li class="page-item">
 				<a class="page-link" href="#" aria-label="Previous">
@@ -64,22 +64,6 @@
 				</a>
 				</li>
 			</ul>
-		</div>
-
-		<div class="container">
-			<div class="row">
-				<div class="col-12 col-sm-12 col-md-4 col-lg-4" style="border:1px solid red">
-					<div class="premier"><p>TEST</p></div>
-				</div>
-		
-				<div class="col-12 col-sm-12 col-md-4 col-lg-4" style="border:1px solid red">
-					<div class="deuxieme"><p>TEST</p></div>
-				</div>
-		
-				<div class="col-12 col-sm-12 col-md-4 col-lg-4" style="border:1px solid red">
-					<div class="troisieme"><p>TEST</p></div>
-				</div>
-			</div>
 		</div>
 	</div>
 </div>

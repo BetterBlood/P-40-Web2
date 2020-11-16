@@ -16,9 +16,11 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Base de données :  `db_web2_recipe`
---
+-- Database Section
+-- ________________ 
+
+create database db_web2_recipe;
+use db_web2_recipe;
 
 -- --------------------------------------------------------
 
