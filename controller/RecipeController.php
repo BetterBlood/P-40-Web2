@@ -44,21 +44,28 @@ class RecipeController extends Controller {
         $database = new Database();
 
         $startIndex = 0;
+        $lengthRecipe = 5; // TODO : modifier si on veut pouvoir modifier le nombre de recette affichée
+
         if (array_key_exists("start", $_GET) && $_GET["start"] > 0)
         {
-            if($database->CountRecipes() > $_GET["start"])
+            $recipeNumber = $database->CountRecipes(); // TODO : ptetre sauver en session, util pour la page list
+
+            if($recipeNumber > $_GET["start"])
             {
-                $startIndex = $_GET["start"]; // TODO : vérifier que le start est possible (ptetre faire une méthgode count pour vérifier le nombre de recette )
+                $startIndex = $_GET["start"];
             }
             else
             {
-                $startIndex = $database->CountRecipes() - $database->CountRecipes()%5;
+                $startIndex = $recipeNumber - $recipeNumber%$lengthRecipe;
                 $_GET['start'] = $startIndex;
-                //$startIndex = $_GET['start'];
             }
-            var_dump($database->CountRecipes());
+
+            //var_dump($recipeNumber); // DEBUG
         }
-        $lengthRecipe = 5; // TODO : modifier si on veut pouvoir modifier le nombre de recette affichée
+        else
+        {
+            $_GET["start"] = 0;
+        }
 
         $recipes = $database->getAllRecipes($startIndex, $lengthRecipe);
 

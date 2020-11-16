@@ -38,9 +38,20 @@
 				}
 			}
 
+			$realStartIndex = 0;
+
+			if ($startIndex - 5 < 0)
+			{
+				$realStartIndex = 0;
+			}
+			else
+			{
+				$realStartIndex = $startIndex - 5;
+			}
+
 			echo '<tr>';
 			echo '<td></td>';
-			echo '<td><a href="index.php?controller=recipe&action=list&start=' . ($startIndex - 5) . '">prev</a></td>';
+			echo '<td><a href="index.php?controller=recipe&action=list&start=' . $realStartIndex . '">prev</a></td>';
 			echo '<td>..</td>';
 			echo '<td COLSPAN="3" ><a href="index.php?controller=recipe&action=list&start=' . ($startIndex + 5) . '">next</a></td>';
 			echo '</tr>';
@@ -51,13 +62,23 @@
 		<div class="justify-content-right" aria-label="Page navigation" id="indexPage">
 			<ul class="pagination justify-content-center">
 				<li class="page-item">
-				<a class="page-link" href="#" aria-label="Previous">
+				<a class="page-link" href="index.php?controller=recipe&action=list&start=0" aria-label="Previous">
 					<span aria-hidden="true">&laquo;</span>
 				</a>
 				</li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li><a class="page-link" <?php echo 'href="index.php?controller=recipe&action=list&start=' . $realStartIndex . '"';?>><span aria-hidden="true"><</span></a></li>
+
+				<?php
+					// s'il y a moins de 3 pages:
+						// on fait etc
+					// sinon
+						echo '<li class="page-item"><a class="page-link" href="index.php?controller=recipe&action=list&start=' . $realStartIndex . '">' . '1' . '</a></li>';
+						echo '<li class="page-item"><a class="page-link" href="#">' . '2' . '</a></li>';
+						echo '<li class="page-item"><a class="page-link" href="index.php?controller=recipe&action=list&start=' . ($startIndex + 5) . '">' . '3' . '</a></li>';
+				?>
+
+
+				<li><a class="page-link" <?php echo 'href="index.php?controller=recipe&action=list&start=' . ($startIndex + 5) . '"';?>><span aria-hidden="true">></span></a></li>
 				<li class="page-item">
 				<a class="page-link" href="#" aria-label="Next">
 					<span aria-hidden="true">&raquo;</span>
