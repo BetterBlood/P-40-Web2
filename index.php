@@ -20,7 +20,7 @@ include_once 'controller/Controller.php';
 include_once 'controller/HomeController.php';
 include_once 'controller/CustomerController.php';
 include_once 'controller/FactureController.php';
-include_once 'controller/RecetteController.php';
+include_once 'controller/RecipeController.php';
 
 
 class MainController {
@@ -58,8 +58,8 @@ class MainController {
             case 'facture':
                 $link = new FactureController();
                 break;
-            case 'recette':
-                $link = new RecetteController();
+            case 'recipe':
+                $link = new RecipeController();
                 break;
             default:
                 $link = new HomeController();
@@ -81,7 +81,8 @@ class MainController {
             include(dirname(__FILE__) . '/view/head.html');
             include(dirname(__FILE__) . '/view/header.html');
             include(dirname(__FILE__) . '/view/menu.php');
-            echo $content;
+            //include(dirname(__FILE__) . '/view/page/recipe/list.php');
+            echo $content; //content
             include(dirname(__FILE__) . '/view/footer.html');
     }
 }
