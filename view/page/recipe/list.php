@@ -45,6 +45,41 @@
 			echo '<td COLSPAN="3" ><a href="index.php?controller=recipe&action=list&start=' . ($startIndex + 5) . '">next</a></td>';
 			echo '</tr>';
 		?>
+		
 		</table>
+		
+		<div class="justify-content-right" style="width: 500px" aria-label="Page navigation">
+			<ul class="pagination justify-content-center">
+				<li class="page-item">
+				<a class="page-link" href="#" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+				</a>
+				</li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item">
+				<a class="page-link" href="#" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+				</a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-sm-12 col-md-4 col-lg-4" style="border:1px solid red">
+					<div class="premier"><p>TEST</p></div>
+				</div>
+		
+				<div class="col-12 col-sm-12 col-md-4 col-lg-4" style="border:1px solid red">
+					<div class="deuxieme"><p>TEST</p></div>
+				</div>
+		
+				<div class="col-12 col-sm-12 col-md-4 col-lg-4" style="border:1px solid red">
+					<div class="troisieme"><p>TEST</p></div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
