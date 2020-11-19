@@ -35,30 +35,44 @@ class RecipeController extends Controller {
 
         // Instancie le modèle et va chercher les informations
 
-        /*
-        $factureRepository = new RecetteRepository();
-        $invoices = $factureRepository->findAll(); // est utiliser a la ligne 45
-        */
-
         include_once("dbInteraction/Database.php");
         $database = new Database();
 
         $startIndex = 0;
-        $lengthRecipe = 3; // TODO : modifier si on veut pouvoir modifier le nombre de recette affichée
+        $lengthRecipe = 5; // UTIL : modifier si on veut pouvoir modifier le nombre de recette affichée
         $_SESSION["recipesPerPage"] = $lengthRecipe;
 
-        if (array_key_exists("start", $_GET) && $_GET["start"] > 0)
+        if (array_key_exists("start", $_GET) && $_GET["start"] > 0) // si le paramettre de start n'est pas négatif
         {
-            $recipeNumber = $database->CountRecipes(); // TODO : ptetre sauver en session, util pour la page list
+            $recipeNumber = $database->CountRecipes();
             $_SESSION["recipesNumber"] = $recipeNumber;
 
-            if($recipeNumber > $_GET["start"])
+            if ($recipeNumber > $_GET["start"]) // si le paramettre n'est ni trop grand ni trop petit
             {
-                $startIndex = $_GET["start"];
+                //$startIndex = $_GET["start"];
+                $startIndex = $this->normalize($_GET["start"], $lengthRecipe, $recipeNumber);
+                $_GET["start"] = $startIndex;
+            }
+            else if ($_GET["start"] == $recipeNumber)
+            {
+                $startIndex = $_GET["start"] - $lengthRecipe;
+                $_GET["start"] = $startIndex;
             }
             else
             {
-                $startIndex = $recipeNumber - $recipeNumber%$lengthRecipe;
+                //$startIndex = $recipeNumber - ($lengthRecipe - $recipeNumber%$lengthRecipe);
+                if ($lengthRecipe == $recipeNumber)
+                {
+                    $startIndex = 0;
+                }
+                else if ($lengthRecipe == 1)
+                {
+                    $startIndex = $recipeNumber - $recipeNumber%$lengthRecipe - 1;
+                }
+                else
+                {
+                    $startIndex = $recipeNumber - $recipeNumber%$lengthRecipe;
+                }
                 $_GET['start'] = $startIndex;
             }
 
@@ -104,5 +118,20 @@ class RecipeController extends Controller {
 
         return $content;
 
+    }
+
+
+    private function normalize($get, $lengthRecipe, $recipeNumber)
+    {
+        //var_dump($get - $lengthRecipe);
+
+        if ($get%$lengthRecipe != 0) // si le get n'est pas un nombre parfait au sens qu'il donne une page précise et pas une page entre-deux
+        {
+            return $get - $get%$lengthRecipe;
+        }
+        else
+        {
+            return $get;
+        }
     }
 }
