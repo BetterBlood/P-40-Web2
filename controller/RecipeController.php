@@ -44,11 +44,13 @@ class RecipeController extends Controller {
         $database = new Database();
 
         $startIndex = 0;
-        $lengthRecipe = 5; // TODO : modifier si on veut pouvoir modifier le nombre de recette affichée
+        $lengthRecipe = 3; // TODO : modifier si on veut pouvoir modifier le nombre de recette affichée
+        $_SESSION["recipesPerPage"] = $lengthRecipe;
 
         if (array_key_exists("start", $_GET) && $_GET["start"] > 0)
         {
             $recipeNumber = $database->CountRecipes(); // TODO : ptetre sauver en session, util pour la page list
+            $_SESSION["recipesNumber"] = $recipeNumber;
 
             if($recipeNumber > $_GET["start"])
             {

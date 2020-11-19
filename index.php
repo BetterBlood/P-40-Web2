@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 /**
  * ETML
  * Auteur :  Cindy Hardegger

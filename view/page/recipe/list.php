@@ -39,21 +39,27 @@
 			}
 
 			$realStartIndex = 0;
+			$lengthRecipe = 5;
 
-			if ($startIndex - 5 < 0)
+			if (array_key_exists("recipesPerPage", $_SESSION))
+			{
+				$lengthRecipe = $_SESSION["recipesPerPage"];
+			}
+
+			if ($startIndex - $lengthRecipe < 0)
 			{
 				$realStartIndex = 0;
 			}
 			else
 			{
-				$realStartIndex = $startIndex - 5;
+				$realStartIndex = $startIndex - $lengthRecipe;
 			}
 
 			echo '<tr>';
 			echo '<td></td>';
 			echo '<td><a href="index.php?controller=recipe&action=list&start=' . $realStartIndex . '">prev</a></td>';
 			echo '<td>..</td>';
-			echo '<td COLSPAN="3" ><a href="index.php?controller=recipe&action=list&start=' . ($startIndex + 5) . '">next</a></td>';
+			echo '<td COLSPAN="3" ><a href="index.php?controller=recipe&action=list&start=' . ($startIndex + $lengthRecipe) . '">next</a></td>';
 			echo '</tr>';
 		?>
 		
@@ -69,16 +75,65 @@
 				<li><a class="page-link" <?php echo 'href="index.php?controller=recipe&action=list&start=' . $realStartIndex . '"';?>><span aria-hidden="true"><</span></a></li>
 
 				<?php
-					// s'il y a moins de 3 pages:
-						// on fait etc
-					// sinon
-						echo '<li class="page-item"><a class="page-link" href="index.php?controller=recipe&action=list&start=' . $realStartIndex . '">' . '1' . '</a></li>';
-						echo '<li class="page-item"><a class="page-link" href="#">' . '2' . '</a></li>';
-						echo '<li class="page-item"><a class="page-link" href="index.php?controller=recipe&action=list&start=' . ($startIndex + 5) . '">' . '3' . '</a></li>';
+					if (array_key_exists("recipesNumber", $_SESSION))
+					{
+						if ($_SESSION["recipesNumber"] <= $lengthRecipe)
+						{
+							echo '<li class="page-item active"><a class="page-link" href="#">' . '1' . '</a></li>';
+						}
+						else if ($_SESSION["recipesNumber"] <= 2*$lengthRecipe)
+						{
+							if ($startIndex < $lengthRecipe)
+							{
+								echo '<li class="page-item active"><a class="page-link" href="#">' . '1' . '</a></li>';
+								echo '<li class="page-item"><a class="page-link" href="index.php?controller=recipe&action=list&start=' . ($startIndex + $lengthRecipe) . '">' . '2' . '</a></li>';
+							}
+							else
+							{
+								echo '<li class="page-item"><a class="page-link" href="index.php?controller=recipe&action=list&start=0">' . '1' . '</a></li>';
+								echo '<li class="page-item active"><a class="page-link" href="#">' . '2' . '</a></li>';
+							}
+						}
+						else
+						{
+							if ($startIndex < $lengthRecipe) // première et deuxieme page
+							{
+								echo '<li class="page-item active"><a class="page-link" href="#">' . '1' . '</a></li>';
+								echo '<li class="page-item"><a class="page-link" href="index.php?controller=recipe&action=list&start=' . ($startIndex + $lengthRecipe) . '">' . '2' . '</a></li>';
+							}
+							else if ($startIndex > $_SESSION["recipesNumber"] - $lengthRecipe) // dernière et avant dernière page
+							{
+								echo '<li class="page-item"><a class="page-link" href="index.php?controller=recipe&action=list&start=' . ($startIndex - $lengthRecipe) . '">' . ($realStartIndex/$lengthRecipe + 1) . '</a></li>';
+								echo '<li class="page-item active"><a class="page-link" href="index.php?controller=recipe&action=list&start=#">' . ($realStartIndex/$lengthRecipe + 2) . '</a></li>';
+							}
+							else
+							{
+								echo '<li class="page-item"><a class="page-link" href="index.php?controller=recipe&action=list&start=' . $realStartIndex . '">' . ($realStartIndex/$lengthRecipe + 1) . '</a></li>';
+								echo '<li class="page-item active"><a class="page-link" href="#">' . ($realStartIndex/$lengthRecipe + 2) . '</a></li>';
+								echo '<li class="page-item"><a class="page-link" href="index.php?controller=recipe&action=list&start=' . ($startIndex + $lengthRecipe) . '">' . ($realStartIndex/$lengthRecipe + 3) . '</a></li>';
+							}
+						}
+					}
+					else
+					{
+						if ($realStartIndex <= $lengthRecipe)
+						{
+							echo '<li class="page-item active"><a class="page-link" href="#">' . '1' . '</a></li>';
+							echo '<li class="page-item"><a class="page-link" href="index.php?controller=recipe&action=list&start=' . ($startIndex + $lengthRecipe) . '">' . '2' . '</a></li>';
+						}
+						else
+						{
+							echo '<li class="page-item"><a class="page-link" href="index.php?controller=recipe&action=list&start=' . $realStartIndex . '">' . ($realStartIndex/$lengthRecipe + 1) . '</a></li>';
+							echo '<li class="page-item active"><a class="page-link" href="#">' . ($realStartIndex/$lengthRecipe + 2) . '</a></li>';
+							echo '<li class="page-item"><a class="page-link" href="index.php?controller=recipe&action=list&start=' . ($startIndex + $lengthRecipe) . '">' . ($realStartIndex/$lengthRecipe + 3) . '</a></li>';
+						}
+						
+					}
+						
 				?>
 
 
-				<li><a class="page-link" <?php echo 'href="index.php?controller=recipe&action=list&start=' . ($startIndex + 5) . '"';?>><span aria-hidden="true">></span></a></li>
+				<li><a class="page-link" <?php echo 'href="index.php?controller=recipe&action=list&start=' . ($startIndex + $lengthRecipe) . '"';?>><span aria-hidden="true">></span></a></li>
 				<li class="page-item">
 				<a class="page-link" href="#" aria-label="Next">
 					<span aria-hidden="true">&raquo;</span>
