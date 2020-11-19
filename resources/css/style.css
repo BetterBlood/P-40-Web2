@@ -56,35 +56,6 @@ h2 {
   font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-@media (min-width: 992px) {
-  #mainNav {
-    padding-top: 25px;
-    padding-bottom: 25px;
-    -webkit-transition: padding-top 0.3s, padding-bottom 0.3s;
-    -moz-transition: padding-top 0.3s, padding-bottom 0.3s;
-    transition: padding-top 0.3s, padding-bottom 0.3s;
-    border: none;
-    background-color: transparent;
-  }
-  #mainNav .navbar-brand {
-    font-size: 1.75em;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    transition: all 0.3s;
-  }
-  #mainNav .navbar-nav .nav-item .nav-link {
-    padding: 1.1em 1em;
-  }
-  
-  .mastHead{
-    margin-top: 7vh;
-  }
-  #mainNav.navbar-shrink .navbar-brand {
-    font-size: 1.25em;
-    padding: 12px 0;
-  }
-}
-
 #login{
   border-radius:25px;
   padding: 0.8em 1em !important;
@@ -94,6 +65,7 @@ h2 {
 .content{
   margin-top:20%;
   margin-bottom: 5%;
+  flex: 1 0 auto;
 }
 
 
@@ -107,25 +79,8 @@ h2 {
   box-shadow:none;
 }
 
-.content {
-  flex: 1 0 auto;
-}
 .footer {
   flex-shrink: 0;
-}
-
-@media (min-width: 400px) {
-    .content{
-    margin-top:15% !important;
-    margin-bottom: 5%;
-    }
-}
-
-@media (min-width: 500px) {
-    .content{
-    margin-top:10% !important;
-    margin-bottom: 5%;
-    }
 }
 
 footer {
@@ -177,4 +132,55 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 
 #indexPage{
   width: 100%;
+}
+
+@media (min-width: 992px) {
+  #mainNav {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    -webkit-transition: padding-top 0.3s, padding-bottom 0.3s;
+    -moz-transition: padding-top 0.3s, padding-bottom 0.3s;
+    transition: padding-top 0.3s, padding-bottom 0.3s;
+    border: none;
+    background-color: transparent;
+  }
+  #mainNav .navbar-brand {
+    font-size: 1.75em;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+  }
+  #mainNav .navbar-nav .nav-item .nav-link {
+    padding: 1.1em 1em;
+  }
+  
+  .mastHead{
+    margin-top: 7vh;
+  }
+  
+  #mainNav.navbar-shrink .navbar-brand {
+    font-size: 1.25em;
+    padding: 12px 0;
+  }
+}
+
+@media (min-width: 500px) {
+  .content{
+    margin-top:10% !important;
+    margin-bottom: 5%;
+  }
+
+  .mastHead{
+    margin-top: 7vh;
+  }
+}
+
+@media (min-width: 400px) {
+  .content{
+    margin-top:15% !important;
+    margin-bottom: 5%;
+  }
+  .mastHead{
+    margin-top: 7vh;
+  }
 }

@@ -80,14 +80,13 @@ class MainController {
      */
     protected function viewBuild($currentPage) {
 
-            $content = $currentPage->display();
+        $content = $currentPage->display();
 
-            include(dirname(__FILE__) . '/view/head.html');
-            include(dirname(__FILE__) . '/view/header.html');
-            include(dirname(__FILE__) . '/view/menu.php');
-            //include(dirname(__FILE__) . '/view/page/recipe/list.php');
-            echo $content; //content
-            include(dirname(__FILE__) . '/view/footer.html');
+        include(dirname(__FILE__) . '/view/head.html');
+        include(dirname(__FILE__) . '/view/header.html');
+        include(dirname(__FILE__) . '/view/menu.php');
+        echo $content; //content
+        include(dirname(__FILE__) . '/view/footer.html');
     }
 }
 
