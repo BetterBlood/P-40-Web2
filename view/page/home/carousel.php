@@ -64,7 +64,7 @@
         echo "'>";
       
         echo '<img src="resources//image//Recipes//' . $bestRecipe["recImage"] . '" class="d-block w-100" alt="...">'; // <!-- à modifier en fonction des dernières recettes etc -->
-        echo '<div class="carousel-caption d-none d-md-block">';
+        echo '<div class="carousel-caption d-none d-md-block bg-dark rounded-pill">';
           echo '<h4>meilleure recette : ' . $bestRecipe["recName"] . '</h4>';
           echo '<p>ajouté le : [ ' . $bestRecipe["recDate"] . ' ]</p>';
         echo '</div>';
@@ -78,13 +78,14 @@
           echo "active";
         }
         echo "'>";
+      
+        echo '<img src="resources//image//Recipes//' . $easiestRecipe["recImage"] . '" class="d-block w-100" alt="...">'; // <!-- à modifier en fonction des dernières recettes etc -->
+        echo '<div class="carousel-caption d-none d-md-block bg-dark rounded-pill">';
+          echo '<h4>nom de la recette la plus facilement réalisable : ' . $easiestRecipe["recName"] . '</h4>';
+          echo '<p>ajouté le : [ ' . $easiestRecipe["recDate"] . ' ]</p>';
+        echo '</div>';
       ?>
-        <img src="resources//image//ingredients-498199_1920.jpg" class="d-block w-100" alt="..."> <!-- à modifier en fonction des dernières recettes etc -->
-          <div class="carousel-caption d-none d-md-block">
-            <h5>nom de la recette la plus facilement réalisable</h5>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-          </div>
-        </div>
+      </div>
       </div>
       <?php 
         echo "<a class='carousel-control-prev' href='";
