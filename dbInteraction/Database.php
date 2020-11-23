@@ -6,18 +6,26 @@
  * contient les méthode permettant d'accèder a la database
  */
 
-class Database {
+include 'config.php';
 
+class Database {
 
     // Variable de classe
     private $connector;
+    
+    
 
     /**
-     * Fait la connexion à la base de donnée
+     * Connexion à la DB par PDO
      */
     public function __construct(){
-
-        $this->connector = new PDO('mysql:host=localhost;dbname=db_web2_recipe;charset=utf8', 'root', 'root'); //connection
+        $dbName = $GLOBALS['MM_CONFIG']['database']['dbName'];
+        $user = $GLOBALS['MM_CONFIG']['database']['username'];
+        $password = $GLOBALS['MM_CONFIG']['database']['password'];
+        $charset = $GLOBALS['MM_CONFIG']['database']['charset'];
+        $host = $GLOBALS['MM_CONFIG']['database']['host'];
+        $port = $GLOBALS['MM_CONFIG']['database']['port'];
+        $this->connector = new PDO("mysql:host=$host;port=$port;dbname=$dbName;charset=$charset" , $user, $password);
     }
 
     /**
