@@ -73,9 +73,9 @@ class Database {
      */
     private function unsetData($req){
 
-        $this->connector = null;
+        //$this->connector = null;
         $req->closeCursor();
-        unset($this->connector);
+        //unset($this->connector);
     }
 
     public function CountRecipes()
@@ -121,7 +121,33 @@ class Database {
     public function getLastRecipe()
     {
         //example : SELECT ChampDate FROM table ORDER BY ChampDate DESC LIMIT 1
-        $querry = 'SELECT * FROM t_recipe ORDER BY recDate DESC LIMIT 1';
+        $querry = 'SELECT * FROM t_recipe ORDER BY idRecipe DESC LIMIT 1';
+
+        $req = $this->queryPrepareExecute($querry, null);
+
+        $recipes = $this->formatData($req);
+
+        $this->unsetData($req);
+
+        return $recipes[0];
+    }
+
+    public function getBestRecipe()
+    {
+        $querry = 'SELECT * FROM t_recipe ORDER BY recNote DESC LIMIT 1';
+
+        $req = $this->queryPrepareExecute($querry, null);
+
+        $recipes = $this->formatData($req);
+
+        $this->unsetData($req);
+
+        return $recipes[0];
+    }
+
+    public function getEasiestRecipe()
+    {
+        $querry = 'SELECT * FROM t_recipe ORDER BY recDifficulty LIMIT 1';
 
         $req = $this->queryPrepareExecute($querry, null);
 
