@@ -5,4 +5,9 @@
     <label for="password">Mot de Passe</label>
     <input type="text" name="password">
     <button type="submit">Connection</button>
+    <?php
+    //if($_SESSION['errorLogin'] == true){
+    //    echo 'Information(s) de login erronée(s)';
+    //}
+    ?>
 </form>

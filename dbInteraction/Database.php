@@ -13,8 +13,6 @@ class Database {
     // Variable de classe
     private $connector;
     
-    
-
     /**
      * Connexion à la DB par PDO
      */
@@ -29,20 +27,20 @@ class Database {
     }
 
     /**
-     * simple requette
+     * Execute une requête simple
      *
      * @param [type] $query
      * @return void
      */
     private function querySimpleExecute($query){
 
-        $req = $this->connector->query($query); // requette
+        $req = $this->connector->query($query);
 
         return $req;
     }
 
     /**
-     * Undocumented function
+     * Execute une requête
      *
      * @param [type] $query
      * @param [type] $binds
@@ -50,32 +48,37 @@ class Database {
      */
     private function queryPrepareExecute($query, $binds){
         
-        // TODO: permet de pr�parer, de binder et d�ex�cuter une requ�te (select avec where ou insert, update et delete)
-        $req = $this->connector->prepare($query); // requette
+        $req = $this->connector->prepare($query);
         $req->execute();
 
         return $req;
     }
 
     /**
-     * Undocumented function
+     * Transforme en tableau associatif les données
      *
      * @param [type] $req
      * @return void
      */
     private function formatData($req){
 
-        return $req->fetchALL(PDO::FETCH_ASSOC); // transformation en tableau associatif
+        return $req->fetchALL(PDO::FETCH_ASSOC);
     }
 
     /**
-     * détrui le connector
+     * Vide la requête
      */
     private function unsetData($req){
-
-        //$this->connector = null;
+        
         $req->closeCursor();
-        //unset($this->connector);
+    }
+
+    // Termine la liaison avec la BD
+    // TODO à checker si les deux lignes sont nécessaires
+    private function closeConnection($req){
+
+        $this->connector = null;
+        unset($this->connector);
     }
 
     public function CountRecipes()
@@ -169,8 +172,33 @@ class Database {
         // TODO : remplir
     }
 
+    /**
+     * Récupère tous les noms d'utilisateur
+     * @return $usernames
+     */
+    public function getAllUsernames(){
 
-    // + tous les autres m�thodes dont vous aurez besoin pour la suite ( ... etc)
+        $query = "SELECT usePseudo FROM t_user";
+        $req = $this->queryPrepareExecute($query, null);
+        $usernames = $this->formatData($req);
+        $this->unsetData($req);
+        return $usernames;
+    }
+
+    /**
+     * Récupère les données d'un utilisateur
+     * @param $username
+     * @return $user
+     */
+    public function getOneUser($username){
+
+        $query = "SELECT * FROM t_user WHERE usePseudo = '$username'";
+        $req = $this->queryPrepareExecute($query, null);
+        $userArray = $this->formatData($req);
+        $user = $userArray[0];
+        $this->unsetData($req);
+        return $user;
+    }
  }
 
 

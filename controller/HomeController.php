@@ -66,41 +66,4 @@ class HomeController extends Controller {
 
         return $content;
     }
-
-    /**
-     * Display facture Action
-     *
-     * @return string
-     */
-    private function factureAction() {
-
-        $view = file_get_contents('view/page/home/facture.php');
-
-
-        ob_start();
-        eval('?>' . $view);
-        $content = ob_get_clean();
-
-        return $content;
-    }
-
-    /**
-     * Check Form action
-     *
-     * @return string
-     */
-    private function checkAction() {
-
-        $lastName = htmlspecialchars($_POST['lastName']);
-        $firstName = htmlspecialchars($_POST['firstName']);
-        $answer = htmlspecialchars($_POST['answer']);
-
-        $view = file_get_contents('view/page/home/resume.php');
-
-        ob_start();
-        eval('?>' . $view);
-        $content = ob_get_clean();
-
-        return $content;
-    }
 }
