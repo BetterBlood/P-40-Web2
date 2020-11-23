@@ -21,7 +21,7 @@
 		foreach ($recipes as $recipe) {
 			echo '<tr>';
 			echo '<td>' . htmlspecialchars($recipe['recName']) . '</td>';
-			echo '<td>' . htmlspecialchars($recipe['recPrepTime']) . '</td>';
+			echo '<td>' . htmlspecialchars($recipe['recPrepTime']) . ' minutes</td>';
 			echo '<td>' . htmlspecialchars($recipe['recDifficulty']) . '</td>';
 			echo '<td>' . htmlspecialchars($recipe['recNote']) . '</td>';
 			echo '<td>' . htmlspecialchars($recipe['idUser']) . '</td>';
@@ -31,14 +31,14 @@
 			if (array_key_exists("id", $_GET) && htmlspecialchars($_GET["id"]) == htmlspecialchars($recipe['idRecipe']))
 			{
 				$imageLink = '"resources/image/Recipes/' . htmlspecialchars($recipe['recImage']) . '"';
-				echo '<td COLSPAN="6"><img src=' . $imageLink . ' alt="recipeImage"></td>';
+				echo '<td COLSPAN="6"><img class="d-block w-50" src=' . $imageLink . ' alt="recipeImage"></td>';
 				echo htmlspecialchars($recipe['recImage']);
 			}
 		}
 
 		$realStartIndex = 0;
 		$lengthRecipe = 5;
-		$recipesNumber = 7;
+		$recipesNumber = 8;
 
 		if (array_key_exists("recipesPerPage", $_SESSION))
 		{
@@ -62,7 +62,7 @@
 	
 	</table>
 	
-	<div class="justify-content-right" aria-label="Page navigation" id="indexPage">
+	<div class="justify-content-right numPage" aria-label="Page navigation" id="numPage">
 		<ul class="pagination justify-content-center">
 			<li class="page-item">
 			<a class="page-link" href="index.php?controller=recipe&action=list&start=0" aria-label="Previous">
@@ -130,9 +130,9 @@
 
 			<li><a class="page-link" <?php echo 'href="index.php?controller=recipe&action=list&start=' . ($startIndex + $lengthRecipe) . '"';?>><span aria-hidden="true">></span></a></li>
 			<li class="page-item">
-			<?php
-			echo '<a class="page-link" href="index.php?controller=recipe&action=list&start=' . PHP_INT_MAX . '" aria-label="Next">'; // (int)(($recipesNumber / $lengthRecipe) + $lengthRecipe + 1) 
-			?>
+				<?php
+				echo '<a class="page-link" href="index.php?controller=recipe&action=list&start=' . PHP_INT_MAX . '" aria-label="Next">'; // (int)(($recipesNumber / $lengthRecipe) + $lengthRecipe + 1) 
+				?>
 				<span aria-hidden="true">&raquo;</span>
 			</a>
 			</li>

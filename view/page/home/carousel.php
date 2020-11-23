@@ -44,14 +44,17 @@
           echo "active";
         }
         echo "'>";
-      ?>
+      
+        // cook-2364221_1920.jpg
+        echo '<img src="resources//image//Recipes//' . $lastRecipe["recImage"] . '" class="d-block w-100" alt="image de la dernière recette ajoutée au site">'; // à modifier en fonction des dernières recettes etc
         
-        <img src="resources//image//cook-2364221_1920.jpg" class="d-block w-100" alt="..."> <!-- à modifier en fonction des dernières recettes etc -->
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Dernier ajout</h5>
-          <p>[afficher le titre de la dernière recette (DB)]</p>
-        </div>
-      </div>
+
+      echo '<div class="carousel-caption d-none d-md-block">';
+        echo '<h5>' . $lastRecipe["recName"] . '</h5>';
+        echo '<p>ajouté le : [ ' . $lastRecipe["recDate"] . ' ]</p>';
+      echo '</div>';
+      ?>
+    </div>
 
       <?php 
         echo "<div class='carousel-item ";
@@ -63,7 +66,7 @@
       ?>
         <img src="resources//image//egg-943413_1920.jpg" class="d-block w-100" alt="..."> <!-- à modifier en fonction des dernières recettes etc -->
         <div class="carousel-caption d-none d-md-block">
-          <h5>Second slide label</h5>
+          <h5>nom de la recette ayant la meilleure notation</h5>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </div>
       </div>
@@ -77,7 +80,7 @@
       ?>
         <img src="resources//image//ingredients-498199_1920.jpg" class="d-block w-100" alt="..."> <!-- à modifier en fonction des dernières recettes etc -->
           <div class="carousel-caption d-none d-md-block">
-            <h5>Third slide label</h5>
+            <h5>nom de la recette la plus facilement réalisable</h5>
             <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
           </div>
         </div>

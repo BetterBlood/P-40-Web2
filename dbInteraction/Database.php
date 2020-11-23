@@ -110,6 +110,20 @@ class Database {
         return $recipes[0];// retour la première valeur du tableau (il ne contient qu'une recette)
     }
 
+    public function getLastRecipe()
+    {
+        //example : SELECT ChampDate FROM table ORDER BY ChampDate DESC LIMIT 1
+        $querry = 'SELECT * FROM t_recipe ORDER BY recDate DESC LIMIT 1';
+
+        $req = $this->queryPrepareExecute($querry, null);
+
+        $recipes = $this->formatData($req);
+
+        $this->unsetData($req);
+
+        return $recipes[0];
+    }
+
     /**
      * ajoute une recette a la base de donnée
      *

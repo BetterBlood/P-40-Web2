@@ -26,6 +26,12 @@ class HomeController extends Controller {
      * @return string
      */
     private function indexAction() {
+
+        include_once("dbInteraction/Database.php");
+        $database = new Database();
+
+        $lastRecipe = $database->getLastRecipe();
+
         //tester si la valeur existe si elle n'existe pas ou est incorect on la set a 0
         if (!array_key_exists('image', $_GET) || $_GET['image'] < 0 || $_GET['image'] > 2)
         {

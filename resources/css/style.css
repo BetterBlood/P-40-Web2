@@ -130,8 +130,9 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
   margin-top: 5vh;
 }
 
-#indexPage{
+#numPage{
   width: 100%;
+  margin-bottom: 50px;
 }
 
 @media (min-width: 992px) {
