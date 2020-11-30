@@ -44,39 +44,7 @@ class RecipeController extends Controller {
 
         if (array_key_exists("start", $_GET) && $_GET["start"] > 0) // si le paramettre de start n'est pas négatif
         {
-            $recipeNumber = $database->CountRecipes();
-            $_SESSION["recipesNumber"] = $recipeNumber;
-
-            if ($recipeNumber > $_GET["start"]) // si le paramettre n'est ni trop grand ni trop petit
-            {
-                //$startIndex = $_GET["start"];
-                $startIndex = $this->normalize($_GET["start"], $lengthRecipe, $recipeNumber);
-                $_GET["start"] = $startIndex;
-            }
-            else if ($_GET["start"] == $recipeNumber)
-            {
-                $startIndex = $_GET["start"] - $lengthRecipe;
-                $_GET["start"] = $startIndex;
-            }
-            else
-            {
-                //$startIndex = $recipeNumber - ($lengthRecipe - $recipeNumber%$lengthRecipe);
-                if ($lengthRecipe == $recipeNumber)
-                {
-                    $startIndex = 0;
-                }
-                else if ($lengthRecipe == 1)
-                {
-                    $startIndex = $recipeNumber - $recipeNumber%$lengthRecipe - 1;
-                }
-                else
-                {
-                    $startIndex = $recipeNumber - $recipeNumber%$lengthRecipe;
-                }
-                $_GET['start'] = $startIndex;
-            }
-
-            //var_dump($recipeNumber); // DEBUG
+            $this->normalizeStartIndex($startIndex, $database, $lengthRecipe); // permet de trouver le startindex optimum
         }
         else
         {
@@ -120,8 +88,14 @@ class RecipeController extends Controller {
 
     }
 
-
-    private function normalize($get, $lengthRecipe, $recipeNumber)
+    /**
+     * vérifie le nombre du get
+     *
+     * @param [type] $get
+     * @param [type] $lengthRecipe
+     * @return void
+     */
+    private function normalize($get, $lengthRecipe)
     {
         //var_dump($get - $lengthRecipe);
 
@@ -133,5 +107,50 @@ class RecipeController extends Controller {
         {
             return $get;
         }
+    }
+
+    private function normalizeStartIndex(&$startIndex, $database, $lengthRecipe)
+    {
+        $recipeNumber = $database->CountRecipes();
+        $_SESSION["recipesNumber"] = $recipeNumber;
+
+        if ($recipeNumber > $_GET["start"]) // si le paramettre n'est ni trop grand ni trop petit
+        {
+            //$startIndex = $_GET["start"];
+            $startIndex = $this->normalize($_GET["start"], $lengthRecipe);
+        }
+        else if ($_GET["start"] == $recipeNumber)
+        {
+            $startIndex = $_GET["start"] - $lengthRecipe;
+        }
+        else
+        {
+            //$startIndex = $recipeNumber - ($lengthRecipe - $recipeNumber%$lengthRecipe);
+            if ($lengthRecipe == $recipeNumber)
+            {
+                $startIndex = 0;
+            }
+            else if ($lengthRecipe == 1)
+            {
+                $startIndex = $recipeNumber - $recipeNumber%$lengthRecipe - 1;
+            }
+            else if ($_GET["start"] == PHP_INT_MAX)
+            {
+                if ($recipeNumber%$lengthRecipe == 0) // s'il y a pil le meme nombre de recette
+                {
+                    $startIndex = $recipeNumber - ($lengthRecipe - $recipeNumber%$lengthRecipe);
+                }
+                else // s'il y a plus de recette
+                {
+                    $startIndex = $recipeNumber - $recipeNumber%$lengthRecipe;
+                }
+            }
+            else
+            {
+                $startIndex = $recipeNumber - $recipeNumber%$lengthRecipe;
+            }
+        }
+
+        $_GET["start"] = $startIndex;
     }
 }
