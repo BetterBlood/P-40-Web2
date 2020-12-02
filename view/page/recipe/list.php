@@ -20,19 +20,24 @@
 
 		foreach ($recipes as $recipe) {
 			echo '<tr>';
-			echo '<td>' . htmlspecialchars($recipe['recName']) . '</td>';
-			echo '<td>' . htmlspecialchars($recipe['recPrepTime']) . ' minutes</td>';
-			echo '<td>' . htmlspecialchars($recipe['recDifficulty']) . '</td>';
-			echo '<td>' . htmlspecialchars($recipe['recNote']) . '</td>';
-			echo '<td>' . htmlspecialchars($recipe['idUser']) . '</td>';
-			echo '<td><a href="index.php?controller=recipe&action=list&id=' . htmlspecialchars($recipe['idRecipe']) . '&start=' . $startIndex . '"><img src="resources/image/icone/iconLoupe.png" alt="loupe"></a></td>';
+				echo '<td>' . htmlspecialchars($recipe['recName']) . '</td>';
+				echo '<td>' . htmlspecialchars($recipe['recPrepTime']) . ' minutes</td>';
+				echo '<td>' . htmlspecialchars($recipe['recDifficulty']) . '</td>';
+				echo '<td>' . htmlspecialchars($recipe['recNote']) . '</td>';
+				echo '<td>' . htmlspecialchars($recipe['idUser']) . ', ' .  '</td>';
+				echo '<td><a href="index.php?controller=recipe&action=list&id=' . htmlspecialchars($recipe['idRecipe']) . '&start=' . $startIndex . '"><img src="resources/image/icone/iconLoupe.png" alt="loupe"></a></td>';
 			echo '</tr>';
 
 			if (array_key_exists("id", $_GET) && htmlspecialchars($_GET["id"]) == htmlspecialchars($recipe['idRecipe']))
 			{
-				$imageLink = '"resources/image/Recipes/' . htmlspecialchars($recipe['recImage']) . '"';
-				echo '<td COLSPAN="6"><img class="d-block w-50" src=' . $imageLink . ' alt="recipeImage"></td>';
-				echo htmlspecialchars($recipe['recImage']);
+				echo '<tr>';
+					$imageLink = '"resources/image/Recipes/' . htmlspecialchars($recipe['recImage']) . '"';
+					echo '<td COLSPAN="6"><img class="d-block w-50" src=' . $imageLink . ' alt="recipeImage"></td>';
+					echo htmlspecialchars($recipe['recImage']);
+					
+
+
+				echo '</tr>';
 			}
 		}
 
@@ -62,7 +67,7 @@
 	
 	</table>
 	
-	<div class="justify-content-right numPage" aria-label="Page navigation" id="numPage">
+	<div class="justify-content-right numPage" aria-label="Page navigation" id="numPage"> <!-- cette div contient la pagination des recettes-->
 		<ul class="pagination justify-content-center">
 			<li class="page-item">
 			<a class="page-link" href="index.php?controller=recipe&action=list&start=0" aria-label="Previous">

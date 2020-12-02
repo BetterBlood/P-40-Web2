@@ -45,12 +45,12 @@
         }
         echo "'>";
 
-        echo '<span class="bg-danger rounded-pill">test</span>';
+        echo '<span class="bg-success rounded-pill d-block w-100 text-center"><h3>Dernier ajout !!!</h3></span>'; // bandeau rouge en haut
 
         echo '<img src="resources//image//Recipes//' . $lastRecipe["recImage"] . '" class="d-block w-100" alt="image de la dernière recette ajoutée au site">'; // à modifier en fonction des dernières recettes etc
         
         echo '<div class="carousel-caption d-none d-md-block bg-dark rounded-pill">';
-          echo '<h4>dernier ajout : ' . $lastRecipe["recName"] . '</h4>';
+          echo '<h4>' . $lastRecipe["recName"] . '</h4>';
           echo '<p>ajouté le : [ ' . $lastRecipe["recDate"] . ' ]</p>';
         echo '</div>';
       ?>
@@ -63,10 +63,12 @@
           echo "active";
         }
         echo "'>";
+
+        echo '<span class="bg-danger rounded-pill d-block w-100 text-center"><h3>Meilleure note !!!</h3></span>'; // bandeau rouge en haut
       
-        echo '<img src="resources//image//Recipes//' . $bestRecipe["recImage"] . '" class="d-block w-100" alt="...">'; // <!-- à modifier en fonction des meilleures recettes etc -->
+        echo '<img src="resources//image//Recipes//' . $bestRecipe["recImage"] . '" class="d-block w-100" alt="image de la recette avec la meilleure note">'; // <!-- à modifier en fonction des meilleures recettes etc -->
         echo '<div class="carousel-caption d-none d-md-block bg-dark rounded-pill">';
-          echo '<h4>meilleure recette : ' . $bestRecipe["recName"] . '</h4>';
+          echo '<h4>' . $bestRecipe["recName"] . '</h4>';
           echo '<p>ajouté le : [ ' . $bestRecipe["recDate"] . ' ]</p>';
         echo '</div>';
         
@@ -79,10 +81,12 @@
           echo "active";
         }
         echo "'>";
+
+        echo '<span class="bg-warning rounded-pill d-block w-100 text-center"><h3>Recette la plus facile</h3></span>'; // bandeau rouge en haut
       
-        echo '<img src="resources//image//Recipes//' . $easiestRecipe["recImage"] . '" class="d-block w-100" alt="...">'; // <!-- à modifier en fonction des recettes les plus faciles etc -->
+        echo '<img src="resources//image//Recipes//' . $easiestRecipe["recImage"] . '" class="d-block w-100" alt="image de la recette la plus facile">'; // <!-- à modifier en fonction des recettes les plus faciles etc -->
         echo '<div class="carousel-caption d-none d-md-block bg-dark rounded-pill">';
-          echo '<h4>nom de la recette la plus facilement réalisable : ' . $easiestRecipe["recName"] . '</h4>';
+          echo '<h4>' . $easiestRecipe["recName"] . '</h4>';
           echo '<p>ajouté le : [ ' . $easiestRecipe["recDate"] . ' ]</p>';
         echo '</div>';
       ?>
