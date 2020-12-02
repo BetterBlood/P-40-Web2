@@ -1,0 +1,14 @@
+Accueil
+ - La dernière recette
+ - Description du site
+
+Liste des recettes		Jeremiah
+ - Détails à afficher		Jeremiah
+ - Index des pages		Jeremiah
+
+Page rajout de recette
+
+Login				Pierre
+Creation utilisateur		Pierre
+
+Contact
