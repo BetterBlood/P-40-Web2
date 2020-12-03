@@ -199,6 +199,21 @@ class Database {
         $this->unsetData($req);
         return $user;
     }
+
+    /**
+     * Récupère les données d'un utilisateur
+     * @param $username
+     * @return $user
+     */
+    public function getOneUserById($userId){
+
+        $query = "SELECT * FROM t_user WHERE idUser = '$userId'";
+        $req = $this->queryPrepareExecute($query, null);
+        $userArray = $this->formatData($req);
+        $user = $userArray[0];
+        $this->unsetData($req);
+        return $user;
+    }
  }
 
 

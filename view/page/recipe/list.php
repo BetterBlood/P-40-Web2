@@ -30,13 +30,19 @@
 
 			if (array_key_exists("id", $_GET) && htmlspecialchars($_GET["id"]) == htmlspecialchars($recipe['idRecipe']))
 			{
+				$user = $database->getOneUserById($recipe["idUser"]);
+
 				echo '<tr>';
 					$imageLink = '"resources/image/Recipes/' . htmlspecialchars($recipe['recImage']) . '"';
-					echo '<td COLSPAN="6"><img class="d-block w-50" src=' . $imageLink . ' alt="recipeImage"></td>';
-					echo htmlspecialchars($recipe['recImage']);
-					
-
-
+					echo '<td COLSPAN="5"><img class="d-block w-50" src=' . $imageLink . ' alt="image d\'illustration de la recette"></td>';
+					//echo htmlspecialchars($recipe['recImage']);
+				
+					echo '<td style="width:100px">';
+						echo $user["idUser"];
+						$imageProfilLink = '"resources/image/Users/' . htmlspecialchars($user['useImage']) . '"';
+						echo '<img class="d-block w-50" src=' . $imageProfilLink . ' alt="image de profile du créateur de la recette">';
+						//var_dump($user);
+					echo '</td>';
 				echo '</tr>';
 			}
 		}

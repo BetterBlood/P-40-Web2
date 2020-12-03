@@ -53,12 +53,6 @@ class RecipeController extends Controller {
 
         $recipes = $database->getAllRecipes($startIndex, $lengthRecipe);
 
-        if (array_key_exists("id", $_GET) && $_GET["id"] > 0)
-        {
-            //$user = $database->getOneUser($recipes[$_GET["id"]]["idUser"]); // TODO : à vérifier !
-            var_dump($recipes);
-        }
-
         // Charge le fichier pour la vue
         $view = file_get_contents('view/page/recipe/list.php');
 
