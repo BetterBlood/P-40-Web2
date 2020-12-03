@@ -34,13 +34,65 @@
 
 				echo '<tr>';
 					$imageLink = '"resources/image/Recipes/' . htmlspecialchars($recipe['recImage']) . '"';
-					echo '<td COLSPAN="5"><img class="d-block w-50" src=' . $imageLink . ' alt="image d\'illustration de la recette"></td>';
+					//echo '<td COLSPAN="5"><img class="d-block w-50" src=' . $imageLink . ' alt="image d\'illustration de la recette"></td>';
+					echo '<td COLSPAN="4">';
+						echo '<div class="card" style="width: 35rem;">';
+							echo '<img src=' . $imageLink . ' class="card-img-top d-block w-100" alt="image de profile du créateur de la recette">';
+							echo '<div class="card-body" style="color:black">';
+								echo '<h5 class="card-title">Description :</h5>';
+								echo '<p class="card-text">' . $recipe["recDescription"] . '</p>';
+								echo '<a href="#" class="btn btn-primary">Voir la recette</a>';
+							echo '</div>';
+						echo '</div>';
+					echo '</td>';
 					//echo htmlspecialchars($recipe['recImage']);
+
+					echo '<td>';
+						echo '<div class="card" style="width: 18rem;">';
+							echo '<div class="card-body" style="color:black">';
+								echo '<h4 class="card-title">informations</h4>';
+
+								echo '<p class="card-text"> note : ' . $recipe["recNote"] . '  '; // TODO : ptetre mettre un dessin pour la note
+								echo '<a href="#" class="btn btn-success">Noter la recette</a>' . '</p>';
+
+								echo '<p class="card-text"> difficulté : ' . $recipe["recDifficulty"] . '</p>';
+
+								echo '<p class="card-text"> durrée de préparation :';
+								echo '<br>' . $recipe["recPrepTime"] . ' minutes</p>';
+
+								echo '<h5 class="card-title">liste d\'ingrédients :</h5>';
+
+								echo '<p class="card-text">'; // affichage des ingrédients
+								$ingredients = preg_split('/(,)/u', $recipe["recIngredientList"]);
+								foreach ($ingredients as $ingredient)
+								{
+									echo '- ' . $ingredient . '<br>';
+								}
+								echo '</p>';
+							echo '</div>';
+						echo '</div>';
+
+
+						//echo $user["usePseudo"];
+						//var_dump($user);
+					echo '</td>';
+
+
+					$imageProfilLink = '"resources/image/Users/' . htmlspecialchars($user['useImage']) . '"';
+					//echo '<img class="d-block w-50" src=' . $imageProfilLink . ' alt="image de profile du créateur de la recette">';
 				
 					echo '<td style="width:100px">';
-						echo $user["idUser"];
-						$imageProfilLink = '"resources/image/Users/' . htmlspecialchars($user['useImage']) . '"';
-						echo '<img class="d-block w-50" src=' . $imageProfilLink . ' alt="image de profile du créateur de la recette">';
+						echo '<div class="card" style="width: 18rem;">';
+							echo '<img src=' . $imageProfilLink . ' class="card-img-top" alt="image de profile du créateur de la recette">';
+							echo '<div class="card-body" style="color:black">';
+								echo '<h5 class="card-title">' . $user["usePseudo"] . '</h5>';
+								echo '<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>';
+								echo '<a href="#" class="btn btn-warning">Voir l\'auteur</a>';
+							echo '</div>';
+						echo '</div>';
+
+
+						//echo $user["usePseudo"];
 						//var_dump($user);
 					echo '</td>';
 				echo '</tr>';
