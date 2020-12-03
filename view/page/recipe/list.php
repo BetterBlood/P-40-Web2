@@ -25,7 +25,16 @@
 				echo '<td>' . htmlspecialchars($recipe['recDifficulty']) . '</td>';
 				echo '<td>' . htmlspecialchars($recipe['recNote']) . '</td>';
 				echo '<td>' . htmlspecialchars($recipe['idUser']) . ', ' .  '</td>';
-				echo '<td><a href="index.php?controller=recipe&action=list&id=' . htmlspecialchars($recipe['idRecipe']) . '&start=' . $startIndex . '"><img src="resources/image/icone/iconLoupe.png" alt="loupe"></a></td>';
+
+				if (array_key_exists("id", $_GET) && $_GET["id"] == $recipe["idRecipe"]) // affiche/masque les détail d'une recette
+				{
+					echo '<td><a href="index.php?controller=recipe&action=list&start=' . $startIndex . '"><img src="resources/image/icone/iconLoupe.png" alt="loupe" style="transform: scaleX(-1)";></a></td>';
+				}
+				else 
+				{
+					echo '<td><a href="index.php?controller=recipe&action=list&id=' . htmlspecialchars($recipe['idRecipe']) . '&start=' . $startIndex . '"><img src="resources/image/icone/iconLoupe.png" alt="loupe"></a></td>';
+				}
+
 			echo '</tr>';
 
 			if (array_key_exists("id", $_GET) && htmlspecialchars($_GET["id"]) == htmlspecialchars($recipe['idRecipe']))
