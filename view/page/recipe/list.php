@@ -19,12 +19,14 @@
 		}
 
 		foreach ($recipes as $recipe) {
+			$user = $database->getOneUserById($recipe["idUser"]);
+
 			echo '<tr>';
 				echo '<td>' . htmlspecialchars($recipe['recName']) . '</td>';
 				echo '<td>' . htmlspecialchars($recipe['recPrepTime']) . ' minutes</td>';
 				echo '<td>' . htmlspecialchars($recipe['recDifficulty']) . '</td>';
 				echo '<td>' . htmlspecialchars($recipe['recNote']) . '</td>';
-				echo '<td>' . htmlspecialchars($recipe['idUser']) . ', ' .  '</td>';
+				echo '<td>' . $user["usePseudo"] . '</td>';
 
 				if (array_key_exists("id", $_GET) && $_GET["id"] == $recipe["idRecipe"]) // affiche/masque les détail d'une recette
 				{
@@ -39,8 +41,6 @@
 
 			if (array_key_exists("id", $_GET) && htmlspecialchars($_GET["id"]) == htmlspecialchars($recipe['idRecipe']))
 			{
-				$user = $database->getOneUserById($recipe["idUser"]);
-
 				echo '<tr>';
 					$imageLink = '"resources/image/Recipes/' . htmlspecialchars($recipe['recImage']) . '"';
 					//echo '<td COLSPAN="5"><img class="d-block w-50" src=' . $imageLink . ' alt="image d\'illustration de la recette"></td>';
@@ -50,7 +50,7 @@
 							echo '<div class="card-body" style="color:black">';
 								echo '<h5 class="card-title">Description :</h5>';
 								echo '<p class="card-text">' . $recipe["recDescription"] . '</p>';
-								echo '<a href="#" class="btn btn-primary">Voir la recette</a>';
+								echo '<a href="index.php?controller=recipe&action=detail&id=' . htmlspecialchars($recipe['idRecipe']) . '" class="btn btn-primary">Voir la recette</a>';
 							echo '</div>';
 						echo '</div>';
 					echo '</td>';

@@ -35,7 +35,6 @@
       ?>
       </a>
     </ol>
-
     <div class="carousel-inner">
       <?php 
         echo "<div class='carousel-item ";
@@ -45,7 +44,7 @@
         }
         echo "'>";
 
-        echo '<span class="bg-success rounded-pill d-block w-100 text-center"><h3>Dernier ajout !!!</h3></span>'; // bandeau rouge en haut
+        echo '<span class="bg-success rounded-top d-block w-100 text-center mb-n3 pb-3"><h3>Dernier ajout !!!</h3></span>'; // bandeau vert en haut de l'image
 
         echo '<img src="resources//image//Recipes//' . $lastRecipe["recImage"] . '" class="d-block w-100" alt="image de la dernière recette ajoutée au site">'; // à modifier en fonction des dernières recettes etc
         
@@ -64,7 +63,7 @@
         }
         echo "'>";
 
-        echo '<span class="bg-danger rounded-pill d-block w-100 text-center"><h3>Meilleure note !!!</h3></span>'; // bandeau rouge en haut
+        echo '<span class="bg-danger rounded-top d-block w-100 text-center mb-n3 pb-3"><h3>Meilleure note !!!</h3></span>'; // bandeau rouge en haut de l'image
       
         echo '<img src="resources//image//Recipes//' . $bestRecipe["recImage"] . '" class="d-block w-100" alt="image de la recette avec la meilleure note">'; // <!-- à modifier en fonction des meilleures recettes etc -->
         echo '<div class="carousel-caption d-none d-md-block bg-dark rounded-pill">';
@@ -82,7 +81,7 @@
         }
         echo "'>";
 
-        echo '<span class="bg-warning rounded-pill d-block w-100 text-center"><h3>Recette la plus facile</h3></span>'; // bandeau rouge en haut
+        echo '<span class="bg-warning rounded-top d-block w-100 text-center mb-n3 pb-3"><h3>Recette la plus facile</h3></span>'; // bandeau jaune en haut de l'image
       
         echo '<img src="resources//image//Recipes//' . $easiestRecipe["recImage"] . '" class="d-block w-100" alt="image de la recette la plus facile">'; // <!-- à modifier en fonction des recettes les plus faciles etc -->
         echo '<div class="carousel-caption d-none d-md-block bg-dark rounded-pill">';

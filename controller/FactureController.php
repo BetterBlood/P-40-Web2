@@ -3,7 +3,7 @@
  * ETML
  * Auteur : Moi
  * Date: 02.10.2020
- * Controler pour gérer les fcatures
+ * Controler pour gérer les factures
  */
 
 include_once 'model/FactureRepository.php';

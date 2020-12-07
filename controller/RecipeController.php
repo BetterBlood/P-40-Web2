@@ -39,7 +39,7 @@ class RecipeController extends Controller {
         $database = new Database();
 
         $startIndex = 0;
-        $lengthRecipe = 5; // UTIL : modifier si on veut pouvoir modifier le nombre de recette affichée
+        $lengthRecipe = 20; // UTIL : modifier si on veut pouvoir modifier le nombre de recette affichée
         $_SESSION["recipesPerPage"] = $lengthRecipe;
 
         if (array_key_exists("start", $_GET) && $_GET["start"] > 0) // si le paramettre de start n'est pas négatif
@@ -75,8 +75,10 @@ class RecipeController extends Controller {
      */
     private function detailAction() {
 
-        $factureRepository = new RecetteRepository();
-        $facture = $factureRepository->findOne($_GET['id']);
+        include_once("dbInteraction/Database.php");
+        $database = new Database();
+
+        $recipe = $database->getOneRecipe($_GET['id']);
 
         $view = file_get_contents('view/page/recipe/detail.php');
 
