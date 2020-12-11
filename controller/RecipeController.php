@@ -85,6 +85,8 @@ class RecipeController extends Controller {
 
         // TODO : getAllRatings()
         $ratings = $database->getAllRatingsForThisRecipe($recipe["idRecipe"]);
+        $alreadyRate = true; // TODO : get ça dynamiquement !!!!
+        $userNote = 4; // TODO : get ça dynamiquement !!!!
 
         $view = file_get_contents('view/page/recipe/detail.php');
 

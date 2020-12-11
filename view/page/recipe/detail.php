@@ -56,7 +56,18 @@
 							</button>
 						</div>
 						<div class="modal-body">
-							...
+							<?php 
+							
+							if ($alreadyRate)
+							{
+								echo 'Votre note est de : ' . $userNote;
+								echo '<select name="note" id="note"></select>';
+								echo '<option value="' . $userNote . '">4</option>';
+								echo '</select>';
+							}
+							
+							
+							?>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -94,7 +105,7 @@
 			<p>Profil :</p>
 
 			<?php
-			echo $user["idUser"];
+			echo $user["usePseudo"];
 			$imageLink = '"resources/image/Users/' . htmlspecialchars($user['useImage']) . '"';
 			echo '<img class="d-block" src=' . $imageLink . ' alt="image du profil utilisateur">';
 
@@ -110,7 +121,7 @@
 					foreach($ratings as $rating)
 					{
 						echo '<div class="card text-white bg-secondary  mb-3" style="max-width: 18rem;">';
-							echo '<div class="card-header">' . $rating["useName"] . ', note :' . $rating["ratGrade"] . ' </div>';
+							echo '<div class="card-header">' . $rating["usePseudo"] . ', note :' . $rating["ratGrade"] . ' </div>';
 							
 							echo '<div class="card-body">';
 								echo '<h5 class="card-title">' . $rating["ratComment"] . '</h5>';
