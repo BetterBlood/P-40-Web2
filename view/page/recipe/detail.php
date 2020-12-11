@@ -1,8 +1,15 @@
 <div class="container">
 
-	<h2 >
+	<h2>
 		<?php
-			echo $recipe['recName'];
+			if (isset($recipe))
+			{
+				echo $recipe['recName'];
+			}
+			else 
+			{
+				header("Location: ../../../index.php?controller=recipe&action=list");
+			}
 		?>
 	</h2>
 	<!-- Three columns of text below the carousel -->

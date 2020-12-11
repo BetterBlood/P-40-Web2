@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Ven 11 Décembre 2020 à 07:07
+-- Généré le :  Ven 11 Décembre 2020 à 08:08
 -- Version du serveur :  5.7.11
 -- Version de PHP :  7.0.3
 
@@ -19,8 +19,10 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `db_web2_recipe`
 --
+
 create database db_web2_recipe;
 use db_web2_recipe;
+
 -- --------------------------------------------------------
 
 --
@@ -34,6 +36,14 @@ CREATE TABLE `t_rating` (
   `idRecipe` int(11) NOT NULL,
   `idUser` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `t_rating`
+--
+
+INSERT INTO `t_rating` (`idrating`, `ratGrade`, `ratComment`, `idRecipe`, `idUser`) VALUES
+(1, 4, 'pas mal', 1, 1),
+(2, 3, 'bof', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -106,9 +116,8 @@ INSERT INTO `t_user` (`idUser`, `usePseudo`, `useFirstname`, `useName`, `usePass
 ALTER TABLE `t_rating`
   ADD PRIMARY KEY (`idrating`),
   ADD UNIQUE KEY `idrating` (`idrating`),
-  ADD KEY `idRecipe` (`idRecipe`),
-  ADD KEY `idRecipe_2` (`idRecipe`),
-  ADD KEY `idUser` (`idUser`);
+  ADD KEY `idUser` (`idUser`),
+  ADD KEY `idRecipe` (`idRecipe`) USING BTREE;
 
 --
 -- Index pour la table `t_recipe`
@@ -133,7 +142,7 @@ ALTER TABLE `t_user`
 -- AUTO_INCREMENT pour la table `t_rating`
 --
 ALTER TABLE `t_rating`
-  MODIFY `idrating` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idrating` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `t_recipe`
 --
@@ -147,6 +156,13 @@ ALTER TABLE `t_user`
 --
 -- Contraintes pour les tables exportées
 --
+
+--
+-- Contraintes pour la table `t_rating`
+--
+ALTER TABLE `t_rating`
+  ADD CONSTRAINT `t_rating_ibfk_1` FOREIGN KEY (`idRecipe`) REFERENCES `t_recipe` (`idRecipe`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `t_rating_ibfk_2` FOREIGN KEY (`idUser`) REFERENCES `t_user` (`idUser`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `t_recipe`
