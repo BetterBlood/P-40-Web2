@@ -202,6 +202,17 @@ class Database {
         // TODO : remplir
     }
 
+    public function getAllRatingsForThisRecipe($idRecipe)
+    {
+        $req = $this->queryPrepareExecute('SELECT * FROM t_rating LEFT JOIN t_user ON t_rating.idUser = t_user.idUser WHERE t_rating.idRecipe = ' . $idRecipe, null);// appeler la méthode pour executer la requète
+
+        $ratings = $this->formatData($req);// appeler la méthode pour avoir le résultat sous forme de tableau
+
+        $this->unsetData($req);
+
+        return $ratings;// retour toute les évaluations de la recette
+    }
+
 
 
 

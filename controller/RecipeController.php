@@ -81,7 +81,10 @@ class RecipeController extends Controller {
         // TODO : system de notation, gérer la modification de la note etc etc 
 
         $recipe = $database->getOneRecipe($_GET['id']);
-        $user = $database->getOneUser();
+        $user = $database->getOneUserById($recipe["idUser"]);
+
+        // TODO : getAllRatings()
+        $ratings = $database->getAllRatingsForThisRecipe($recipe["idRecipe"]);
 
         $view = file_get_contents('view/page/recipe/detail.php');
 
@@ -90,7 +93,6 @@ class RecipeController extends Controller {
         $content = ob_get_clean();
 
         return $content;
-
     }
 
     /**
