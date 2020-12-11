@@ -4,6 +4,7 @@
  * Auteur : Jeremiah Steiner
  * Date: 13.11.2020
  * contient les méthode permettant d'accèder a la database
+ * TODO : plugin : PHP DocBlocker
  */
 
 include 'config.php';
@@ -23,6 +24,7 @@ class Database {
         $charset = $GLOBALS['MM_CONFIG']['database']['charset'];
         $host = $GLOBALS['MM_CONFIG']['database']['host'];
         $port = $GLOBALS['MM_CONFIG']['database']['port'];
+
         $this->connector = new PDO("mysql:host=$host;port=$port;dbname=$dbName;charset=$charset" , $user, $password);
     }
 
@@ -66,7 +68,10 @@ class Database {
     }
 
     /**
-     * Vide la requête
+     * vider la requete
+     *
+     * @param [type] $req
+     * @return void
      */
     private function unsetData($req){
         
@@ -81,6 +86,11 @@ class Database {
         unset($this->connector);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function CountRecipes()
     {
         $req = $this->queryPrepareExecute('SELECT Count(idRecipe) FROM t_recipe', null);// appeler la méthode pour executer la requète
@@ -121,6 +131,11 @@ class Database {
         return $recipes[0];// retour la première valeur du tableau (il ne contient qu'une recette)
     }
 
+    /**
+     * retourn la recette la plus récente
+     *
+     * @return array
+     */
     public function getLastRecipe()
     {
         //example : SELECT ChampDate FROM table ORDER BY ChampDate DESC LIMIT 1
@@ -135,6 +150,11 @@ class Database {
         return $recipes[0];
     }
 
+    /**
+     * Retourne la recette avec la meilleure note
+     *
+     * @return array
+     */
     public function getBestRecipe()
     {
         $querry = 'SELECT * FROM t_recipe ORDER BY recNote DESC LIMIT 1';
