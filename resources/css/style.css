@@ -185,6 +185,11 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
     margin-top: 7vh;
   }
 }
+
 label{
   color: white;
+}
+
+.logMSG{
+  color: red;
 }

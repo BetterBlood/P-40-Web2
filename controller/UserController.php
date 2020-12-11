@@ -64,11 +64,9 @@ class UserController extends Controller {
             $_SESSION['errorLogin'] = false;
             $_SESSION['isConnected'] = true;
             $_SESSION['username'] = $user['usePseudo'];
-            $_SESSION['rights'] = $user['useAdminRight'];
             header('location: index.php');
         }
         else{
-            echo 'erreur mot de passe';
             $_SESSION['errorLogin'] = true;
             $_SESSION['isConnected'] = false;
             header('location: index.php?controller=user&action=loginForm');
@@ -79,5 +77,70 @@ class UserController extends Controller {
     private function logoutAction() {
         session_destroy();
         header('location: index.php');
+    }
+
+    /**
+     * Affichage du formulaire d'enregistrement
+     *
+     * @return string
+     */
+    private function registerFormAction() {
+
+        $view = file_get_contents('view/page/restrictedPages/loginRegister/registerForm.php');
+        
+        ob_start();
+        eval('?>' . $view);
+        $content = ob_get_clean();
+
+        return $content;
+    }
+
+    /**
+     * Création d'un utilisateur
+     *
+     */
+    private function registerAction(){
+
+        $error = false;
+        //Vérification de l'existence des champs
+        if(key_exists("username", $_POST) && key_exists("firstName", $_POST) && key_exists("lastName", $_POST) && key_exists("password1", $_POST) && key_exists("password1", $_POST)){
+            //Vérification des champs
+            if ((htmlspecialchars($_POST['username']) == "" || !preg_match('/^[A-Za-z\d]*(-[A-Za-z\d]*)*$/',htmlspecialchars($_POST['username']))))
+            {
+                $error = true;
+                echo 'Nom dutilisateur non conforme<br>';
+            }
+            if (($_POST['password1'] != $_POST['password2']))
+            {
+                $error = true;
+                echo 'Les mots de passe ne sont pas identiques<br>';
+            }
+
+            if($error == false){
+                //TODO vérification
+                $username = htmlspecialchars($_POST['username']);
+                $firstName = htmlspecialchars($_POST['firstName']);
+                $lastName = htmlspecialchars($_POST['lastName']);
+                $password = htmlspecialchars($_POST['password1']);
+
+                include_once($this->databasePath);
+                $database = new Database();
+
+                //Vérifie le connecteur
+                $array = (array) $database;
+                if($array["\0Database\0connector"] != NULL){
+                    
+                    $database->insertUser($username, $firstName, $lastName, $password);
+                    $_SESSION['isConnected'] = true;
+                    $_SESSION['username'] = $username;
+                    $_SESSION['rights'] = 10;
+                    header('location: index.php');
+                    //TODO
+                    //rediriger vers une page de confirmation/erreur
+            }
+        }
+
+
+        }
     }
 }

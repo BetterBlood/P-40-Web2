@@ -224,7 +224,7 @@ class Database {
     }
 
     /**
-     * Récupère les données d'un utilisateur
+     * Récupère les données d'un utilisateur par l'username
      * @param $username
      * @return $user
      */
@@ -239,7 +239,7 @@ class Database {
     }
 
     /**
-     * Récupère les données d'un utilisateur
+     * Récupère les données d'un utilisateur par son id
      * @param $username
      * @return $user
      */
@@ -251,6 +251,43 @@ class Database {
         $user = $userArray[0];
         $this->unsetData($req);
         return $user;
+    }
+
+    /**
+     * Ajoute un utilisateur
+     * @param $username
+     */
+    public function insertUser($username, $firstName, $lastName, $password){
+
+        $query = "INSERT INTO t_user (usePseudo, useFirstName, useLastName, usePassword) VALUES (:username, :firstName, :lastName, :setPassword)";
+        
+        //Binds des valeurs
+        $values = array(
+            0 => array(
+                'marker' => ':username',
+                'input' => $username,
+                'type' => PDO::PARAM_STR
+            ),
+            1 => array(
+                'marker' => ':setPassword',
+                'input' => $password,
+                'type' => PDO::PARAM_STR
+            ),
+            2 => array(
+                'marker' => ':firstName',
+                'input' => $firstName,
+                'type' => PDO::PARAM_STR
+            ),
+            3 => array(
+                'marker' => ':lastName',
+                'input' => $lastName,
+                'type' => PDO::PARAM_STR
+            )
+        );
+        $req = $this->queryPrepareExecute($query, $values);
+        $this->unsetData($req);
+
+        return;
     }
  }
 

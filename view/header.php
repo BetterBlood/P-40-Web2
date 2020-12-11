@@ -10,7 +10,7 @@
                 if(isset($_SESSION['isConnected'])){
                     if($_SESSION['isConnected'] == true){
                         echo '<div class="logMessage" ><a href="index.php?controller=user&action=logout"><button class="logOutButton">Déconnexion</button></a>';
-                        echo 'Connecté en tant que <span>' . $_SESSION['username'] . '</span></div>';
+                        echo '<span class="logMSG">Connecté en tant que ' . $_SESSION['username'] . '</span></div>';
                         echo $_SESSION['username'];
                     }
                     else{
@@ -19,7 +19,7 @@
                         echo '<li class="nav-item">';
                         echo '<a id="login" class="nav-link btn btn-primary btn-lg text-uppercase js-scroll-trigger" class="conn" href="index.php?controller=user&action=loginForm">Login<i class="fa fa-lock"></i></a></li>';
                         echo '<li class="nav-item">';
-                        echo '<a class="nav-link js-scroll-trigger" href="#">';
+                        echo '<a class="nav-link js-scroll-trigger" href="index.php?controller=user&action=registerForm">';
                         echo 'Register</a></li></ul></div>';
                     }
                 }
@@ -30,7 +30,7 @@
                     echo '<li class="nav-item">';
                     echo '<a id="login" class="nav-link btn btn-primary btn-lg text-uppercase js-scroll-trigger" class="conn" href="index.php?controller=user&action=loginForm">Login<i class="fa fa-lock"></i></a></li>';
                     echo '<li class="nav-item">';
-                    echo '<a class="nav-link js-scroll-trigger" href="#">';
+                    echo '<a class="nav-link js-scroll-trigger" href="index.php?controller=user&action=registerForm">';
                     echo 'Register</a></li></ul></div>';
                 }
                 ?>

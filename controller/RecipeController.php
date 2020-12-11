@@ -81,7 +81,7 @@ class RecipeController extends Controller {
         // TODO : system de notation, gérer la modification de la note etc etc 
 
         $recipe = $database->getOneRecipe($_GET['id']);
-        $user = $database->getOneUser()
+        $user = $database->getOneUser();
 
         $view = file_get_contents('view/page/recipe/detail.php');
 
