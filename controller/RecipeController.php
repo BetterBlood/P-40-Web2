@@ -35,7 +35,7 @@ class RecipeController extends Controller {
 
         // Instancie le modèle et va chercher les informations
 
-        include_once("dbInteraction/Database.php");
+        include_once("model/Database.php");
         $database = new Database();
 
         $startIndex = 0;
@@ -75,7 +75,7 @@ class RecipeController extends Controller {
      */
     private function detailAction() {
 
-        include_once("dbInteraction/Database.php");
+        include_once("model/Database.php");
         $database = new Database();
 
         $recipe = $database->getOneRecipe($_GET['id']);
