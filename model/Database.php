@@ -270,7 +270,7 @@ class Database {
      */
     public function insertUser($username, $firstName, $lastName, $password){
 
-        $query = "INSERT INTO t_user (usePseudo, useFirstName, useLastName, usePassword) VALUES (:username, :firstName, :lastName, :setPassword)";
+        $query = "INSERT INTO t_user (usePseudo, useFirstName, useName, usePassword) VALUES (:username, :firstName, :lastName, :setPassword)";
         
         //Binds des valeurs
         $values = array(
