@@ -18,8 +18,6 @@ date_default_timezone_set('Europe/Zurich'); // pour les dates
 
 include_once 'controller/Controller.php';
 include_once 'controller/HomeController.php';
-include_once 'controller/CustomerController.php';
-include_once 'controller/FactureController.php';
 include_once 'controller/RecipeController.php';
 include_once 'controller/LoginController.php';
 include_once 'controller/ProfileController.php';
@@ -37,7 +35,6 @@ class MainController {
             $_GET['action'] = 'index';
         }
 
-
         $currentLink = $this->menuSelected($_GET['controller']);
         $this->viewBuild($currentLink);
     }
@@ -53,12 +50,6 @@ class MainController {
         switch($page){
             case 'home':
                 $link = new HomeController();
-                break;
-            case 'customer':
-                $link = new CustomerController();
-                break;
-            case 'facture':
-                $link = new FactureController();
                 break;
             case 'recipe':
                 $link = new RecipeController();

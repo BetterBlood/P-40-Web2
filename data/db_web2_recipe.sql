@@ -19,7 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `db_web2_recipe`
 --
-
+create database db_web2_recipe;
+use db_web2_recipe;
 -- --------------------------------------------------------
 
 --
