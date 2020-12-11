@@ -28,7 +28,7 @@ class UserController extends Controller {
     private function loginFormAction() {
 
         $view = file_get_contents('view/page/restrictedPages/loginRegister/loginForm.php');
-
+        
         ob_start();
         eval('?>' . $view);
         $content = ob_get_clean();

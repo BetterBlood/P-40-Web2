@@ -9,6 +9,7 @@
     if(isset($_SESSION['errorLogin'])){
         if($_SESSION['errorLogin'] == true){
             echo 'Information(s) de login erronée(s)';
+            $_SESSION['errorLogin'] = false;
         }
     }
     ?>

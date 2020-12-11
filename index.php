@@ -76,9 +76,8 @@ class MainController {
         $content = $currentPage->display();
 
         include(dirname(__FILE__) . '/view/head.html');
-        include(dirname(__FILE__) . '/view/header.html');
-        include(dirname(__FILE__) . '/view/menu.php');
-        echo $content; //content
+        include(dirname(__FILE__) . '/view/header.php');
+        echo $content;
         include(dirname(__FILE__) . '/view/footer.html');
     }
 }
