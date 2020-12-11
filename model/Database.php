@@ -86,6 +86,16 @@ class Database {
         unset($this->connector);
     }
 
+
+
+
+
+
+
+
+
+
+
     /**
      * Undocumented function
      *
@@ -192,6 +202,14 @@ class Database {
         // TODO : remplir
     }
 
+
+
+
+
+
+
+
+
     /**
      * Récupère tous les noms d'utilisateur
      * @return $usernames
@@ -214,8 +232,15 @@ class Database {
 
         $query = "SELECT * FROM t_user WHERE usePseudo = '$username'";
         $req = $this->queryPrepareExecute($query, null);
-        $userArray = $this->formatData($req);
-        $user = $userArray[0];
+        $result = $this->formatData($req);
+        
+        if(empty($result)){
+            return $result;
+        }
+        else{
+            return $result[0];
+        }
+
         $this->unsetData($req);
         return $user;
     }

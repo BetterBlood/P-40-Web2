@@ -18,8 +18,7 @@ date_default_timezone_set('Europe/Zurich'); // pour les dates
 include_once 'controller/Controller.php';
 include_once 'controller/HomeController.php';
 include_once 'controller/RecipeController.php';
-include_once 'controller/LoginController.php';
-include_once 'controller/ProfileController.php';
+include_once 'controller/UserController.php';
 
 
 class MainController {
@@ -53,8 +52,8 @@ class MainController {
             case 'recipe':
                 $link = new RecipeController();
                 break;
-            case 'login':
-                $link = new LoginController();
+            case 'user':
+                $link = new UserController();
                 break;
             case 'profile':
                 $link = new ProfileController();
