@@ -51,8 +51,12 @@ class Database {
     private function queryPrepareExecute($query, $binds){
         
         $req = $this->connector->prepare($query);
+        if(isset($binds)){
+            foreach($binds as $bind){
+                $req->bindValue($bind['marker'], $bind['input'], $bind['type']);
+            }
+        }
         $req->execute();
-
         return $req;
     }
 
@@ -241,11 +245,21 @@ class Database {
      */
     public function getOneUser($username){
 
-        $query = "SELECT * FROM t_user WHERE usePseudo = '$username'";
-        $req = $this->queryPrepareExecute($query, null);
+        $query = "SELECT * FROM t_user WHERE usePseudo = :username";
+        
+        $values = array(
+            0 => array(
+                'marker' => ':username',
+                'input' => $username,
+                'type' => PDO::PARAM_STR
+            )
+        );
+
+        $req = $this->queryPrepareExecute($query, $values);
         $user = $this->formatData($req);
 
         $this->unsetData($req);
+
         return $user;
     }
 
@@ -271,7 +285,7 @@ class Database {
     public function insertUser($username, $firstName, $lastName, $password){
 
         $query = "INSERT INTO t_user (usePseudo, useFirstName, useName, usePassword) VALUES (:username, :firstName, :lastName, :setPassword)";
-        
+
         //Binds des valeurs
         $values = array(
             0 => array(
@@ -295,6 +309,7 @@ class Database {
                 'type' => PDO::PARAM_STR
             )
         );
+
         $req = $this->queryPrepareExecute($query, $values);
         $this->unsetData($req);
 

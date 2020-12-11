@@ -51,9 +51,9 @@ class UserController extends Controller {
         //Vérifie le connecteur
         $array = (array) $database;
         if($array["\0Database\0connector"] != NULL){
-            $user = $database->getOneUser($username);
+            $userArray = $database->getOneUser($username);
+            $user = $userArray[0];
         }
-
 
         if(empty($user)){
             $_SESSION['errorLogin'] = true;
@@ -122,7 +122,7 @@ class UserController extends Controller {
                 $firstName = htmlspecialchars($_POST['firstName']);
                 $lastName = htmlspecialchars($_POST['lastName']);
                 $password = htmlspecialchars($_POST['password1']);
-
+                
                 include_once($this->databasePath);
                 $database = new Database();
 
@@ -133,7 +133,6 @@ class UserController extends Controller {
                     $database->insertUser($username, $firstName, $lastName, $password);
                     $_SESSION['isConnected'] = true;
                     $_SESSION['username'] = $username;
-                    $_SESSION['rights'] = 10;
                     header('location: index.php');
                     //TODO
                     //rediriger vers une page de confirmation/erreur
