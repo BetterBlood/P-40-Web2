@@ -7,6 +7,12 @@
 
 abstract class Controller {
 
+    protected $databasePath;
+
+    public function __construct() {
+        $this->databasePath = "model\Database.php";
+    }
+
     /**
      * Méthode permettant d'appeler l'action 
      *
