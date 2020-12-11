@@ -25,7 +25,14 @@
 				echo '<td>' . htmlspecialchars($recipe['recName']) . '</td>';
 				echo '<td>' . htmlspecialchars($recipe['recPrepTime']) . ' minutes</td>';
 				echo '<td>' . htmlspecialchars($recipe['recDifficulty']) . '</td>';
-				echo '<td>' . htmlspecialchars($recipe['recNote']) . '</td>';
+				if (isset($recipe["recNote"]))
+				{
+					echo '<td>' . htmlspecialchars($recipe['recNote']) . '</td>';
+				}
+				else
+				{
+					echo '<td>pas encore notée</td>';
+				}
 				echo '<td>' . $user["usePseudo"] . '</td>';
 
 				if (array_key_exists("id", $_GET) && $_GET["id"] == $recipe["idRecipe"]) // affiche/masque les détail d'une recette
@@ -62,7 +69,7 @@
 								echo '<h4 class="card-title">informations</h4>';
 
 								echo '<p class="card-text"> note : ' . $recipe["recNote"] . '  '; // TODO : ptetre mettre un dessin pour la note
-								echo '<a href="#" class="btn btn-success">Noter la recette</a>' . '</p>';
+								echo '<a href="index.php?controller=recipe&action=detail&id=' . htmlspecialchars($recipe['idRecipe']) . '" class="btn btn-success">Noter la recette</a>' . '</p>';
 
 								echo '<p class="card-text"> difficulté : ' . $recipe["recDifficulty"] . '</p>';
 

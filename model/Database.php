@@ -232,14 +232,7 @@ class Database {
 
         $query = "SELECT * FROM t_user WHERE usePseudo = '$username'";
         $req = $this->queryPrepareExecute($query, null);
-        $result = $this->formatData($req);
-        
-        if(empty($result)){
-            return $result;
-        }
-        else{
-            return $result[0];
-        }
+        $user = $this->formatData($req);
 
         $this->unsetData($req);
         return $user;
