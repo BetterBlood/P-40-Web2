@@ -7,7 +7,7 @@
  * TODO : plugin : PHP DocBlocker
  */
 
-include 'config.php';
+include './data/config.php';
 
 class Database {
 

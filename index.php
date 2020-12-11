@@ -1,5 +1,4 @@
 <?php
-session_start();
 /**
  * ETML
  * Auteur :  Cindy Hardegger
@@ -74,7 +73,7 @@ class MainController {
      * @param $currentPage : page qui doit s'afficher
      */
     protected function viewBuild($currentPage) {
-
+        session_start();
         $content = $currentPage->display();
 
         include(dirname(__FILE__) . '/view/head.html');

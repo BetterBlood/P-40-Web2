@@ -27,7 +27,7 @@ class HomeController extends Controller {
      */
     private function indexAction() {
 
-        include_once("dbInteraction/Database.php");
+        include_once("model/Database.php");
         $database = new Database();
 
         $lastRecipe = $database->getLastRecipe();
