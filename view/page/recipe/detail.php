@@ -11,6 +11,7 @@
 			{
 				header("Location: index.php?controller=recipe&action=list");
 			}
+			
 		?>
 	</h2>
 
@@ -28,7 +29,6 @@
 			<div>
 				<div>
 					<?php
-
 					if (isset($recipe["recNote"]))
 					{
 						echo '<p>Note : ' . $recipe['recNote'];
@@ -67,7 +67,7 @@
 				<!-- Modal -->
 				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
-						<div class="modal-content">
+						<div class="modal-content bg-secondary">
 							<div class="modal-header">
 								<h5 class="modal-title" id="exampleModalLongTitle">Évaluation de la recette par <?php echo $_SESSION["username"];?></h5>
 								
@@ -75,11 +75,11 @@
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-							
+
 							<form action="trouver une page" method="POST">
 								<div class="modal-body">
 									<?php 
-									
+									echo 'votre évaluation : ';
 									echo '<select name="note" id="note">';
 									echo '<option value="-1">aucune</option>';
 
@@ -137,8 +137,8 @@
 			<p>Profil :</p>
 
 			<?php
-			echo $user["usePseudo"];
-			$imageLink = '"resources/image/Users/' . htmlspecialchars($user['useImage']) . '"';
+			echo $recipeCreator["usePseudo"];
+			$imageLink = '"resources/image/Users/' . htmlspecialchars($recipeCreator['useImage']) . '"';
 			echo '<img class="d-block" src=' . $imageLink . ' alt="image du profil utilisateur">';
 
 			?>

@@ -64,6 +64,7 @@ class UserController extends Controller {
             $_SESSION['errorLogin'] = false;
             $_SESSION['isConnected'] = true;
             $_SESSION['username'] = $user['usePseudo'];
+            $_SESSION['idUser'] = $user['idUser'];
             header('location: index.php');
         }
         else{

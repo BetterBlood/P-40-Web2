@@ -81,12 +81,22 @@ class RecipeController extends Controller {
         // TODO : system de notation, gérer la modification de la note etc etc 
 
         $recipe = $database->getOneRecipe($_GET['id']);
-        $user = $database->getOneUserById($recipe["idUser"]);
+        $recipeCreator = $database->getOneUserById($recipe["idUser"]);
 
         // TODO : getAllRatings()
         $ratings = $database->getAllRatingsForThisRecipe($recipe["idRecipe"]);
-        $alreadyRate = true; // TODO : get ça dynamiquement !!!!
-        $userNote = 4; // TODO : get ça dynamiquement !!!!
+
+        $alreadyRate = false;
+        $userNote = 2.5;
+
+        foreach($ratings as $rating) // vérifie si l'utilisateur a déjà noté cette recette, si oui attribut la note a la variable $userNote
+        {
+            if ($rating["idUser"] == $_SESSION["idUser"])
+            {
+                $alreadyRate = true;
+                $userNote = $rating["ratGrade"];
+            }
+        }
 
         $view = file_get_contents('view/page/recipe/detail.php');
 
