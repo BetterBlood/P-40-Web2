@@ -25,19 +25,39 @@
 		</div>
 
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-white">
-			
-			<?php
+			<div>
+				<div>
+					<?php
 
-			echo '<div>';
-				if (isset($recipe["recNote"]))
-				{
-					echo '<p>Note : ' . $recipe['recNote'] . '</p>';
-				}
-				else
-				{
-					echo '<p>Note : Il n\'y a aucune note disponible pour le moment</p>'; 
-				}
-				?>
+					if (isset($recipe["recNote"]))
+					{
+						echo '<p>Note : ' . $recipe['recNote'];
+						?>
+							<div style="display: flex;">
+								<div class="progress" style="width:160px;height:32px;">
+									<div class="bg-warning" role="progressbar" style="width:<?php echo $recipe['recNote']*20; ?>%;">
+										<img style="width:160px;height:32px;" src="resources/image/icone/evaluation.png" alt="icone d'évaluation transparent">
+									</div>
+								</div>
+							</div>
+						<?php
+						echo '</p>';
+					}
+					else
+					{
+						?>
+							<div style="display: flex;">
+								<div class="progress" style="width:160px;height:32px;">
+									<div class="bg-warning" role="progressbar" style="width: 50%;">
+										<img style="width:160px;height:32px;" src="resources/image/icone/evaluation.png" alt="icone d'évaluation transparent">
+									</div>
+								</div>
+							</div>
+						<?php
+						echo '<p>Note : Il n\'y a aucune note disponible pour le moment</p>'; 
+					}
+					?>
+				</div>
 
 				<!-- Button trigger modal -->
 				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">
@@ -49,11 +69,13 @@
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLongTitle">Évaluation de la recette par <?php echo $_SESSION["username"];?> </h5>
+								<h5 class="modal-title" id="exampleModalLongTitle">Évaluation de la recette par <?php echo $_SESSION["username"];?></h5>
+								
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
+									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
+							
 							<form action="trouver une page" method="POST">
 								<div class="modal-body">
 									<?php 
