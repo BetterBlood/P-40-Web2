@@ -58,7 +58,7 @@ CREATE TABLE `t_recipe` (
   `recDescription` varchar(255) NOT NULL,
   `recPrepTime` float NOT NULL,
   `recDifficulty` int(11) NOT NULL,
-  `recNote` int(11) DEFAULT NULL,
+  `recGrade` int(11) DEFAULT NULL,
   `recImage` varchar(255) NOT NULL DEFAULT 'defaultRecipePicture.jpg',
   `recDate` date NOT NULL,
   `idUser` int(11) NOT NULL
@@ -68,7 +68,7 @@ CREATE TABLE `t_recipe` (
 -- Contenu de la table `t_recipe`
 --
 
-INSERT INTO `t_recipe` (`idRecipe`, `recName`, `recIngredientList`, `recDescription`, `recPrepTime`, `recDifficulty`, `recNote`, `recImage`, `recDate`, `idUser`) VALUES
+INSERT INTO `t_recipe` (`idRecipe`, `recName`, `recIngredientList`, `recDescription`, `recPrepTime`, `recDifficulty`, `recGrade`, `recImage`, `recDate`, `idUser`) VALUES
 (1, 'recetteParDefault', 'ail, poivre, sel', 'mélange pas très bon, néanmoins faisable et très facil à réaliser.\r\nBon Appetit !!!!\r\njoyeux Noël', 1, 2, 1, 'defaultRecipePicture.jpg', '2020-11-13', 1),
 (2, 'defaultRecipe2(easiest)', 'pas grand chose', 'pour le test', 1, 1, 1, 'ingredients-498199_1920.jpg', '2020-11-13', 1),
 (4, 'defaultRecipe4', 'pas grand chose', 'pour le test', 1, 2, 1, 'defaultRecipePicture.jpg', '2020-11-13', 1),

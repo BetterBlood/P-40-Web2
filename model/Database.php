@@ -171,7 +171,7 @@ class Database {
      */
     public function getBestRecipe()
     {
-        $querry = 'SELECT * FROM t_recipe ORDER BY recNote DESC LIMIT 1';
+        $querry = 'SELECT * FROM t_recipe ORDER BY recGrade DESC LIMIT 1';
 
         $req = $this->queryPrepareExecute($querry, null);
 
@@ -198,7 +198,7 @@ class Database {
     /**
      * ajoute une recette a la base de donnée
      *
-     * @param [type] $recipe
+     * @param array $recipe
      * @return void
      */
     public function insertRecipe($recipe){
@@ -206,6 +206,78 @@ class Database {
         // TODO : remplir
     }
 
+    public function editRecipe($recipe)
+    {
+        $values = array(
+            1 => array(
+                'marker' => ':recName',
+                'input' => $recipe["recName"],
+                'type' => PDO::PARAM_STR
+            ),
+            2 => array(
+                'marker' => ':recIngredientList',
+                'input' => $recipe["recIngredientList"],
+                'type' => PDO::PARAM_STR
+            ),
+            3 => array(
+                'marker' => ':recDescription',
+                'input' => $recipe["recDescription"],
+                'type' => PDO::PARAM_STR
+            ),
+            4 => array(
+                'marker' => ':recPreparation',
+                'input' => $recipe["recPreparation"],
+                'type' => PDO::PARAM_STR
+            ),
+            5 => array(
+                'marker' => ':recPrepTime',
+                'input' => $recipe["recPrepTime"],
+                'type' => PDO::PARAM_INT
+            ),
+            6 => array(
+                'marker' => ':recDifficulty',
+                'input' => $recipe["recDifficulty"],
+                'type' => PDO::PARAM_INT
+            ),
+            7 => array(
+                'marker' => ':recGrade',
+                'input' => $recipe["recGrade"],
+                'type' => PDO::PARAM_INT // TODO : problème ici on a un float pas un int ???? ça marche quand même ou pas ?
+            ),
+            8 => array(
+                'marker' => ':recImage',
+                'input' => $recipe["recImage"],
+                'type' => PDO::PARAM_STR
+            ),
+            9 => array(
+                'marker' => ':recDate',
+                'input' => $recipe["recDate"],
+                'type' => PDO::PARAM_STR // TODO : pour date on met string ??
+            ),
+            10 => array(
+                'marker' => ':idUser',
+                'input' => $recipe["idUser"],
+                'type' => PDO::PARAM_INT
+            )
+        );
+
+        $query =   'UPDATE t_recipe SET 
+                    recName = :recName, recIngredientList = :recIngredientList, recDescription = :recDescription,
+                    recPreparation = :recPreparation, recPrepTime = :recPrepTime, recDifficulty = :recDifficulty,
+                    recGrade = :recGrade, recImage = :recImage, recDate = :recDate, idUser = :idUser
+                    WHERE idRecipe = ' . $recipe["idRecipe"];
+
+        $req = $this->queryPrepareExecute($query, $values);
+
+        $this->unsetData($req);
+    }
+
+    /**
+     * permet d'obtenir toutes les notations d'une recette
+     *
+     * @param int $idRecipe
+     * @return array
+     */
     public function getAllRatingsForThisRecipe($idRecipe)
     {
         $req = $this->queryPrepareExecute('SELECT * FROM t_rating LEFT JOIN t_user ON t_rating.idUser = t_user.idUser WHERE t_rating.idRecipe = ' . $idRecipe, null);// appeler la méthode pour executer la requète
@@ -215,6 +287,94 @@ class Database {
         $this->unsetData($req);
 
         return $ratings;// retour toute les évaluations de la recette
+    }
+
+    /**
+     * permet de savoir si un utilisateur a déjà noté la recette
+     *
+     * @param int $idUser
+     * @param int $idRecipe
+     * @return bool
+     */
+    public function userAlreadyRateThisRecipe($idUser, $idRecipe)
+    {
+        $ratings = $this->getAllRatingsForThisRecipe($idRecipe);
+
+        foreach($ratings as $rating)
+        {
+            if ($rating["idUser"] == $idUser)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function insertRating($idUser, $idRecipe, $grade, $comment)
+    {
+        $query = "INSERT INTO t_rating (ratGrade, ratComment, idRecipe, idUser) VALUES (:ratGrade, :ratComment, :idRecipe, :idUser)";
+
+        //Binds des valeurs
+        $values = array(
+            0 => array(
+                'marker' => ':ratGrade',
+                'input' => $grade,
+                'type' => PDO::PARAM_INT
+            ),
+            1 => array(
+                'marker' => ':ratComment',
+                'input' => $comment,
+                'type' => PDO::PARAM_STR
+            ),
+            2 => array(
+                'marker' => ':idRecipe',
+                'input' => $idRecipe,
+                'type' => PDO::PARAM_STR
+            ),
+            3 => array(
+                'marker' => ':idUser',
+                'input' => $idUser,
+                'type' => PDO::PARAM_STR
+            )
+        );
+
+        $req = $this->queryPrepareExecute($query, $values);
+        $this->unsetData($req);
+    }
+
+    public function editRating($idUser, $idRecipe, $ratGrade, $ratComment)
+    {
+        $values = array(
+            1 => array(
+                'marker' => ':idUser',
+                'input' => $idUser,
+                'type' => PDO::PARAM_INT
+            ),
+            2 => array(
+                'marker' => ':idRecipe',
+                'input' => $idRecipe,
+                'type' => PDO::PARAM_INT
+            ),
+            3 => array(
+                'marker' => ':ratGrade',
+                'input' => $ratGrade,
+                'type' => PDO::PARAM_INT
+            ),
+            4 => array(
+                'marker' => ':ratComment',
+                'input' => $ratComment,
+                'type' => PDO::PARAM_STR
+            )
+        );
+
+        $query =   'UPDATE t_rating SET 
+                    idUser = :idUser, idRecipe = :idRecipe, ratGrade = :ratGrade, ratComment = :ratComment
+                    WHERE idUser = :idUser AND idRecipe = :idRecipe';
+
+        $req = $this->queryPrepareExecute($query, $values);
+
+        $this->unsetData($req);
     }
 
 
@@ -315,6 +475,7 @@ class Database {
 
         return;
     }
+
  }
 
 

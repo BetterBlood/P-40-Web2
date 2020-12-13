@@ -29,13 +29,13 @@
 			<div>
 				<div>
 					<?php
-					if (isset($recipe["recNote"]))
+					if (isset($recipe["recGrade"]))
 					{
-						echo '<p>Note : ' . $recipe['recNote'];
+						echo '<p>Note : ' . $recipe['recGrade'];
 						?>
 							<div style="display: flex;">
 								<div class="progress" style="width:160px;height:32px;">
-									<div class="bg-warning" role="progressbar" style="width:<?php echo $recipe['recNote']*20; ?>%;">
+									<div class="bg-warning" role="progressbar" style="width:<?php echo $recipe['recGrade']*20; ?>%;">
 										<img style="width:160px;height:32px;" src="resources/image/icone/evaluation.png" alt="icone d'évaluation transparent">
 									</div>
 								</div>
@@ -76,11 +76,11 @@
 								</button>
 							</div>
 
-							<form action="trouver une page" method="POST">
+							<form action="index.php?controller=recipe&action=rate&id=<?php echo $recipe["idRecipe"];?>" method="POST">
 								<div class="modal-body">
 									<?php 
-									echo 'votre évaluation : ';
-									echo '<select name="note" id="note">';
+									echo '<label for="ratGrade">votre évaluation : </label>';
+									echo '<select name="ratGrade" id="ratGrade">';
 									echo '<option value="-1">aucune</option>';
 
 									for ($i = 1; $i <= 5; $i++)
@@ -88,7 +88,7 @@
 										echo '<option';
 										echo ' value="' . $i . '" ';
 
-										if ($alreadyRate && $userNote == $i)
+										if ($alreadyRate && $userGrade == $i) // TODO : mofdifier en userGrade !!!
 										{
 											echo 'selected';
 										}
@@ -99,6 +99,25 @@
 									echo '</select>';
 									
 									?>
+
+									<br>
+									<label for="ratComment">Commentaire : </label>
+									<?php 
+
+										echo '<textarea name="ratComment" id="ratComment" cols="40" rows="3">';
+											
+										if ($alreadyRate)
+										{
+											echo $userComment;
+										}
+										else
+										{
+											echo 'noComment';
+										}
+										echo '</textarea>';
+
+									?>
+									
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

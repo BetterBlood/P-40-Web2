@@ -69,6 +69,82 @@ class RecipeController extends Controller {
     }
 
     /**
+     * permet d'ajouter ou de modifier sa note pour une recette
+     *
+     * @param int $idRecipe
+     * @return void
+     */
+    private function rateAction() // TODO : finir cette méthode
+    {
+        // TODO : vérifier l'intégrité des données (genre que la note est bien >= à 1 et <= 5, et commentaire pas vide)
+        include_once($this->databasePath);
+        $database = new Database();
+
+        $recipe = array();
+        $ratings = array();
+        $idRecipe = -1;
+        $ratGrade = -1;
+        $ratComment = "noComment";
+
+        if (array_key_exists("id", $_GET))
+        {
+            $idRecipe = $_GET["id"];
+            $recipe = $database->getOneRecipe($idRecipe);
+            $ratings = $database->getAllRatingsForThisRecipe($idRecipe);
+        }
+
+        if (array_key_exists("ratGrade", $_POST))
+        {
+            $ratGrade = $_POST["ratGrade"];
+        }
+        if (array_key_exists("ratComment", $_POST))
+        {
+            $ratComment = $_POST["ratComment"];
+        }
+        
+
+        // ajouter (ou modifier) la note de l'utilisateur dans la database (on a son id en variable de session)
+        if (array_key_exists("idUser", $_SESSION) && $database->userAlreadyRateThisRecipe($_SESSION["idUser"], $idRecipe))
+        {
+            // on modifie la note de l'utilisateur
+                // récupérer l'id du rating correspondant // pas obligé en fait
+                // le modifier dans la base de 
+            $database->editRating($_SESSION["idUser"], $idRecipe, $ratGrade, $ratComment);
+            $ratings = $database->getAllRatingsForThisRecipe($idRecipe);
+        }
+        else if (array_key_exists("idUser", $_SESSION))
+        {
+            // on ajoute la note au rating avec l'id de la recette et de l'user
+            $database->insertRating($_SESSION["idUser"], $idRecipe, $ratGrade, $ratComment);
+            $ratings = $database->getAllRatingsForThisRecipe($idRecipe);
+        }
+
+        if (count($ratings) >= 1) // racalcul la note de la recette et l'inscrit dans sa table // mais je ne sais pas pk ça marche pas...
+        {
+            $totGrades = 0;
+            
+            foreach($ratings as $rating)
+            {
+                $totGrades += (float)$rating["ratGrade"];
+            }
+
+            $recipe["recGrade"] = (float)($totGrades/count($ratings));
+        }
+
+        // l'inscrir dans la table de recette
+        $database->editRecipe($recipe);
+
+        // charger la page de détail de la recette
+        $view = file_get_contents('view/page/recipe/recipeRating.php');
+
+        ob_start();
+        eval('?>' . $view);
+        $content = ob_get_clean();
+
+        return $content;
+    }
+
+    /**
      * Rechercher les données et les passe à la vue (en détail)
      *
      * @return string
@@ -87,14 +163,15 @@ class RecipeController extends Controller {
         $ratings = $database->getAllRatingsForThisRecipe($recipe["idRecipe"]);
 
         $alreadyRate = false;
-        $userNote = 2.5;
+        $userGrade = 2.5;
 
-        foreach($ratings as $rating) // vérifie si l'utilisateur a déjà noté cette recette, si oui attribut la note a la variable $userNote
+        foreach($ratings as $rating) // vérifie si l'utilisateur a déjà noté cette recette, si oui attribut la note a la variable $userGrade
         {
             if ($rating["idUser"] == $_SESSION["idUser"])
             {
                 $alreadyRate = true;
-                $userNote = $rating["ratGrade"];
+                $userGrade = $rating["ratGrade"];
+                $userComment = $rating["ratComment"];
             }
         }
 

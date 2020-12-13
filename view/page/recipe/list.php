@@ -25,9 +25,9 @@
 				echo '<td>' . htmlspecialchars($recipe['recName']) . '</td>';
 				echo '<td>' . htmlspecialchars($recipe['recPrepTime']) . ' minutes</td>';
 				echo '<td>' . htmlspecialchars($recipe['recDifficulty']) . '</td>';
-				if (isset($recipe["recNote"]))
+				if (isset($recipe["recGrade"]))
 				{
-					echo '<td>' . htmlspecialchars($recipe['recNote']) . '</td>';
+					echo '<td>' . htmlspecialchars($recipe['recGrade']) . '</td>';
 				}
 				else
 				{
@@ -46,30 +46,50 @@
 
 			echo '</tr>';
 
-			if (array_key_exists("id", $_GET) && htmlspecialchars($_GET["id"]) == htmlspecialchars($recipe['idRecipe']))
+			if (array_key_exists("id", $_GET) && htmlspecialchars($_GET["id"]) == htmlspecialchars($recipe['idRecipe'])) // les premiers détails de la recette sont divisé en 3 parties
 			{
 				echo '<tr>';
+
+					// première partie : concerne la recette elle-même
 					$imageLink = '"resources/image/Recipes/' . htmlspecialchars($recipe['recImage']) . '"';
-					//echo '<td COLSPAN="5"><img class="d-block w-50" src=' . $imageLink . ' alt="image d\'illustration de la recette"></td>';
 					echo '<td COLSPAN="4">';
 						echo '<div class="card" style="width: 35rem;">';
 							echo '<img src=' . $imageLink . ' class="card-img-top d-block w-100" alt="image de profile du créateur de la recette">';
 							echo '<div class="card-body" style="color:black">';
 								echo '<h5 class="card-title">Description :</h5>';
 								echo '<p class="card-text">' . $recipe["recDescription"] . '</p>';
-								echo '<a href="index.php?controller=recipe&action=detail&id=' . htmlspecialchars($recipe['idRecipe']) . '" class="btn btn-primary">Voir la recette</a>';
+
+								if (array_key_exists("isConnected", $_SESSION) && $_SESSION["isConnected"])
+								{
+									echo '<a href="index.php?controller=recipe&action=detail&id=' . htmlspecialchars($recipe['idRecipe']) . '" class="btn btn-primary">Voir la recette</a>';
+								}
+								else
+								{
+									echo '<a href="index.php?controller=user&action=loginForm" class="btn btn-primary">Voir la recette</a>';
+
+								}
+
 							echo '</div>';
 						echo '</div>';
 					echo '</td>';
 					//echo htmlspecialchars($recipe['recImage']);
 
+					// seconde partie : les information secondaire de la recette (avec la note la difficultée et le temps de préparation)
 					echo '<td>';
 						echo '<div class="card" style="width: 18rem;">';
 							echo '<div class="card-body" style="color:black">';
 								echo '<h4 class="card-title">informations</h4>';
 
-								echo '<p class="card-text"> note : ' . $recipe["recNote"] . '  '; // TODO : ptetre mettre un dessin pour la note
-								echo '<a href="index.php?controller=recipe&action=detail&id=' . htmlspecialchars($recipe['idRecipe']) . '" class="btn btn-success">Noter la recette</a>' . '</p>';
+								echo '<p class="card-text"> note : ' . $recipe["recGrade"] . '  ';
+								if (array_key_exists("isConnected", $_SESSION) && $_SESSION["isConnected"])
+								{
+									echo '<a href="index.php?controller=recipe&action=detail&id=' . htmlspecialchars($recipe['idRecipe']) . '" class="btn btn-success">Noter la recette</a>' . '</p>';
+								}
+								else
+								{
+									echo '<a href="index.php?controller=user&action=loginForm" class="btn btn-success">Login ?</a>';
+
+								}
 
 								echo '<p class="card-text"> difficulté : ' . $recipe["recDifficulty"] . '</p>';
 
@@ -94,6 +114,7 @@
 					echo '</td>';
 
 
+					// troisième partie : contient les premières informations du l'utilisateur
 					$imageProfilLink = '"resources/image/Users/' . htmlspecialchars($user['useImage']) . '"';
 					//echo '<img class="d-block w-50" src=' . $imageProfilLink . ' alt="image de profile du créateur de la recette">';
 				
@@ -103,7 +124,15 @@
 							echo '<div class="card-body" style="color:black">';
 								echo '<h5 class="card-title">' . $user["usePseudo"] . '</h5>';
 								echo '<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>';
-								echo '<a href="#" class="btn btn-warning">Voir l\'auteur</a>';
+								if (array_key_exists("isConnected", $_SESSION) && $_SESSION["isConnected"])
+								{
+									echo '<a href="#" class="btn btn-warning">Voir l\'auteur</a>'; // TODO : lier a la page du créateur de la recette
+								}
+								else 
+								{
+									echo '<a href="index.php?controller=user&action=loginForm" class="btn btn-warning">Login ?</a>';
+								}
+								
 							echo '</div>';
 						echo '</div>';
 
@@ -140,8 +169,9 @@
 	?>
 	
 	</table>
-	
-	<div class="justify-content-right numPage" aria-label="Page navigation" id="numPage"> <!-- cette div contient la pagination des recettes-->
+
+	<!-- cette div contient la pagination des recettes-->
+	<div class="justify-content-right numPage" aria-label="Page navigation" id="numPage"> 
 		<ul class="pagination justify-content-center">
 			<li class="page-item">
 			<a class="page-link" href="index.php?controller=recipe&action=list&start=0" aria-label="Previous">
