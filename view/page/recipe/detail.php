@@ -88,7 +88,7 @@
 										echo '<option';
 										echo ' value="' . $i . '" ';
 
-										if ($alreadyRate && $userGrade == $i) // TODO : mofdifier en userGrade !!!
+										if ($alreadyRate && $userGrade == $i)
 										{
 											echo 'selected';
 										}
@@ -101,7 +101,7 @@
 									?>
 
 									<br>
-									<label for="ratComment">Commentaire : </label>
+									<label for="ratComment">votre commentaire : </label>
 									<?php 
 
 										echo '<textarea name="ratComment" id="ratComment" cols="40" rows="3">';
@@ -153,37 +153,68 @@
 	</div>
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-white">
-			<p>Profil :</p>
+			<p>Créateur de la recette :</p>
 
 			<?php
-			echo $recipeCreator["usePseudo"];
-			$imageLink = '"resources/image/Users/' . htmlspecialchars($recipeCreator['useImage']) . '"';
-			echo '<img class="d-block" src=' . $imageLink . ' alt="image du profil utilisateur">';
+			$imageProfilLink = '"resources/image/Users/' . htmlspecialchars($recipeCreator['useImage']) . '"';
+			echo '<div class="card" style="width: 18rem;">';
+				echo '<img src=' . $imageProfilLink . ' class="card-img-top" alt="image de profile du créateur de la recette">';
+				echo '<div class="card-body" style="color:black">';
+					echo '<h5 class="card-title">' . $recipeCreator["usePseudo"] . '</h5>';
+					echo '<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>';
+					if (array_key_exists("isConnected", $_SESSION) && $_SESSION["isConnected"])
+					{
+						echo '<a href="#" class="btn btn-warning">Voir l\'auteur</a>'; // TODO : lier a la page du créateur de la recette
+					}
+					else 
+					{
+						echo '<a href="index.php?controller=user&action=loginForm" class="btn btn-warning">Login ?</a>';
+					}
+					
+				echo '</div>';
+			echo '</div>';
 
 			?>
 		</div>
 
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-white">
 			<p>Commentaires d'évaluation : </p>
-
-			<?php
 			
-				foreach($ratings as $rating)
-				{
-					echo '<div class="card text-white bg-secondary  mb-3" style="max-width: 18rem;">';
-						echo '<div class="card-header">' . $rating["usePseudo"] . ', note :' . $rating["ratGrade"] . ' </div>';
-						
-						echo '<div class="card-body">';
-							echo '<h5 class="card-title">' . $rating["ratComment"] . '</h5>';
+			<div class="pre-scrollable" >
+				
+
+				<?php
+					$j = 0;
+
+					foreach($ratings as $rating)
+					{
+						echo '<div class="card text-white bg-';
+						if ($j%2 != 1)
+						{
+							echo 'secondary ';
+						}
+						else
+						{
+							echo 'info ';
+						}
+						echo 'mb-3" style="max-width: 25rem;">';
+
+							echo '<div class="card-header"><strong>' . $rating["usePseudo"] . '</strong> à donné la note de <strong>' . $rating["ratGrade"] . '</strong> à cette recette</div>';
+							
+							echo '<div class="card-body">';
+								echo '<h5 class="card-title">' . $rating["ratComment"] . '</h5>';
+							echo '</div>';
+
+							echo '<button type="button" class="btn btn-warning">vers le portail de l\'utilisateur</button>'; // je voulais mettre un bouton mais ça donne pas bien....
+
 						echo '</div>';
-
-					echo '</div>';
-				}
+						$j++;
+					}
+				
+				
+				?>
 			
-			
-			?>
-			
-			
+			</div>
 		</div>
 		<div class="text-white mb-5 pb-5">
 		<a href="index.php?controller=recipe&action=list&id=<?php echo $recipe["idRecipe"]; //. '&start=';// ptetre retrouver le start index de l'image ?>">Retour à la liste des recettes</a>
