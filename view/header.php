@@ -1,8 +1,11 @@
 <div class="container">
+    
     <div class="mastHead">
-        <h3 class="text-muted">Menu de votre choix</h3>
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        
+        <nav class="navbar navbar-expand-lg fixed-top bg-dark" id="mainNav">
+            
             <div class="container">
+                
                 <a class="navbar-brand js-scroll-trigger" href="index.php?controller=home&action=index&image=0">Menu</a>
                 <a class="navbar-brand js-scroll-trigger" href="index.php?controller=recipe&action=list">Recettes</a>
                 <a class="navbar-brand js-scroll-trigger" href="index.php?controller=home&action=contact">Contact</a>
@@ -34,5 +37,10 @@
                     echo 'Register</a></li></ul></div>';
                 }
                 ?>
-        </div>
-    </nav>
+            </div>
+        </nav>
+        
+    </div>
+    <br>
+    <br>
+    <h3 class="text-muted">Menu de votre choix</h3>

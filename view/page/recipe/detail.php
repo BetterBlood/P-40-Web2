@@ -33,7 +33,7 @@
 					{
 						echo '<p>Note : ' . $recipe['recGrade'];
 						?>
-							<div style="display: flex;">
+							<div data-toggle="modal" data-target="#ratingModal" style="display: flex;">
 								<div class="progress" style="width:160px;height:32px;">
 									<div class="bg-warning" role="progressbar" style="width:<?php echo $recipe['recGrade']*20; ?>%;">
 										<img style="width:160px;height:32px;" src="resources/image/icone/evaluation.png" alt="icone d'évaluation transparent">
@@ -60,12 +60,12 @@
 				</div>
 
 				<!-- Button trigger modal -->
-				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">
+				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#ratingModal">
 					évaluer la recette
 				</button>
 
 				<!-- Modal -->
-				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				<div class="modal fade" id="ratingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content bg-secondary">
 							<div class="modal-header">
@@ -205,7 +205,7 @@
 								echo '<h5 class="card-title">' . $rating["ratComment"] . '</h5>';
 							echo '</div>';
 
-							echo '<button type="button" class="btn btn-warning">vers le portail de l\'utilisateur</button>'; // je voulais mettre un bouton mais ça donne pas bien....
+							echo '<a class="btn btn-warning" style="width:15rem;" href="#">vers le portail de l\'utilisateur</a>'; // je voulais mettre un bouton mais ça donne pas bien....
 
 						echo '</div>';
 						$j++;
