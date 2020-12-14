@@ -17,7 +17,7 @@
 					<label for="answer">Question, remarque</label>
 					<textarea id="answer" class="form-control" name="answer"></textarea>
 				</div>
-				<button type="submit" class="btn btn-default" name="submitButton">Envoyer le formulaire</button>
+				<button type="submit" class="btn btn-success" name="submitButton">Envoyer le formulaire</button>
 			</form>
 		</div>
 	</div>
