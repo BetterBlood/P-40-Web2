@@ -12,6 +12,8 @@
 	<?php
 	// pour le tableau : "table table-striped"
 		// Affichage de chaque client
+		
+		//var_dump($_SESSION);
 		$startIndex = 0;
 		if (array_key_exists("start", $_GET))
 		{
