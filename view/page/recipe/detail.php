@@ -17,12 +17,22 @@
 
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-white">
+			<div class="pl-5" style="display:flex;">
+				Difficulté de préparation : 
+				<div class="progress ml-3 mb-3" style="width:160px;height:32px;background-color: grey;">
+					<div role="progressbar" style="width:<?php echo $recipe['recDifficulty']*20; ?>%;background-color: white;">
+						<img style="width:160px;height:32px;" src="resources/image/icone/difficulty.png" alt="icone d'évaluation transparent">
+					</div>
+				</div>
+				
+
+			</div>
 			<?php
 				$imageLink = '"resources/image/Recipes/' . htmlspecialchars($recipe['recImage']) . '"';
 				echo '<img class="d-block w-100" src=' . $imageLink . ' alt="image d\'illustration de la recette">';
 				echo '<p>Description : ' . $recipe['recDescription'] . '</p>';
 			?>
-			<img src="" alt="">
+			
 		</div>
 
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-white">
@@ -33,12 +43,16 @@
 					{
 						echo '<p>Note : ' . $recipe['recGrade'];
 						?>
-							<div data-toggle="modal" data-target="#ratingModal" style="display: flex;">
+							<div data-toggle="modal" data-target="#ratingModal" style="display:flex; width:323px; height:32px; cursor:pointer;">
 								<div class="progress" style="width:160px;height:32px;">
 									<div class="bg-warning" role="progressbar" style="width:<?php echo $recipe['recGrade']*20; ?>%;">
 										<img style="width:160px;height:32px;" src="resources/image/icone/evaluation.png" alt="icone d'évaluation transparent">
 									</div>
 								</div>
+								<!-- Button trigger modal -->
+								<button type="button" class="btn btn-success ml-3" data-toggle="modal" data-target="#ratingModal">
+									évaluer la recette
+								</button>
 							</div>
 						<?php
 						echo '</p>';
@@ -58,11 +72,6 @@
 					}
 					?>
 				</div>
-
-				<!-- Button trigger modal -->
-				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#ratingModal">
-					évaluer la recette
-				</button>
 
 				<!-- Modal -->
 				<div class="modal fade" id="ratingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -151,6 +160,12 @@
 			?>
 		</div>
 	</div>
+
+	<div class="bg-secondary badge-pill mt-5 mb-3 mx-auto " style="height:8px;width:50%;"></div>
+	<div class="bg-secondary badge-pill mt-3 mb-3 mx-auto " style="height:8px;width:40%;"></div>
+	<div class="bg-secondary badge-pill mt-3 mb-3 mx-auto " style="height:8px;width:25%;"></div>
+	<div class="bg-secondary badge-pill mt-3 mb-5 mx-auto " style="height:8px;width:10%;"></div>
+	
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-white">
 			<p>Créateur de la recette :</p>
@@ -180,32 +195,32 @@
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-white">
 			<p>Commentaires d'évaluation : </p>
 			
-			<div class="pre-scrollable" >
+			<div class="d-inline-block px-5" style="max-height:500px;overflow: auto;">
 				
-
 				<?php
 					$j = 0;
 
 					foreach($ratings as $rating)
 					{
-						echo '<div class="card text-white bg-';
+						echo '<div class="card text-white mb-3"';
+						echo ' style="max-width: 25rem;background-color:';
 						if ($j%2 != 1)
 						{
-							echo 'secondary ';
+							echo '#1A5C45;';
 						}
 						else
 						{
-							echo 'info ';
+							echo '#2C9C74';
 						}
-						echo 'mb-3" style="max-width: 25rem;">';
+						echo '">';
 
-							echo '<div class="card-header"><strong>' . $rating["usePseudo"] . '</strong> à donné la note de <strong>' . $rating["ratGrade"] . '</strong> à cette recette</div>';
-							
-							echo '<div class="card-body">';
-								echo '<h5 class="card-title">' . $rating["ratComment"] . '</h5>';
-							echo '</div>';
+						echo '<div class="card-header"><strong>' . $rating["usePseudo"] . '</strong> à donné la note de <strong>' . $rating["ratGrade"] . '</strong> à cette recette</div>';
+						
+						echo '<div class="card-body">';
+							echo '<h5 class="card-title">' . $rating["ratComment"] . '</h5>';
+						echo '</div>';
 
-							echo '<a class="btn btn-warning" style="width:15rem;" href="#">vers le portail de l\'utilisateur</a>'; // je voulais mettre un bouton mais ça donne pas bien....
+						echo '<a class="btn mx-auto mb-2" style="width:15rem;background-color:#EBA555" href="#">vers le portail de l\'utilisateur</a>'; // je voulais mettre un bouton mais ça donne pas bien....
 
 						echo '</div>';
 						$j++;
