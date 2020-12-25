@@ -134,13 +134,90 @@ class UserController extends Controller {
                     $database->insertUser($username, $firstName, $lastName, $password);
                     $_SESSION['isConnected'] = true;
                     $_SESSION['username'] = $username;
+                    $_SESSION['idUser'] = $user['idUser'];
                     header('location: index.php');
                     //TODO
                     //rediriger vers une page de confirmation/erreur
+                }
             }
         }
+    }
 
+    private function profileAction(){
+        include_once($this->databasePath);
+        $database = new Database();
 
+        $userProfile = array();
+        $view = "";
+        $selfPage = false;
+
+        if (array_key_exists("id", $_GET))
+        {
+            $userProfile = $database->getOneUserById($_GET["id"]);
+            $view = file_get_contents('view/page/restrictedPages/userPage.php');
+
+            if (array_key_exists("idUser", $_SESSION) && $_SESSION["idUser"] == $_GET["id"])
+            {
+                $selfPage = true;
+
+                if (isset($_POST) && !empty($_POST))
+                {
+                    // TODO : vérification du form ??
+                    
+                    $user = array();
+                    $user["idUser"] = $_SESSION["idUser"];
+
+                    if (array_key_exists("fileUpdate", $_POST)) // form just pour update l'image
+                    {
+                        $imgName = date("YmdHis") . "_" . $_FILES["image"]["name"]; // TODO : ne pas oublier de changer l'ancienne !!!! (si différente de celle par défaut) 
+                        move_uploaded_file($_FILES["image"]["tmp_name"], "resources/image/Users/" . $imgName);
+                        $user["useImage"] = $imgName;
+                    }
+                    else 
+                    {
+                        $user["usePseudo"] = $_POST["pseudo"];
+                        $user["useFirstname"] = $_POST["useFirstname"];
+                        $user["useName"] = $_POST["useName"];
+                        $user["usePassword"] = $_POST["usePassword"];
+                        $user["useMail"] = $_POST["useMail"];
+                        $user["useTelephone"] = $_POST["useTelephone"]; 
+                    }
+
+                    
+
+                    $database->updateUser($user);
+                }
+            }
         }
+        else if (array_key_exists("idUser", $_SESSION))
+        {
+            $userProfile = $database->getOneUserById($_SESSION["idUser"]);
+            $view = file_get_contents('view/page/restrictedPages/userPage.php');
+            $selfPage = true;
+
+            if (isset($_POST) && !empty($_POST))
+            {
+                
+            }
+        }
+        else 
+        {
+            $userProfile = null;
+            $view = file_get_contents('view/page/restrictedPages/loginRegister/loginForm.php');
+        }
+
+
+        //$view = file_get_contents('view/page/restrictedPages/userPage.php');
+
+        ob_start();
+        eval('?>' . $view);
+        $content = ob_get_clean();
+
+        return $content;
+    }
+
+    private function updateProfileAction(){
+        include_once($this->databasePath);
+        $database = new Database();
     }
 }

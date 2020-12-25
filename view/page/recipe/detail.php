@@ -179,7 +179,7 @@
 					echo '<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>';
 					if (array_key_exists("isConnected", $_SESSION) && $_SESSION["isConnected"])
 					{
-						echo '<a href="#" class="btn btn-warning">Voir l\'auteur</a>'; // TODO : lier a la page du créateur de la recette
+						echo '<a href="index.php?controller=user&action=profile&id=' . $recipeCreator["idUser"] . '" class="btn btn-warning">Voir l\'auteur</a>'; // TODO : lier a la page du créateur de la recette
 					}
 					else 
 					{
@@ -204,7 +204,7 @@
 					{
 						echo '<div class="card text-white mb-3"';
 						echo ' style="max-width: 25rem;background-color:';
-						if ($j%2 != 1)
+						if ($j%2 != 1) // altérnance de couleur
 						{
 							echo '#1A5C45;';
 						}
@@ -220,7 +220,7 @@
 							echo '<h5 class="card-title">' . $rating["ratComment"] . '</h5>';
 						echo '</div>';
 
-						echo '<a class="btn mx-auto mb-2" style="width:15rem;background-color:#EBA555" href="#">vers le portail de l\'utilisateur</a>'; // je voulais mettre un bouton mais ça donne pas bien....
+						echo '<a class="btn mx-auto mb-2" style="width:15rem;background-color:#EBA555" href="index.php?controller=user&action=profile&id=' . $rating["idUser"] . '">vers le portail de l\'utilisateur</a>'; // je voulais mettre un bouton mais ça donne pas bien....
 
 						echo '</div>';
 						$j++;
@@ -232,8 +232,8 @@
 			</div>
 		</div>
 		<div class="text-white mb-5 pb-5">
-		<a href="index.php?controller=recipe&action=list&id=<?php echo $recipe["idRecipe"]; //. '&start=';// ptetre retrouver le start index de l'image ?>">Retour à la liste des recettes</a>
-	</div>
+			<a href="index.php?controller=recipe&action=list&id=<?php echo $recipe["idRecipe"]; //. '&start=';// ptetre retrouver le start index de l'image ?>">Retour à la liste des recettes</a>
+		</div>
 	</div>
 	
 </div>

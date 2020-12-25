@@ -476,6 +476,77 @@ class Database {
         return;
     }
 
+    public function updateUser($user){
+
+        if (isset($user["useImage"]))
+        {
+            $values = array(
+                1 => array(
+                    'marker' => ':useImage',
+                    'input' => $user["useImage"],
+                    'type' => PDO::PARAM_STR
+                ),
+                2 => array(
+                    'marker' => ':id',
+                    'input' => $user["idUser"],
+                    'type' => PDO::PARAM_INT
+                )
+            );
+
+            $query = 'UPDATE t_user SET useImage = :useImage WHERE idUser = :id';
+        }
+        else
+        {
+            $values = array(
+                1 => array(
+                    'marker' => ':usePseudo',
+                    'input' => $user["usePseudo"],
+                    'type' => PDO::PARAM_STR
+                ),
+                2 => array(
+                    'marker' => ':useFirstname',
+                    'input' => $user["useFirstname"],
+                    'type' => PDO::PARAM_STR
+                ),
+                3 => array(
+                    'marker' => ':useName',
+                    'input' => $user["useName"],
+                    'type' => PDO::PARAM_STR
+                ),
+                4 => array(
+                    'marker' => ':usePassword',
+                    'input' => $user["usePassword"],
+                    'type' => PDO::PARAM_STR
+                ),
+                5 => array(
+                    'marker' => ':useMail',
+                    'input' => $user["useMail"],
+                    'type' => PDO::PARAM_STR
+                ),
+                6 => array(
+                    'marker' => ':useTelephone',
+                    'input' => $user["useTelephone"],
+                    'type' => PDO::PARAM_STR
+                ),
+                7 => array(
+                    'marker' => ':id',
+                    'input' => $user["idUser"],
+                    'type' => PDO::PARAM_INT
+                )
+            ); 
+
+            $query =   'UPDATE t_user SET 
+                    usePseudo = :usePseudo, useFirstname = :useFirstname, useName = :useName,
+                    usePassword = :usePassword, useMail = :useMail, useTelephone = :useTelephone
+                    WHERE idUser = :id';
+        }
+
+        $req = $this->queryPrepareExecute($query, $values);
+
+        $this->unsetData($req);
+    }
+    
+
  }
 
 
