@@ -18,6 +18,7 @@
                         //var_dump($_POST); // DEBUG
                     }
                 }
+                $imageProfilLink = '"resources/image/Users/' . htmlspecialchars($userProfile['useImage']) . '"';
 			}
 			else 
 			{
@@ -28,8 +29,13 @@
     </h2>
     
     <div class="text-white">
-
         <?php
+        echo '<img style="width:100px;" src=' . $imageProfilLink . ' alt="image de profile">';
+        
+        if (isset($selfPage) && $selfPage)
+        {
+
+        
         echo '<form action="index.php?controller=user&action=profile&id=' . $userProfile["idUser"] . '" method="post" enctype="multipart/form-data">';
             ?>
             <input type="text" id="fileUpdate" name="fileUpdate" style="display: none;" value="true">
@@ -43,6 +49,7 @@
         </form>
 
         <?php
+        }
             if (isset($selfPage) && $selfPage)
             {
                 echo '<form action="index.php?controller=user&action=profile&id=' . $userProfile["idUser"] . '" method="post">';
