@@ -150,6 +150,8 @@ class UserController extends Controller {
         $userProfile = array();
         $view = "";
         $selfPage = false;
+        $passwordModifFailed = false;
+        $modificationDone = false;
 
         if (array_key_exists("id", $_GET))
         {
@@ -169,23 +171,44 @@ class UserController extends Controller {
 
                     if (array_key_exists("fileUpdate", $_POST)) // form just pour update l'image
                     {
+                        // TODO : vérifier qu'il y a bien un fichier de séléctionné
                         $imgName = date("YmdHis") . "_" . $_FILES["image"]["name"]; // TODO : ne pas oublier de changer l'ancienne !!!! (si différente de celle par défaut) 
                         move_uploaded_file($_FILES["image"]["tmp_name"], "resources/image/Users/" . $imgName);
                         $user["useImage"] = $imgName;
                     }
+                    else if (array_key_exists("modifPassword", $_POST))
+                    {
+                        if (array_key_exists("usePassword", $_POST) && array_key_exists("confirmePassword", $_POST))
+                        {
+                            if ($_POST["usePassword"] === $_POST["confirmePassword"]) // TODO : ajouter des validation pour le mot de passe
+                            {
+                                $user["usePassword"] = $_POST["usePassword"];
+                            }
+                            else
+                            {
+                                $passwordModifFailed = true;
+                            }
+                        }
+                        else
+                        {
+                            $passwordModifFailed = true;
+                        }
+                    }
                     else 
                     {
+                        // TODO : faire la vérification de champ (ptetre faire une méthode, étant donné qu'on doit aussi l'utiliser pour l'inscription)
                         $user["usePseudo"] = $_POST["pseudo"];
                         $user["useFirstname"] = $_POST["useFirstname"];
                         $user["useName"] = $_POST["useName"];
-                        $user["usePassword"] = $_POST["usePassword"];
-                        $user["useMail"] = $_POST["useMail"];
-                        $user["useTelephone"] = $_POST["useTelephone"]; 
+                        $user["useMail"] = $_POST["mail"];
+                        $user["useTelephone"] = $_POST["phone"]; 
                     }
 
-                    
-
-                    $database->updateUser($user);
+                    if (!$passwordModifFailed) // TODO ajouter les autre erreur ici afin que cela ne modifie pas la database s'il y a une erreur de form
+                    {
+                        $modificationDone = true;
+                        $database->updateUser($user);
+                    }
                 }
             }
         }

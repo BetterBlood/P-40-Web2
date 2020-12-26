@@ -12,9 +12,10 @@
                 <?php
                 if(isset($_SESSION['isConnected'])){
                     if($_SESSION['isConnected'] == true){
-                        echo '<div class="logMessage" ><a href="index.php?controller=user&action=logout"><button class="logOutButton">Déconnexion</button></a>';
-                        echo '<span class="logMSG">Connecté en tant que ' . $_SESSION['username'] . '</span></div>';
-                        echo $_SESSION['username'];
+                        echo '<div class="logMessage" ><a href="index.php?controller=user&action=logout"><button class="logOutButton btn btn-danger">Déconnexion</button></a>';
+                        echo '<a class="btn btn-warning ml-2" href="index.php?controller=user&action=profile&id=' . $_SESSION["idUser"] . '">profile</a>';
+                        //echo $_SESSION['username'];
+                        echo '<br><span class="logMSG">Connecté en tant que ' . $_SESSION['username'] . '</span></div>';
                     }
                     else{
                         echo '<div class="collapse navbar-collapse" id="navbarResponsive">';
@@ -37,10 +38,9 @@
                     echo 'Register</a></li></ul></div>';
                 }
                 ?>
+                
             </div>
         </nav>
         
     </div>
-    <br>
-    <br>
-    <h3 class="text-muted">Menu de votre choix</h3>
+    <h3 class="text-muted pt-5">Menu de votre choix</h3>

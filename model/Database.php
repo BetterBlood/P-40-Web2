@@ -495,6 +495,23 @@ class Database {
 
             $query = 'UPDATE t_user SET useImage = :useImage WHERE idUser = :id';
         }
+        else if (isset($user["usePassword"]))
+        {
+            $values = array(
+                1 => array(
+                    'marker' => ':usePassword',
+                    'input' => $user["usePassword"],
+                    'type' => PDO::PARAM_STR
+                ),
+                2 => array(
+                    'marker' => ':id',
+                    'input' => $user["idUser"],
+                    'type' => PDO::PARAM_INT
+                )
+            );
+
+            $query = 'UPDATE t_user SET usePassword = :usePassword WHERE idUser = :id';
+        }
         else
         {
             $values = array(
@@ -514,21 +531,16 @@ class Database {
                     'type' => PDO::PARAM_STR
                 ),
                 4 => array(
-                    'marker' => ':usePassword',
-                    'input' => $user["usePassword"],
-                    'type' => PDO::PARAM_STR
-                ),
-                5 => array(
                     'marker' => ':useMail',
                     'input' => $user["useMail"],
                     'type' => PDO::PARAM_STR
                 ),
-                6 => array(
+                5 => array(
                     'marker' => ':useTelephone',
                     'input' => $user["useTelephone"],
                     'type' => PDO::PARAM_STR
                 ),
-                7 => array(
+                6 => array(
                     'marker' => ':id',
                     'input' => $user["idUser"],
                     'type' => PDO::PARAM_INT
@@ -536,9 +548,8 @@ class Database {
             ); 
 
             $query =   'UPDATE t_user SET 
-                    usePseudo = :usePseudo, useFirstname = :useFirstname, useName = :useName,
-                    usePassword = :usePassword, useMail = :useMail, useTelephone = :useTelephone
-                    WHERE idUser = :id';
+                        usePseudo = :usePseudo, useFirstname = :useFirstname, useName = :useName, useMail = :useMail, useTelephone = :useTelephone
+                        WHERE idUser = :id';
         }
 
         $req = $this->queryPrepareExecute($query, $values);
