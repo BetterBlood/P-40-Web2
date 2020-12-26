@@ -15,7 +15,27 @@ class HomeController extends Controller {
      */
     public function display() {
 
-        $action = $_GET['action'] . "Action";
+        $action = "indexAction";
+
+        if (!array_key_exists("action", $_GET))
+        {
+            $action = "indexAction";
+        }
+        else 
+        {
+            switch($_GET["action"])
+            {
+                case "index":
+                case "contact":
+                case "check":
+                    $action = $_GET["action"] . "Action";
+                    break;
+
+                default:
+                    $action = "indexAction";
+                    break;
+            }
+        }
 
         return call_user_func(array($this, $action));
     }

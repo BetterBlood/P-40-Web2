@@ -32,6 +32,10 @@ class MainController {
             $_GET['controller'] = 'home';
             $_GET['action'] = 'index';
         }
+        else if (!isset($_GET['action']))
+        {
+            $_GET['action'] = 'index';
+        }
 
         $currentLink = $this->menuSelected($_GET['controller']);
         $this->viewBuild($currentLink);
@@ -49,15 +53,19 @@ class MainController {
             case 'home':
                 $link = new HomeController();
                 break;
+
             case 'recipe':
                 $link = new RecipeController();
                 break;
+
             case 'user':
                 $link = new UserController();
                 break;
+
             case 'profile':
                 $link = new ProfileController();
                 break;
+
             default:
                 $link = new HomeController();
                 break;
