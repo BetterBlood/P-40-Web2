@@ -35,7 +35,6 @@
         if (isset($selfPage) && $selfPage)
         {
 
-        
         echo '<form action="index.php?controller=user&action=profile&idUser=' . $userProfile["idUser"] . '" method="post" enctype="multipart/form-data">';
             ?>
             <input type="text" id="fileUpdate" name="fileUpdate" style="display: none;" value="true">
@@ -44,6 +43,12 @@
                     <label for="image">Fichier à télécharger</label>
                     <input type="file" name="image" id="image" />
                     <input class="btn btn-primary mb-2" type="submit" value="Modifier" />
+                    <?php
+                    if (isset($imageEmpty) && $imageEmpty)
+                    {
+                        echo 'l\'image séléctionnée n\'est pas valide';
+                    }
+                    ?>
                 </p>
             </div>
         </form>

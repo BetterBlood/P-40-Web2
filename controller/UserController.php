@@ -150,8 +150,12 @@ class UserController extends Controller {
         $userProfile = array();
         $view = "";
         $selfPage = false;
-        $passwordModifFailed = false;
         $modificationDone = false;
+
+        // errors
+        $passwordModifFailed = false;
+        $imageEmpty = false;
+        
 
         if (array_key_exists("idUser", $_GET) && $database->userExist($_GET["idUser"]))
         {
@@ -173,9 +177,17 @@ class UserController extends Controller {
                     if (array_key_exists("fileUpdate", $_POST)) // form just pour update l'image
                     {
                         // TODO : vérifier qu'il y a bien un fichier de séléctionné
-                        $imgName = date("YmdHis") . "_" . $_FILES["image"]["name"]; // TODO : ne pas oublier de changer l'ancienne !!!! (si différente de celle par défaut) 
-                        move_uploaded_file($_FILES["image"]["tmp_name"], "resources/image/Users/" . $imgName);
-                        $user["useImage"] = $imgName;
+                        if(!empty($_FILES["image"]["name"]))
+                        {
+                            $imgName = date("YmdHis") . "_" . $_FILES["image"]["name"]; // TODO : ne pas oublier de changer l'ancienne !!!! (si différente de celle par défaut) 
+                            move_uploaded_file($_FILES["image"]["tmp_name"], "resources/image/Users/" . $imgName);
+                            $user["useImage"] = $imgName;
+                        }
+                        else 
+                        {
+                            $imageEmpty = true;
+                        }
+                        
                     }
                     else if (array_key_exists("modifPassword", $_POST))
                     {
@@ -205,7 +217,7 @@ class UserController extends Controller {
                         $user["useTelephone"] = $_POST["phone"]; 
                     }
 
-                    if (!$passwordModifFailed) // TODO ajouter les autre erreur ici afin que cela ne modifie pas la database s'il y a une erreur de form
+                    if (!$passwordModifFailed && !$imageEmpty) // TODO ajouter les autre erreur ici afin que cela ne modifie pas la database s'il y a une erreur de form
                     {
                         $modificationDone = true;
                         $database->updateUser($user);
