@@ -203,7 +203,7 @@
         ?>
     </div>
 
-    <h2>Liste des Recettes</h2>
+    <h2>Liste des Recettes de l'utilisateur</h2>
     <div class="row">
         <table class="table table-striped table-dark">
         <tr>

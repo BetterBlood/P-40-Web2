@@ -22,6 +22,41 @@ class RecipeController extends Controller {
 
         $action = $_GET['action'] . "Action";
 
+        $action = "listAction";
+
+        include_once($this->databasePath);
+        $database = new Database();
+
+        if (!array_key_exists("action", $_GET))
+        {
+            $action = "listAction";
+        }
+        else 
+        {
+            switch($_GET["action"])
+            {
+                case "list":
+                case "rate":
+                    $action = $_GET["action"] . "Action";
+                    break;
+                    
+                case "detail":
+                    if (array_key_exists("id", $_GET) && $database->RecipeExist($_GET["id"]))
+                    {
+                        $action = $_GET["action"] . "Action";
+                    }
+                    else
+                    {
+                        $action = "listAction";
+                    }
+                    break;
+
+                default:
+                    $action = "listAction";
+                    break;
+            }
+        }
+
         // Appelle une méthode dans cette classe (ici, ce sera le nom + action (ex: listAction, detailAction, ...))
         return call_user_func(array($this, $action)); // permet d'appeler listAction() (ligne 31)
     }
@@ -154,12 +189,9 @@ class RecipeController extends Controller {
         include_once($this->databasePath);
         $database = new Database();
 
-        // TODO : system de notation, gérer la modification de la note etc etc 
-
         $recipe = $database->getOneRecipe($_GET['id']);
         $recipeCreator = $database->getOneUserById($recipe["idUser"]);
 
-        // TODO : getAllRatings()
         $ratings = $database->getAllRatingsForThisRecipe($recipe["idRecipe"]);
 
         $alreadyRate = false;

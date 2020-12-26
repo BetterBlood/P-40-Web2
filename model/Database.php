@@ -112,6 +112,23 @@ class Database {
         return $recipes[0]['Count(idRecipe)'];
     }
 
+    public function RecipeExist($idRecipe)
+    {
+        $req = $this->queryPrepareExecute('SELECT * FROM t_recipe', null);// appeler la méthode pour executer la requète
+
+        $recipes = $this->formatData($req);// appeler la méthode pour avoir le résultat sous forme de tableau
+
+        foreach($recipes as $recipe)
+        {
+            if ($recipe["idRecipe"] == $idRecipe)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * récupère tous les recettes de la database
      *
