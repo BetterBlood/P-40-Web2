@@ -179,7 +179,7 @@
 					echo '<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>';
 					if (array_key_exists("isConnected", $_SESSION) && $_SESSION["isConnected"])
 					{
-						echo '<a href="index.php?controller=user&action=profile&id=' . $recipeCreator["idUser"] . '" class="btn btn-warning">Voir l\'auteur</a>'; // TODO : lier a la page du créateur de la recette
+						echo '<a href="index.php?controller=user&action=profile&idUser=' . $recipeCreator["idUser"] . '" class="btn btn-warning">Voir l\'auteur</a>'; // TODO : lier a la page du créateur de la recette
 					}
 					else 
 					{
@@ -220,7 +220,7 @@
 							echo '<h5 class="card-title">' . $rating["ratComment"] . '</h5>';
 						echo '</div>';
 
-						echo '<a class="btn mx-auto mb-2" style="width:15rem;background-color:#EBA555" href="index.php?controller=user&action=profile&id=' . $rating["idUser"] . '">vers le portail de l\'utilisateur</a>'; // je voulais mettre un bouton mais ça donne pas bien....
+						echo '<a class="btn mx-auto mb-2" style="width:15rem;background-color:#EBA555" href="index.php?controller=user&action=profile&idUser=' . $rating["idUser"] . '">vers le portail de l\'utilisateur</a>'; // je voulais mettre un bouton mais ça donne pas bien....
 
 						echo '</div>';
 						$j++;

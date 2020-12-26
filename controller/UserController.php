@@ -104,7 +104,7 @@ class UserController extends Controller {
 
         $error = false;
         //Vérification de l'existence des champs
-        if(key_exists("username", $_POST) && key_exists("firstName", $_POST) && key_exists("lastName", $_POST) && key_exists("password1", $_POST) && key_exists("password1", $_POST)){
+        if(key_exists("username", $_POST) && key_exists("firstName", $_POST) && key_exists("lastName", $_POST) && key_exists("password1", $_POST) && key_exists("password2", $_POST)){
             //Vérification des champs
             if ((htmlspecialchars($_POST['username']) == "" || !preg_match('/^[A-Za-z\d]*(-[A-Za-z\d]*)*$/',htmlspecialchars($_POST['username']))))
             {
@@ -153,12 +153,13 @@ class UserController extends Controller {
         $passwordModifFailed = false;
         $modificationDone = false;
 
-        if (array_key_exists("id", $_GET))
+        if (array_key_exists("idUser", $_GET) && $database->userExist($_GET["idUser"]))
         {
-            $userProfile = $database->getOneUserById($_GET["id"]);
+            $recipes = $database->getRecipesByUserId($_GET["idUser"]);
+            $userProfile = $database->getOneUserById($_GET["idUser"]);
             $view = file_get_contents('view/page/restrictedPages/userPage.php');
 
-            if (array_key_exists("idUser", $_SESSION) && $_SESSION["idUser"] == $_GET["id"])
+            if (array_key_exists("idUser", $_SESSION) && $_SESSION["idUser"] == $_GET["idUser"])
             {
                 $selfPage = true;
 

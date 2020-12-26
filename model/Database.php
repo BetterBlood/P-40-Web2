@@ -206,6 +206,17 @@ class Database {
         // TODO : remplir
     }
 
+    public function getRecipesByUserId($userId)
+    {
+        $req = $this->queryPrepareExecute('SELECT * FROM t_recipe WHERE idUser = '. $userId , null);// appeler la méthode pour executer la requète
+
+        $recipes = $this->formatData($req);// appeler la méthode pour avoir le résultat sous forme de tableau
+
+        $this->unsetData($req);
+
+        return $recipes;// retour tous les recettes
+    }
+
     public function editRecipe($recipe)
     {
         $values = array(
@@ -474,6 +485,29 @@ class Database {
         $this->unsetData($req);
 
         return;
+    }
+
+    /**
+     * vérifie dans la database si l'id utilisateur existe
+     *
+     * @param int $idUser
+     * @return void
+     */
+    public function userExist($idUser)
+    {
+        $req = $this->queryPrepareExecute('SELECT * FROM t_user', null);// appeler la méthode pour executer la requète
+
+        $users = $this->formatData($req);// appeler la méthode pour avoir le résultat sous forme de tableau
+
+        foreach($users as $user)
+        {
+            if ($user["idUser"] == $idUser)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function updateUser($user){
