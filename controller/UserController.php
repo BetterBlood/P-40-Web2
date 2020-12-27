@@ -176,10 +176,9 @@ class UserController extends Controller {
 
                     if (array_key_exists("fileUpdate", $_POST)) // form just pour update l'image
                     {
-                        // TODO : vérifier qu'il y a bien un fichier de séléctionné
-                        if(!empty($_FILES["image"]["name"]))
+                        if(!empty($_FILES["image"]["name"])) // vérifie qu'il y a bien un fichier de séléctionné // TODO : vérifier le type de fichier
                         {
-                            $imgName = date("YmdHis") . "_" . $_FILES["image"]["name"]; // TODO : ne pas oublier de changer l'ancienne !!!! (si différente de celle par défaut) 
+                            $imgName = date("YmdHis") . "_" . $_FILES["image"]["name"]; // TODO : ne pas oublier de supprimer l'ancienne !!!! (si différente de celle par défaut) 
                             move_uploaded_file($_FILES["image"]["tmp_name"], "resources/image/Users/" . $imgName);
                             $user["useImage"] = $imgName;
                         }
@@ -209,7 +208,7 @@ class UserController extends Controller {
                     }
                     else 
                     {
-                        // TODO : faire la vérification de champ (ptetre faire une méthode, étant donné qu'on doit aussi l'utiliser pour l'inscription)
+                        // TODO : faire la vérification de champ (ptetre faire une méthode, étant donné que l'on doit aussi l'utiliser pour l'inscription)
                         $user["usePseudo"] = $_POST["pseudo"];
                         $user["useFirstname"] = $_POST["useFirstname"];
                         $user["useName"] = $_POST["useName"];

@@ -208,7 +208,23 @@
         ?>
     </div>
 
-    <h2>Liste des Recettes de l'utilisateur</h2>
+    <div class="d-flex">
+        <div>
+            <h2>Liste des Recettes de l'utilisateur</h2>
+        </div>
+        
+        <div class="ml-auto mb-2">
+            <?php
+                if(isset($_SESSION['isConnected']) && $_SESSION["isConnected"]) // TODO ajouter le lien vers le formulaire
+                {
+                    ?>
+                        <a class="btn btn-success" href="">ajouter une recette</a>
+                    <?php
+                }
+            ?>
+        </div>
+    </div>
+
     <div class="row">
         <table class="table table-striped table-dark">
         <tr>
