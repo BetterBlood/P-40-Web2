@@ -5,10 +5,10 @@
 	
 	<div class="ml-auto mb-2">
 		<?php
-			if(isset($_SESSION['isConnected']) && $_SESSION["isConnected"]) // TODO ajouter le lien vers le formulaire
+			if(isset($_SESSION['isConnected']) && $_SESSION["isConnected"])
 			{
 				?>
-					<a class="btn btn-success " href="">ajouter une recette</a>
+					<a class="btn btn-success" href="index.php?controller=recipe&action=addRecipe">ajouter une recette</a>
 				<?php
 			}
 		?>
@@ -188,7 +188,7 @@
 	</table>
 
 	<!-- cette div contient la pagination des recettes-->
-	<div class="justify-content-right numPage" aria-label="Page navigation" id="numPage"> 
+	<div class="justify-content-right numPage" id="numPage"> 
 		<ul class="pagination justify-content-center">
 			<li class="page-item">
 			<a class="page-link" href="index.php?controller=recipe&action=list&start=0" aria-label="Previous">

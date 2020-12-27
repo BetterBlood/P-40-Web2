@@ -41,7 +41,19 @@ class RecipeController extends Controller {
                     break;
                     
                 case "detail":
-                    if (array_key_exists("id", $_GET) && $database->RecipeExist($_GET["id"]))
+                    if (array_key_exists("id", $_GET) && $database->RecipeExist($_GET["id"]) && array_key_exists("isConnected", $_SESSION) && $_SESSION["isConnected"])
+                    {
+                        $action = $_GET["action"] . "Action";
+                    }
+                    else
+                    {
+                        $action = "listAction";
+                    }
+                    break;
+
+                case "addRecipe":
+                case "editRecipe":
+                    if (array_key_exists("isConnected", $_SESSION) && $_SESSION["isConnected"])
                     {
                         $action = $_GET["action"] . "Action";
                     }
@@ -208,6 +220,34 @@ class RecipeController extends Controller {
         }
 
         $view = file_get_contents('view/page/recipe/detail.php');
+
+        ob_start();
+        eval('?>' . $view);
+        $content = ob_get_clean();
+
+        return $content;
+    }
+
+    private function addRecipeAction()
+    {
+        include_once($this->databasePath);
+        $database = new Database();
+
+        $view = file_get_contents('view/page/restrictedPages/manageRecipe/addRecipe.php');
+
+        ob_start();
+        eval('?>' . $view);
+        $content = ob_get_clean();
+
+        return $content;
+    }
+
+    private function editRecipeAction()
+    {
+        include_once($this->databasePath);
+        $database = new Database();
+
+        $view = file_get_contents('view/page/restrictedPages/manageRecipe/editRecipe.php');
 
         ob_start();
         eval('?>' . $view);

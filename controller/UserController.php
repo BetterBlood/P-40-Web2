@@ -178,7 +178,7 @@ class UserController extends Controller {
                     {
                         if(!empty($_FILES["image"]["name"])) // vérifie qu'il y a bien un fichier de séléctionné // TODO : vérifier le type de fichier
                         {
-                            $imgName = date("YmdHis") . "_" . $_FILES["image"]["name"]; // TODO : ne pas oublier de supprimer l'ancienne !!!! (si différente de celle par défaut) 
+                            $imgName = date("YmdHis") . "_" . $_FILES["image"]["name"]; // TODO : ne pas oublier de supprimer l'ancienne image !!!! (si différente de celle par défaut) 
                             move_uploaded_file($_FILES["image"]["tmp_name"], "resources/image/Users/" . $imgName);
                             $user["useImage"] = $imgName;
                         }
@@ -188,7 +188,7 @@ class UserController extends Controller {
                         }
                         
                     }
-                    else if (array_key_exists("modifPassword", $_POST))
+                    else if (array_key_exists("modifPasswordForm", $_POST))
                     {
                         if (array_key_exists("usePassword", $_POST) && array_key_exists("confirmePassword", $_POST))
                         {
@@ -249,10 +249,5 @@ class UserController extends Controller {
         $content = ob_get_clean();
 
         return $content;
-    }
-
-    private function updateProfileAction(){
-        include_once($this->databasePath);
-        $database = new Database();
     }
 }

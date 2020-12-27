@@ -6,18 +6,6 @@
 			if (array_key_exists("isConnected", $_SESSION) && $_SESSION["isConnected"] && array_key_exists("usePseudo", $userProfile))
 			{
                 echo 'Page de profile de : ' . $userProfile['usePseudo'];
-
-                if (isset($selfPage) && $selfPage) 
-                {
-                    echo '<p>DEBUG accès en modification ! </p>'; // DEBUG
-
-                    if (isset($modificationDone) && $modificationDone)
-                    {
-                        echo '<p>modifications efféctuées </p>'; // DEBUG
-                        //sleep (3); // mmmm bof ptetre faire une page à part si on veut que cela s'affiche qu'une foi
-                        //var_dump($_POST); // DEBUG
-                    }
-                }
                 $imageProfilLink = '"resources/image/Users/' . htmlspecialchars($userProfile['useImage']) . '"';
 			}
 			else 
@@ -27,6 +15,21 @@
 			
 		?>
     </h2>
+
+    <?php
+        if (array_key_exists("isConnected", $_SESSION) && $_SESSION["isConnected"] && array_key_exists("usePseudo", $userProfile) && isset($selfPage) && $selfPage) 
+        {
+            echo '<p class="text-white">DEBUG accès en modification ! </p>'; // DEBUG
+
+            if (isset($modificationDone) && $modificationDone)
+            {
+                echo '<p class="text-white">modifications efféctuées </p>'; // DEBUG
+                //sleep (3); // mmmm bof ptetre faire une page à part si on veut que cela s'affiche qu'une foi
+                //var_dump($_POST); // DEBUG
+            }
+        }
+        
+    ?>
     
     <div class="text-white">
         <?php
@@ -65,7 +68,7 @@
             }
         ?>
             <!-- Modal -->
-        <div class="modal fade" id="modifPassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="modifPassword" tabindex="-1" role="dialog" aria-labelledby="modifPasswordForm" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content bg-secondary">
                     <div class="modal-header">
@@ -80,7 +83,7 @@
 
                         echo '<form action="index.php?controller=user&action=profile&idUser=' . $userProfile["idUser"] . '" method="POST">';
                         ?>
-                        <input type="text" id="modifPassword" name="modifPassword" style="display: none;" value="true">
+                        <input type="text" id="modifPasswordForm" name="modifPasswordForm" style="display: none;" value="true">
                         <div class="modal-body">
                             
                             <div class="form-group col-md-4 mb-3 pt-n2 pb-n2">
@@ -215,10 +218,10 @@
         
         <div class="ml-auto mb-2">
             <?php
-                if(isset($_SESSION['isConnected']) && $_SESSION["isConnected"]) // TODO ajouter le lien vers le formulaire
+                if(isset($_SESSION['isConnected']) && $_SESSION["isConnected"] && isset($selfPage) && $selfPage) // TODO : ajouter le lien vers le formulaire
                 {
                     ?>
-                        <a class="btn btn-success" href="">ajouter une recette</a>
+                        <a class="btn btn-success" href="index.php?controller=recipe&action=addRecipe">ajouter une recette</a>
                     <?php
                 }
             ?>
@@ -265,11 +268,22 @@
 
                     if (array_key_exists("id", $_GET) && $_GET["id"] == $recipe["idRecipe"]) // affiche/masque les détail d'une recette
                     {
-                        echo '<td><a href="index.php?controller=user&action=profile&idUser=' . $recipe["idUser"] . '&start=' . $startIndex . '"><img src="resources/image/icone/iconLoupe.png" alt="loupe" style="transform: scaleX(-1)";></a></td>';
+                        echo '<td><a href="index.php?controller=user&action=profile&idUser=' . $recipe["idUser"] . '&start=' . $startIndex . '"><img src="resources/image/icone/iconLoupe.png" alt="loupe" style="transform: scaleX(-1)";></a>';
+                        if (isset($selfPage) && $selfPage)
+                        {
+                            echo '<a href="index.php?controller=recipe&action=editRecipe&id=' . htmlspecialchars($recipe['idRecipe']) . '"><img src="resources/image/icone/iconPencil.png" alt="crayon"</a>';
+                        }
+                        echo '</td>';
+                    
                     }
                     else 
                     {
-                        echo '<td><a href="index.php?controller=user&action=profile&idUser=' . $recipe["idUser"] . '&id=' . htmlspecialchars($recipe['idRecipe']) . '&start=' . $startIndex . '"><img src="resources/image/icone/iconLoupe.png" alt="loupe"></a></td>';
+                        echo '<td><a href="index.php?controller=user&action=profile&idUser=' . $recipe["idUser"] . '&id=' . htmlspecialchars($recipe['idRecipe']) . '&start=' . $startIndex . '"><img src="resources/image/icone/iconLoupe.png" alt="loupe"></a>';
+                        if (isset($selfPage) && $selfPage)
+                        {
+                            echo '<a href="index.php?controller=recipe&action=editRecipe&id=' . htmlspecialchars($recipe['idRecipe']) . '"><img src="resources/image/icone/iconPencil.png" alt="crayon"></a>';
+                        }
+                        echo '</td>';
                     }
 
                 echo '</tr>';

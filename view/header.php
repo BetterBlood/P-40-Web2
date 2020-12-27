@@ -12,7 +12,7 @@
                 <?php
                 if(isset($_SESSION['isConnected'])){
                     if($_SESSION['isConnected'] == true){
-                        echo '<div class="logMessage" ><a href="index.php?controller=user&action=logout"><button class="logOutButton btn btn-danger">Déconnexion</button></a>';
+                        echo '<div class="logMessage" ><a class="logOutButton btn btn-danger" href="index.php?controller=user&action=logout">Déconnexion</a>';
                         echo '<a class="btn btn-warning ml-2" href="index.php?controller=user&action=profile&idUser=' . $_SESSION["idUser"] . '">profile</a>';
                         //echo $_SESSION['username'];
                         echo '<br><span class="logMSG">Connecté en tant que ' . $_SESSION['username'] . '</span></div>';

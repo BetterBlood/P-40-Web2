@@ -1,7 +1,17 @@
 <?php
-  // ici on va afficher un préaffichage de la recette pour validation par l'utilisateur
-
-
-
-  // je pense qu'on ne va pas faire cette page ou bien qu'on va la mettre sur la même page que addingRecipe1.php
+    if (!array_key_exists("isConnected", $_SESSION) || !$_SESSION["isConnected"])
+    {
+        header("Location: index.php?controller=user&action=loginForm");
+    }
 ?>
+
+<div class="text-white">
+    <h2>Page de modification de recette</h2>
+
+    <form action="index.php?controller=recipe&action=editRecipe" method="post">
+
+
+
+    </form>
+
+</div>
