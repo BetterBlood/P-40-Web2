@@ -70,7 +70,7 @@ class RecipeController extends Controller {
         }
 
         // Appelle une méthode dans cette classe (ici, ce sera le nom + action (ex: listAction, detailAction, ...))
-        return call_user_func(array($this, $action)); // permet d'appeler listAction() (ligne 31)
+        return call_user_func(array($this, $action));
     }
 
     /**
@@ -232,6 +232,13 @@ class RecipeController extends Controller {
     {
         include_once($this->databasePath);
         $database = new Database();
+        
+        $firstPart = true;
+
+        if (isset($_POST["recipeCreation1"]))
+        {
+            $firstPart = false;
+        }
 
         $view = file_get_contents('view/page/restrictedPages/manageRecipe/addRecipe.php');
 
@@ -277,6 +284,14 @@ class RecipeController extends Controller {
         }
     }
 
+    /**
+     * permet de rendre l'index de départ rond par rapport au nombre de page et au nombre de recette par page <etc class=""></etc>
+     *
+     * @param int $startIndex 
+     * @param [type] $database
+     * @param int $lengthRecipe
+     * @return void
+     */
     private function normalizeStartIndex(&$startIndex, $database, $lengthRecipe)
     {
         $recipeNumber = $database->CountRecipes();

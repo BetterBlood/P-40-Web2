@@ -221,6 +221,7 @@ class Database {
     public function insertRecipe($recipe){
 
         // TODO : remplir
+        //SELECT DATE_FORMAT(now(), "%Y-%m-%d-%H-%i-%s") // pour la date !!!
     }
 
     public function getRecipesByUserId($userId)

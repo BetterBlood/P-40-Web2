@@ -218,7 +218,7 @@
         
         <div class="ml-auto mb-2">
             <?php
-                if(isset($_SESSION['isConnected']) && $_SESSION["isConnected"] && isset($selfPage) && $selfPage) // TODO : ajouter le lien vers le formulaire
+                if(isset($_SESSION['isConnected']) && $_SESSION["isConnected"] && isset($selfPage) && $selfPage)
                 {
                     ?>
                         <a class="btn btn-success" href="index.php?controller=recipe&action=addRecipe">ajouter une recette</a>
