@@ -19,6 +19,7 @@
         $recipe["recDescription"] = "";
         $recipe["recIngredientList"] = "";
         $recipe["recPreparation"] = "";
+        $recipe["idUser"] = "";
     }
 
     if (isset($firstPart) && $firstPart)
@@ -81,10 +82,11 @@
 
 <div class="text-white">
     <h2>Page d'ajout de recette : partie 2</h2>
-    <form action="">
+    <form action="index.php?controller=recipe&action=addRecipe" method="post">
+        <input type="text" id="recipeCreation2" name="recipeCreation2" style="display: none;" value="true">
         
         <div class="form-row mt-2">
-            <input type="text" id="numberOfIngredients" value="1" style="display: none;">
+            <input type="text" id="numberOfIngredients" name="numberOfIngredients" value="1" style="display: none;">
             
             <div class="col-md-5 mb-3 pt-n2 pb-n2 pl-2">
                 
@@ -102,21 +104,28 @@
 
             </div>
 
-            <input type="text" id="numberOfstep" value="1" style="display: none;">
+            <input type="text" id="numberOfstep" name="numberOfstep" value="1" style="display: none;">
 
             <div class="col-md-7 mb-3 pt-n2 pb-n2 pl-2">
 
                 <label>Étape de préparation</label>
                 <input class="btn btn-info mb-2 ml-5" type="button" value="ajouter une étape" onclick="addStep();"> 
+                <input class="btn btn-danger mb-2 ml-2" type="button" value="deleteLast" onclick="deleteLastStep();">
 
                 <div id="preparationStep">
                     <div class="form-row">
                         <?php
                             echo '<label class="mt-1" >1 -</label>';
-                            echo '<input type="text" class="form-control col-md-9 mb-3 mr-auto pt-n2 pb-n2" name="step1" placeholder="couper les cornichons en fines lamelles">';
+                            echo '<input type="text" class="form-control col-md-9 mb-3 mr-auto pt-n2 pb-n2 ml-1" name="step1" placeholder="couper les cornichons en fines lamelles">';
                         ?>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="d-flex">
+            <div class="mx-auto mt-3 mb-3">
+                <input class="btn btn-primary" type="submit" value="valider cette étape">
             </div>
         </div>
     </form>  

@@ -177,6 +177,10 @@ class RecipeController extends Controller {
 
             $recipe["recGrade"] = (float)($totGrades/count($ratings));
         }
+        else
+        {
+            $recipe["recGrade"] = null;
+        }
 
         // l'inscrir dans la table de recette
         $database->editRecipe($recipe);
@@ -235,12 +239,107 @@ class RecipeController extends Controller {
         
         $firstPart = true;
 
-        if (isset($_POST["recipeCreation1"]))
+        if (isset($_POST["recipeCreation1"])) // TODO : ajouter la vérification des champs
         {
             $firstPart = false;
+            $_SESSION["recipe"] = array();
+            $_SESSION["recipe"]["recName"] = $_POST["recName"];
+            $_SESSION["recipe"]["recPrepTime"] = $_POST["recPrepTime"];
+            $_SESSION["recipe"]["recDifficulty"] = $_POST["recDifficulty"];
+            $_SESSION["recipe"]["recDescription"] = $_POST["recDescription"];
+            // TODO : ajouter les champs du post a la recette
         }
 
-        $view = file_get_contents('view/page/restrictedPages/manageRecipe/addRecipe.php');
+        if (isset($_POST["recipeCreation2"])) // TODO : ajouter la vérification des champs
+        {
+            $recipe = array();
+
+            $recipe["idUser"] = $_SESSION["idUser"];
+            $recipe["recName"] = $_SESSION["recipe"]["recName"];
+            $recipe["recPrepTime"] = (int)$_SESSION["recipe"]["recPrepTime"];
+            $recipe["recDifficulty"] = (int)$_SESSION["recipe"]["recDifficulty"];
+            $recipe["recDescription"] = $_SESSION["recipe"]["recDescription"];
+
+            $ingredients = "";
+
+            if (isset($_POST["numberOfIngredients"]))
+            {
+                $numberOfIngredients = $_POST["numberOfIngredients"];
+
+                for ($i = 0; $i < $numberOfIngredients; $i++)
+                {
+                    if (isset($_POST["nbrIngredient" . ($i + 1)]) && isset($_POST["ingredient" . ($i + 1)]))
+                    {
+                        $ingredients .= $_POST["nbrIngredient" . ($i + 1)] . ' x ';
+                    }
+                    else
+                    {
+                        continue;
+                    }
+
+                    if (isset($_POST["ingredient" . ($i + 1)]))
+                    {
+                        $ingredients .= $_POST["ingredient" . ($i + 1)];
+
+                        if ($i != $numberOfIngredients - 1)
+                        {
+                            $ingredients .= ',';
+                        }
+                    }
+                }
+            }
+            
+            $recipe["recIngredientList"] = $ingredients;
+
+
+            $preparationStep = "";
+
+            if (isset($_POST["numberOfstep"]))
+            {
+                $numberOfstep = $_POST["numberOfstep"];
+
+                for ($i = 0; $i < $numberOfstep; $i++)
+                {
+
+                    if (isset($_POST["step" . ($i + 1)]))
+                    {
+                        $preparationStep .= $_POST["step" . ($i + 1)];
+
+                        if ($i != $numberOfstep - 1)
+                        {
+                            $preparationStep .= ',';
+                        }
+                    }
+                }
+            }
+            
+            $recipe["recPreparation"] = $preparationStep;
+            
+            $date = $database->getDate();
+            $recipe["recDate"] = $date["currentTime"];
+            
+            $nextId = $database->getNextRecipeId(); // récupération du prochain id
+            
+
+            $database->insertRecipe($recipe); // insertion de la recette dans la base de donnée
+
+            if ($database->RecipeExist($nextId)) // peut-être si deux personne le font en même temps il peut y avoir un bug
+            {
+                $recipe = $database->getOneRecipe($nextId);//get la recette pour la page edit (ou l'on peut ajouter une image)
+            }
+            else
+            {
+                // TODO : erreur lors de l'insertion, voir quoi faire
+                // ptetre rediriger vers la page de l'utilisateur
+            }
+            
+            $view = file_get_contents('view/page/restrictedPages/manageRecipe/editRecipe.php');
+        }
+        else
+        {
+            $view = file_get_contents('view/page/restrictedPages/manageRecipe/addRecipe.php');
+        }
+        
 
         ob_start();
         eval('?>' . $view);

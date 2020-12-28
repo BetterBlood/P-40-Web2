@@ -2,7 +2,7 @@
     
     <div class="mastHead">
         
-        <nav class="navbar navbar-expand-lg fixed-top bg-dark" id="mainNav">
+        <nav class="navbar navbar-expand-lg fixed-top" id="mainNav"> <!-- TODO : remettre : bg-dark -->
             
             <div class="container">
                 

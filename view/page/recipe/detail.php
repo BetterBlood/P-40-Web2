@@ -66,6 +66,9 @@
 										<img style="width:160px;height:32px;" src="resources/image/icone/evaluation.png" alt="icone d'évaluation transparent">
 									</div>
 								</div>
+								<button type="button" class="btn btn-success ml-3" data-toggle="modal" data-target="#ratingModal">
+									évaluer la recette
+								</button>
 							</div>
 						<?php
 						echo '<p>Note : Il n\'y a aucune note disponible pour le moment</p>'; 
