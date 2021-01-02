@@ -277,9 +277,9 @@
                         echo '</td>';
 
                         echo '<td class="icon-column bg-warning">';
-                        if (isset($selfPage) && $selfPage) // TODO : modifier en icone de suppression
+                        if (isset($selfPage) && $selfPage)
                         {
-                            echo '<a href="index.php?controller=recipe&action=editRecipe&id=' . htmlspecialchars($recipe['idRecipe']) . '"><div class="bg-iconPencil"></div></a>'; // TODO : modifier en icone de suppression
+                            echo '<a onclick="return confirm(\'Voulez-vous vraiment supprimer définitivement cette recette ?\')" href="index.php?controller=recipe&action=editRecipe&id=' . htmlspecialchars($recipe['idRecipe']) . '"><div class="bg-iconTrash"></div></a>'; // TODO : modifier le lien pour la suppression
                         }
                         echo '</td>';
                     
@@ -295,9 +295,9 @@
                         echo '</td>';
 
                         echo '<td class="icon-column bg-warning">';
-                        if (isset($selfPage) && $selfPage) // TODO : modifier en icone de suppression
+                        if (isset($selfPage) && $selfPage)
                         {
-                            echo '<a href="index.php?controller=recipe&action=editRecipe&id=' . htmlspecialchars($recipe['idRecipe']) . '"><div class="bg-iconPencil"></div></a>'; // TODO : modifier en icone de suppression
+                            echo '<a onclick="return confirm(\'Voulez-vous vraiment supprimer définitivement cette recette ?\')" href="index.php?controller=recipe&action=editRecipe&id=' . htmlspecialchars($recipe['idRecipe']) . '"><div class="bg-iconTrash"></div></a>'; // TODO : modifier le lien pour la suppression
                         }
                         echo '</td>';
                     }

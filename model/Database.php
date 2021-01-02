@@ -281,7 +281,7 @@ class Database {
         $this->unsetData($req);
     }
 
-    public function getNextRecipeId()
+    public function getNextRecipeId() // on a pas les accès avec cet utilisateur en fait....
     {
         $query = 'SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = "$GLOBALS[\'MM_CONFIG\'][\'database\'][\'dbName\']" AND TABLE_NAME = "t_recipe"';
         $req = $this->queryPrepareExecute($query, null);

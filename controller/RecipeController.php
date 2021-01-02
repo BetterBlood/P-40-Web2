@@ -327,21 +327,15 @@ class RecipeController extends Controller {
             
             $date = $database->getDate();
             $recipe["recDate"] = $date["currentTime"];
+            $recipe["recImage"] = "defaultRecipePicture.jpg";
             
             $nextId = $database->getNextRecipeId(); // récupération du prochain id
             
+            $recipe["idRecipe"] = $nextId;
 
             $database->insertRecipe($recipe); // insertion de la recette dans la base de donnée
 
-            if ($database->RecipeExist($nextId)) // peut-être si deux personne le font en même temps il peut y avoir un bug
-            {
-                $recipe = $database->getOneRecipe($nextId);//get la recette pour la page edit (ou l'on peut ajouter une image)
-            }
-            else
-            {
-                // TODO : erreur lors de l'insertion, voir quoi faire
-                // ptetre rediriger vers la page de l'utilisateur
-            }
+            $recipe = $database->getLastRecipe(); //get la recette pour la page edit (où l'on peut ajouter une image) (on a besoin de l'id)
             
             $view = file_get_contents('view/page/restrictedPages/manageRecipe/editRecipe.php');
         }
@@ -391,6 +385,20 @@ class RecipeController extends Controller {
         $content = ob_get_clean();
 
         return $content;
+    }
+
+    private function deleteRecipe($idRecipe)
+    {
+        include_once($this->databasePath);
+        $database = new Database();
+
+        if ($database->RecipeExist($_GET["id"]) && array_key_exists("idUser", $_SESSION))
+        {
+            if ($database->getOneRecipe($_GET["id"])["idUser"] == $_SESSION["idUser"])
+            {
+
+            }
+        }
     }
 
     /**
