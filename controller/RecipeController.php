@@ -52,8 +52,18 @@ class RecipeController extends Controller {
                     break;
 
                 case "addRecipe":
-                case "editRecipe":
                     if (array_key_exists("isConnected", $_SESSION) && $_SESSION["isConnected"])
+                    {
+                        $action = $_GET["action"] . "Action";
+                    }
+                    else
+                    {
+                        $action = "listAction";
+                    }
+                    break;
+
+                case "editRecipe":
+                    if (array_key_exists("id", $_GET) && $database->RecipeExist($_GET["id"]) && array_key_exists("isConnected", $_SESSION) && $_SESSION["isConnected"])
                     {
                         $action = $_GET["action"] . "Action";
                     }
@@ -352,6 +362,27 @@ class RecipeController extends Controller {
     {
         include_once($this->databasePath);
         $database = new Database();
+
+        $recipe = $database->getOneRecipe($_GET["id"]);
+
+        $imageEmpty = false;
+
+        if (array_key_exists("fileUpdate", $_POST)) // modification de l'image
+        {
+            if(!empty($_FILES["image"]["name"]))
+            {
+                // do stuff
+                $imgName = date("YmdHis") . "_" . $_FILES["image"]["name"]; // TODO : ne pas oublier de supprimer l'ancienne image !!!! (si différente de celle par défaut) 
+                move_uploaded_file($_FILES["image"]["tmp_name"], "resources/image/Recipes/" . $imgName);
+                $recipe["recImage"] = $imgName;
+                
+                $database->editRecipe($recipe);
+            }
+            else
+            {
+                $imageEmpty = true;
+            }
+        }
 
         $view = file_get_contents('view/page/restrictedPages/manageRecipe/editRecipe.php');
 

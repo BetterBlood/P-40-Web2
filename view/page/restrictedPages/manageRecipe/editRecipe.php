@@ -23,10 +23,30 @@
         ?>
     </div>
 
-    <form action="index.php?controller=recipe&action=editRecipe" method="post">
+    <?php
+        $imageRecipeLink = '"resources/image/Recipes/' . htmlspecialchars($recipe['recImage']) . '"';
+        echo '<img style="width:50%;" src=' . $imageRecipeLink . ' alt="image de profile">';
+        
+        
 
-
-
-    </form>
+        echo '<form action="index.php?controller=recipe&action=editRecipe&id=' . $recipe["idRecipe"] . '" method="post" enctype="multipart/form-data">';
+            ?>
+            <input type="text" id="fileUpdate" name="fileUpdate" style="display: none;" value="true">
+            <div class="form-group">
+                <p>
+                    <label for="image">Fichier à télécharger</label>
+                    <input type="file" name="image" id="image" />
+                    <input class="btn btn-primary mb-2" type="submit" value="Modifier" />
+                    <?php
+                    if (isset($imageEmpty) && $imageEmpty)
+                    {
+                        echo 'l\'image séléctionnée n\'est pas valide';
+                    }
+                    ?>
+                </p>
+            </div>
+        </form>
+    
+    
 
 </div>

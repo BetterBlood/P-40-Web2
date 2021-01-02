@@ -19,7 +19,7 @@
     <?php
         if (array_key_exists("isConnected", $_SESSION) && $_SESSION["isConnected"] && array_key_exists("usePseudo", $userProfile) && isset($selfPage) && $selfPage) 
         {
-            echo '<p class="text-white">DEBUG accès en modification ! </p>'; // DEBUG
+            //echo '<p class="text-white">DEBUG accès en modification ! </p>'; // DEBUG
 
             if (isset($modificationDone) && $modificationDone)
             {

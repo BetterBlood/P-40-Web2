@@ -77,7 +77,6 @@
     }
     else
     {
-       
 ?>
 
 <div class="text-white">
