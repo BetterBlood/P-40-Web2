@@ -62,6 +62,7 @@ class RecipeController extends Controller {
                     }
                     break;
 
+                case "deleteRecipe":
                 case "editRecipe":
                     if (array_key_exists("id", $_GET) && $database->RecipeExist($_GET["id"]) && array_key_exists("isConnected", $_SESSION) && $_SESSION["isConnected"])
                     {
@@ -387,18 +388,37 @@ class RecipeController extends Controller {
         return $content;
     }
 
-    private function deleteRecipe($idRecipe)
+    private function deleteRecipeAction()
     {
         include_once($this->databasePath);
         $database = new Database();
 
-        if ($database->RecipeExist($_GET["id"]) && array_key_exists("idUser", $_SESSION))
+        if ($database->RecipeExist($_GET["id"]))
         {
             if ($database->getOneRecipe($_GET["id"])["idUser"] == $_SESSION["idUser"])
             {
-
+                $database->deleteRecipe($_GET["id"]); // suppression dans la base de donnée
             }
         }
+
+        // redirection vers la page d'accueil
+        $lastRecipe = $database->getLastRecipe();
+        $bestRecipe = $database->getBestRecipe();
+        $easiestRecipe = $database->getEasiestRecipe();
+
+        //tester si la valeur existe si elle n'existe pas ou est incorect on la set a 0
+        if (!array_key_exists('image', $_GET) || $_GET['image'] < 0 || $_GET['image'] > 2)
+        {
+            $_GET['image'] = 0;
+        }
+
+        $view = file_get_contents('view/page/home/carousel.php');
+
+        ob_start();
+        eval('?>' . $view);
+        $content = ob_get_clean();
+
+        return $content;
     }
 
     /**

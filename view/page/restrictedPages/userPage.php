@@ -276,10 +276,10 @@
                         }
                         echo '</td>';
 
-                        echo '<td class="icon-column bg-warning">';
+                        echo '<td class="icon-column">';
                         if (isset($selfPage) && $selfPage)
                         {
-                            echo '<a onclick="return confirm(\'Voulez-vous vraiment supprimer définitivement cette recette ?\')" href="index.php?controller=recipe&action=editRecipe&id=' . htmlspecialchars($recipe['idRecipe']) . '"><div class="bg-iconTrash"></div></a>'; // TODO : modifier le lien pour la suppression
+                            echo '<a onclick="return confirm(\'Voulez-vous vraiment supprimer définitivement cette recette ?\')" href="index.php?controller=recipe&action=deleteRecipe&id=' . htmlspecialchars($recipe['idRecipe']) . '"><div class="bg-iconTrash"></div></a>'; // TODO : modifier le lien pour la suppression
                         }
                         echo '</td>';
                     
@@ -294,10 +294,10 @@
                         }
                         echo '</td>';
 
-                        echo '<td class="icon-column bg-warning">';
+                        echo '<td class="icon-column">';
                         if (isset($selfPage) && $selfPage)
                         {
-                            echo '<a onclick="return confirm(\'Voulez-vous vraiment supprimer définitivement cette recette ?\')" href="index.php?controller=recipe&action=editRecipe&id=' . htmlspecialchars($recipe['idRecipe']) . '"><div class="bg-iconTrash"></div></a>'; // TODO : modifier le lien pour la suppression
+                            echo '<a onclick="return confirm(\'Voulez-vous vraiment supprimer définitivement cette recette ?\')" href="index.php?controller=recipe&action=deleteRecipe&id=' . htmlspecialchars($recipe['idRecipe']) . '"><div class="bg-iconTrash"></div></a>'; // TODO : modifier le lien pour la suppression
                         }
                         echo '</td>';
                     }

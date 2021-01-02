@@ -374,6 +374,23 @@ class Database {
         $this->unsetData($req);
     }
 
+    public function deleteRecipe($idRecipe)
+    {
+        $values = array(
+            1 => array(
+                'marker' => ':idRecipe',
+                'input' => $idRecipe,
+                'type' => PDO::PARAM_STR
+            )
+        );
+
+        $query = 'DELETE FROM t_recipe WHERE t_recipe.idRecipe = :idRecipe';
+
+        $req = $this->queryPrepareExecute($query, $values);
+
+        $this->unsetData($req);
+    }
+
     /**
      * permet d'obtenir toutes les notations d'une recette
      *
