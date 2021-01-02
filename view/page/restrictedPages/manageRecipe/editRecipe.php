@@ -27,8 +27,6 @@
         $imageRecipeLink = '"resources/image/Recipes/' . htmlspecialchars($recipe['recImage']) . '"';
         echo '<img style="width:50%;" src=' . $imageRecipeLink . ' alt="image de profile">';
         
-        
-
         echo '<form action="index.php?controller=recipe&action=editRecipe&id=' . $recipe["idRecipe"] . '" method="post" enctype="multipart/form-data">';
             ?>
             <input type="text" id="fileUpdate" name="fileUpdate" style="display: none;" value="true">
