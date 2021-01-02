@@ -26,6 +26,44 @@ h2 {
   color: crimson;
 }
 
+/* icones : */
+.bg-difficulty {
+  width: 160px;
+  height: 32px;
+  background: url('../image/icone/css_sprites.png') -10px -10px;
+}
+
+.bg-evaluation {
+  width: 160px;
+  height: 32px;
+  background: url('../image/icone/css_sprites.png') -10px -62px;
+}
+
+.bg-iconLoupe {
+  width: 32px;
+  height: 32px;
+  background: url('../image/icone/css_sprites.png') -10px -114px;
+}
+
+.bg-iconLoupe-reverse
+{
+  width: 32px;
+  height: 32px;
+  background: url('../image/icone/css_sprites.png') -10px -114px;
+  transform: scaleX(-1);
+}
+
+.bg-iconPencil {
+  width: 32px;
+  height: 32px;
+  background: url('../image/icone/css_sprites.png') -62px -114px;
+}
+
+.icon-column {
+  width: 32px;
+}
+
+
 #mainNav {
   background-color: darkslategrey;
 }

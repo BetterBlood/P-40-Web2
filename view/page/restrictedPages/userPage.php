@@ -235,8 +235,8 @@
             <th>temps de préparation</th>
             <th>difficulté</th>
             <th>note</th>
-            <th>auteur</th>
-            <th>détail</th>
+            <th class="text-center">auteur</th>
+            <th colspan="3" class="text-center">détail</th>
         </tr>
         <?php
         // pour le tableau : "table table-striped"
@@ -253,7 +253,7 @@
                 $user = $database->getOneUserById($recipe["idUser"]);
 
                 echo '<tr>';
-                    echo '<td>' . htmlspecialchars($recipe['recName']) . '</td>';
+                    echo '<td><a class="text-white" href="index.php?controller=recipe&action=detail&id=' . htmlspecialchars($recipe['idRecipe']) . '">' . htmlspecialchars($recipe['recName']) . '</a></td>';
                     echo '<td>' . htmlspecialchars($recipe['recPrepTime']) . ' minutes</td>';
                     echo '<td>' . htmlspecialchars($recipe['recDifficulty']) . '</td>';
                     if (isset($recipe["recGrade"]))
@@ -264,24 +264,40 @@
                     {
                         echo '<td>pas encore notée</td>';
                     }
-                    echo '<td>' . $user["usePseudo"] . '</td>';
+                    echo '<td class="text-center">' . $user["usePseudo"] . '</td>';
 
-                    if (array_key_exists("id", $_GET) && $_GET["id"] == $recipe["idRecipe"]) // affiche/masque les détail d'une recette
+                    if (array_key_exists("id", $_GET) && $_GET["id"] == $recipe["idRecipe"]) // affiche/masque les détails d'une recette
                     {
-                        echo '<td><a href="index.php?controller=user&action=profile&idUser=' . $recipe["idUser"] . '&start=' . $startIndex . '"><img src="resources/image/icone/iconLoupe.png" alt="loupe" style="transform: scaleX(-1)";></a>';
+                        echo '<td class="icon-column"><a href="index.php?controller=user&action=profile&idUser=' . $recipe["idUser"] . '&start=' . $startIndex . '"><div class="bg-iconLoupe-reverse"></div></a></td>';
+                        echo '<td class="icon-column">';
                         if (isset($selfPage) && $selfPage)
                         {
-                            echo '<a href="index.php?controller=recipe&action=editRecipe&id=' . htmlspecialchars($recipe['idRecipe']) . '"><img src="resources/image/icone/iconPencil.png" alt="crayon"</a>';
+                            echo '<a href="index.php?controller=recipe&action=editRecipe&id=' . htmlspecialchars($recipe['idRecipe']) . '"><div class="bg-iconPencil"></div></a>';
+                        }
+                        echo '</td>';
+
+                        echo '<td class="icon-column bg-warning">';
+                        if (isset($selfPage) && $selfPage) // TODO : modifier en icone de suppression
+                        {
+                            echo '<a href="index.php?controller=recipe&action=editRecipe&id=' . htmlspecialchars($recipe['idRecipe']) . '"><div class="bg-iconPencil"></div></a>'; // TODO : modifier en icone de suppression
                         }
                         echo '</td>';
                     
                     }
                     else 
                     {
-                        echo '<td><a href="index.php?controller=user&action=profile&idUser=' . $recipe["idUser"] . '&id=' . htmlspecialchars($recipe['idRecipe']) . '&start=' . $startIndex . '"><img src="resources/image/icone/iconLoupe.png" alt="loupe"></a>';
+                        echo '<td class="icon-column"><a href="index.php?controller=user&action=profile&idUser=' . $recipe["idUser"] . '&id=' . htmlspecialchars($recipe['idRecipe']) . '&start=' . $startIndex . '"><div class="bg-iconLoupe"></div></a></td>';
+                        echo '<td class="icon-column">';
                         if (isset($selfPage) && $selfPage)
                         {
-                            echo '<a href="index.php?controller=recipe&action=editRecipe&id=' . htmlspecialchars($recipe['idRecipe']) . '"><img src="resources/image/icone/iconPencil.png" alt="crayon"></a>';
+                            echo '<a href="index.php?controller=recipe&action=editRecipe&id=' . htmlspecialchars($recipe['idRecipe']) . '"><div class="bg-iconPencil"></div></a>';
+                        }
+                        echo '</td>';
+
+                        echo '<td class="icon-column bg-warning">';
+                        if (isset($selfPage) && $selfPage) // TODO : modifier en icone de suppression
+                        {
+                            echo '<a href="index.php?controller=recipe&action=editRecipe&id=' . htmlspecialchars($recipe['idRecipe']) . '"><div class="bg-iconPencil"></div></a>'; // TODO : modifier en icone de suppression
                         }
                         echo '</td>';
                     }
@@ -360,7 +376,7 @@
                         $imageProfilLink = '"resources/image/Users/' . htmlspecialchars($user['useImage']) . '"';
                         //echo '<img class="d-block w-50" src=' . $imageProfilLink . ' alt="image de profile du créateur de la recette">';
                     
-                        echo '<td style="width:100px">';
+                        echo '<td colspan="3" style="width:100px">';
                             echo '<div class="card" style="width: 18rem;">';
                                 echo '<img src=' . $imageProfilLink . ' class="card-img-top" alt="image de profile du créateur de la recette">';
                                 echo '<div class="card-body" style="color:black">';

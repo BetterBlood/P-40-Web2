@@ -21,7 +21,7 @@
 				Difficulté de préparation : 
 				<div class="progress ml-3 mb-3" style="width:160px;height:32px;background-color: grey;">
 					<div role="progressbar" style="width:<?php echo $recipe['recDifficulty']*20; ?>%;background-color: white;">
-						<img style="width:160px;height:32px;" src="resources/image/icone/difficulty.png" alt="icone d'évaluation transparent">
+						<div class="bg-difficulty"></div> <!-- src="resources/image/icone/difficulty.png" style="width:160px;height:32px;" alt="icone d'évaluation transparent"-->
 					</div>
 				</div>
 				
@@ -46,7 +46,8 @@
 							<div data-toggle="modal" data-target="#ratingModal" style="display:flex; width:323px; height:32px; cursor:pointer;">
 								<div class="progress" style="width:160px;height:32px;">
 									<div class="bg-warning" role="progressbar" style="width:<?php echo $recipe['recGrade']*20; ?>%;">
-										<img style="width:160px;height:32px;" src="resources/image/icone/evaluation.png" alt="icone d'évaluation transparent">
+										<div class="bg-evaluation"></div>
+										<!--<img style="width:160px;height:32px;" src="resources/image/icone/evaluation.png" alt="icone d'évaluation transparent">-->
 									</div>
 								</div>
 								<!-- Button trigger modal -->
@@ -63,7 +64,8 @@
 							<div style="display: flex;">
 								<div class="progress" style="width:160px;height:32px;">
 									<div class="bg-warning" role="progressbar" style="width: 50%;">
-										<img style="width:160px;height:32px;" src="resources/image/icone/evaluation.png" alt="icone d'évaluation transparent">
+										<div class="bg-evaluation"></div>
+										<!--<img style="width:160px;height:32px;" src="resources/image/icone/evaluation.png" alt="icone d'évaluation transparent">-->
 									</div>
 								</div>
 								<button type="button" class="btn btn-success ml-3" data-toggle="modal" data-target="#ratingModal">

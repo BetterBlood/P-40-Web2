@@ -39,7 +39,7 @@
 			$user = $database->getOneUserById($recipe["idUser"]);
 
 			echo '<tr>';
-				echo '<td>' . htmlspecialchars($recipe['recName']) . '</td>';
+				echo '<td><a class="text-white" href="index.php?controller=recipe&action=detail&id=' . htmlspecialchars($recipe['idRecipe']) . '">' . htmlspecialchars($recipe['recName']) . '</a></td>';
 				echo '<td>' . htmlspecialchars($recipe['recPrepTime']) . ' minutes</td>';
 				echo '<td>' . htmlspecialchars($recipe['recDifficulty']) . '</td>';
 				if (isset($recipe["recGrade"]))
@@ -54,11 +54,11 @@
 
 				if (array_key_exists("id", $_GET) && $_GET["id"] == $recipe["idRecipe"]) // affiche/masque les détail d'une recette
 				{
-					echo '<td><a href="index.php?controller=recipe&action=list&start=' . $startIndex . '"><img src="resources/image/icone/iconLoupe.png" alt="loupe" style="transform: scaleX(-1)";></a></td>';
+					echo '<td><a href="index.php?controller=recipe&action=list&start=' . $startIndex . '"><div class="bg-iconLoupe-reverse"></div></a></td>';
 				}
 				else 
 				{
-					echo '<td><a href="index.php?controller=recipe&action=list&id=' . htmlspecialchars($recipe['idRecipe']) . '&start=' . $startIndex . '"><img src="resources/image/icone/iconLoupe.png" alt="loupe"></a></td>';
+					echo '<td><a href="index.php?controller=recipe&action=list&id=' . htmlspecialchars($recipe['idRecipe']) . '&start=' . $startIndex . '"><div class="bg-iconLoupe"></div></a></td>';
 				}
 
 			echo '</tr>';
