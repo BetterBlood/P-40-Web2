@@ -459,11 +459,33 @@ class RecipeController extends Controller {
                     unlink("resources/image/Recipes/" . $recipe["recImage"]); // suppression de l'ancienne image
                 }
                 
+                $image = "";
                 $imgName = date("YmdHis") . "_" . $_FILES["image"]["name"];
-                move_uploaded_file($_FILES["image"]["tmp_name"], "resources/image/Recipes/" . $imgName);
+
+                switch (pathinfo($imgName, PATHINFO_EXTENSION))
+                {
+                    case "png":
+                        $image = imagecreatefrompng($_FILES["image"]["tmp_name"]); // prépare la compression
+                        break;
+
+                    case "jpg":
+                        $image = imagecreatefromjpeg($_FILES["image"]["tmp_name"]); // prépare la compression
+                        break;
+                        
+                    case "gif":
+                        $image = imagecreatefromgif($_FILES["image"]["tmp_name"]); // prépare la compression
+                        break;
+                    default:
+                        break;
+                }
+
+                
+
+                imagejpeg($image, "resources/image/Recipes/" . $imgName, 75); // compression de l'image
+                //move_uploaded_file($_FILES["image"]["tmp_name"], "resources/image/Recipes/" . $imgName);
                 $recipe["recImage"] = $imgName;
                 
-                $database->editRecipe($recipe);
+                $database->editRecipe($recipe); // modification du nom dans la database
             }
             else
             {

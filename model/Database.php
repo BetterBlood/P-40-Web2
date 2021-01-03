@@ -286,6 +286,11 @@ class Database {
         $this->unsetData($req);
     }
 
+    /**
+     * permet d'obtenir le prochain id qui devrait être utilisé (ne fonctionne pas avec les droits actuels)
+     *
+     * @return array
+     */
     public function getNextRecipeId() // on a pas les accès avec cet utilisateur en fait....
     {
         $query = 'SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = "$GLOBALS[\'MM_CONFIG\'][\'database\'][\'dbName\']" AND TABLE_NAME = "t_recipe"';
@@ -294,6 +299,11 @@ class Database {
         return $nextId;
     }
 
+    /**
+     * permet d'obtenir la date et l'heure du moment
+     *
+     * @return string
+     */
     public function getDate()
     {
         $query = 'SELECT DATE_FORMAT(now(), "%Y-%m-%d-%H-%i-%s") AS currentTime';
@@ -302,6 +312,12 @@ class Database {
         return $date[0];
     }
 
+    /**
+     * permet d'obtenir les recette liées a un utilisateur
+     *
+     * @param int $userId
+     * @return array
+     */
     public function getRecipesByUserId($userId)
     {
         $req = $this->queryPrepareExecute('SELECT * FROM t_recipe WHERE idUser = '. $userId , null);// appeler la méthode pour executer la requète
@@ -313,6 +329,12 @@ class Database {
         return $recipes;// retour tous les recettes
     }
 
+    /**
+     * permet de modifier une recette
+     *
+     * @param array $recipe
+     * @return void
+     */
     public function editRecipe($recipe)
     {
         $values = array(
@@ -379,6 +401,7 @@ class Database {
         $this->unsetData($req);
     }
 
+    
     public function deleteRecipe($idRecipe)
     {
         $values = array(
