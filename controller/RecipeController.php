@@ -402,15 +402,13 @@ class RecipeController extends Controller {
             $recipe["recDate"] = $date["currentTime"];
             $recipe["recImage"] = "defaultRecipePicture.jpg";
             
-            $nextId = $database->getNextRecipeId(); // récupération du prochain id
-            
-            $recipe["idRecipe"] = $nextId;
+            //$nextId = $database->getNextRecipeId(); // récupération du prochain id // TODO : vérifier si c'est bon pour enlever cette méthode qui normalement n'est pas utile
+            //$recipe["idRecipe"] = $nextId;
 
             if (!$secondPartError)
             {
                 $database->insertRecipe($recipe); // insertion de la recette dans la base de donnée
             }
-
 
             $recipe = $database->getLastRecipe(); //get la recette pour la page edit (où l'on peut ajouter une image) (on a besoin de l'id)
 

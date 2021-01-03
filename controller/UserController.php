@@ -189,8 +189,29 @@ class UserController extends Controller {
                                 unlink("resources/image/Users/" . $userProfile["useImage"]); // suppression de l'ancienne image
                             }
 
+                            $image = "";
                             $imgName = date("YmdHis") . "_" . $_FILES["image"]["name"];
-                            move_uploaded_file($_FILES["image"]["tmp_name"], "resources/image/Users/" . $imgName);
+
+                            switch (pathinfo($imgName, PATHINFO_EXTENSION))
+                            {
+                                case "png":
+                                    $image = imagecreatefrompng($_FILES["image"]["tmp_name"]); // prépare la compression
+                                    break;
+            
+                                case "jpg":
+                                    $image = imagecreatefromjpeg($_FILES["image"]["tmp_name"]); // prépare la compression
+                                    break;
+                                    
+                                case "gif":
+                                    $image = imagecreatefromgif($_FILES["image"]["tmp_name"]); // prépare la compression
+                                    break;
+                                default:
+                                    break;
+                            }
+            
+                            imagejpeg($image, "resources/image/Users/" . $imgName, 75); // compression de l'image 
+
+                            //move_uploaded_file($_FILES["image"]["tmp_name"], "resources/image/Users/" . $imgName);
 
                             $userProfile["useImage"] = $imgName;
                             $user["useImage"] = $imgName;
