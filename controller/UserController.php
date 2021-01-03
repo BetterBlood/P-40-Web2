@@ -148,6 +148,7 @@ class UserController extends Controller {
         $database = new Database();
 
         $userProfile = array();
+        $user = array();
         $view = "";
         $selfPage = false;
         $modificationDone = false;
@@ -171,15 +172,21 @@ class UserController extends Controller {
                 {
                     // TODO : vérification du form ??
                     
-                    $user = array();
                     $user["idUser"] = $_SESSION["idUser"];
 
                     if (array_key_exists("fileUpdate", $_POST)) // form just pour update l'image
                     {
-                        if(!empty($_FILES["image"]["name"])) // vérifie qu'il y a bien un fichier de séléctionné // TODO : vérifier le type de fichier
+                        if (!empty($_FILES["image"]["name"]) && $_FILES["image"]["name"] != "" && $this->extensionOk($_FILES["image"]["name"])) // vérifie qu'il y a bien un fichier de séléctionné // TODO : vérifier le type de fichier + gérer fichier vide (!= "" ne fonctionne pas)
                         {
-                            $imgName = date("YmdHis") . "_" . $_FILES["image"]["name"]; // TODO : ne pas oublier de supprimer l'ancienne image !!!! (si différente de celle par défaut) 
+                            if ($userProfile["useImage"] != "defaultUserPicture.png" && file_exists("resources/image/Users/" . $userProfile["useImage"]))
+                            {
+                                unlink ("resources/image/Users/" . $userProfile["useImage"]); // suppression de l'ancienne image
+                            }
+
+                            $imgName = date("YmdHis") . "_" . $_FILES["image"]["name"];
                             move_uploaded_file($_FILES["image"]["tmp_name"], "resources/image/Users/" . $imgName);
+
+                            $userProfile["useImage"] = $imgName;
                             $user["useImage"] = $imgName;
                         }
                         else 
@@ -249,5 +256,25 @@ class UserController extends Controller {
         $content = ob_get_clean();
 
         return $content;
+    }
+
+    private function extensionOk($imageName)
+    {
+        $extensionIsOk = false;
+        $ext = pathinfo($imageName, PATHINFO_EXTENSION);
+
+        switch ($ext)
+        {
+            case "png":
+            case "jpg":
+            case "gif":
+                $extensionIsOk = true; // remplacer en return true; ?
+                break;
+            default:
+                $extensionIsOk = false; // remplacer en return false; ?
+                break;
+        }
+
+        return $extensionIsOk;
     }
 }

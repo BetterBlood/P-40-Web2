@@ -231,7 +231,7 @@
     <div class="row">
         <table class="table table-striped table-dark">
         <tr>
-            <th>nom</th> <!-- TODO : voir pour ajouter le bootstrap-->
+            <th>nom</th> 
             <th>temps de préparation</th>
             <th>difficulté</th>
             <th>note</th>

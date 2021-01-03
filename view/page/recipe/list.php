@@ -21,8 +21,8 @@
 		<th>temps de préparation</th>
 		<th>difficulté</th>
 		<th>note</th>
-		<th>auteur</th>
-		<th>détail</th>
+		<th class="text-center">auteur</th>
+		<th class="text-center">détail</th>
 	</tr>
 	<?php
 	// pour le tableau : "table table-striped"
@@ -50,7 +50,7 @@
 				{
 					echo '<td>pas encore notée</td>';
 				}
-				echo '<td>' . $user["usePseudo"] . '</td>';
+				echo '<td class="text-center">' . $user["usePseudo"] . '</td>';
 
 				if (array_key_exists("id", $_GET) && $_GET["id"] == $recipe["idRecipe"]) // affiche/masque les détail d'une recette
 				{
