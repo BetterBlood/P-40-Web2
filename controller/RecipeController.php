@@ -243,6 +243,11 @@ class RecipeController extends Controller {
         return $content;
     }
 
+    /**
+     * permet d'ajouter une recette
+     *
+     * @return string
+     */
     private function addRecipeAction()
     {
         include_once($this->databasePath);
@@ -253,12 +258,55 @@ class RecipeController extends Controller {
         if (isset($_POST["recipeCreation1"])) // TODO : ajouter la vérification des champs
         {
             $firstPart = false;
+            $firstPartError = false;
             $_SESSION["recipe"] = array();
-            $_SESSION["recipe"]["recName"] = $_POST["recName"];
+            $_SESSION["recipe"]["recName"] = "";
             $_SESSION["recipe"]["recPrepTime"] = $_POST["recPrepTime"];
             $_SESSION["recipe"]["recDifficulty"] = $_POST["recDifficulty"];
             $_SESSION["recipe"]["recDescription"] = $_POST["recDescription"];
-            // TODO : ajouter les champs du post a la recette
+            
+            
+            if (array_key_exists("recName", $_POST) && trim($_POST["recName"]) != ""  && strlen($_POST["recDescription"]) <= 100)
+            {
+                $_SESSION["recipe"]["recName"] = $_POST["recName"];
+            }
+            else
+            {
+                $firstPart = true;
+                $firstPartError = true;
+            }
+
+            if (array_key_exists("recPrepTime", $_POST) && trim($_POST["recPrepTime"]) != "" && (int)$_POST["recPrepTime"] >= 10)
+            {
+                $_SESSION["recipe"]["recPrepTime"] = $_POST["recPrepTime"];
+            }
+            else
+            {
+                $firstPart = true;
+                $firstPartError = true;
+            }
+
+            if (array_key_exists("recDifficulty", $_POST) && trim($_POST["recDifficulty"]) != "" && (int)$_POST["recDifficulty"] >= 1 && (int)$_POST["recDifficulty"] <= 5)
+            {
+                $_SESSION["recipe"]["recDifficulty"] = $_POST["recDifficulty"];
+            }
+            else
+            {
+                $firstPart = true;
+                $firstPartError = true;
+            }
+
+            if (array_key_exists("recDescription", $_POST) && trim($_POST["recDescription"]) != "" && strlen($_POST["recDescription"]) <= 255)
+            {
+                $_SESSION["recipe"]["recDescription"] = $_POST["recDescription"];
+            }
+            else
+            {
+                $firstPart = true;
+                $firstPartError = true;
+            }
+            
+            
         }
 
         if (isset($_POST["recipeCreation2"])) // TODO : ajouter la vérification des champs
@@ -353,6 +401,11 @@ class RecipeController extends Controller {
         return $content;
     }
 
+    /**
+     * permet de modifier une recette
+     *
+     * @return string
+     */
     private function editRecipeAction()
     {
         include_once($this->databasePath);
@@ -392,6 +445,11 @@ class RecipeController extends Controller {
         return $content;
     }
 
+    /**
+     * permet de supprimer une recette
+     *
+     * @return string
+     */
     private function deleteRecipeAction()
     {
         include_once($this->databasePath);
@@ -435,9 +493,9 @@ class RecipeController extends Controller {
     /**
      * vérifie le nombre du get
      *
-     * @param [type] $get
-     * @param [type] $lengthRecipe
-     * @return void
+     * @param int $get
+     * @param int $lengthRecipe
+     * @return int
      */
     private function normalize($get, $lengthRecipe)
     {

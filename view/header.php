@@ -2,7 +2,7 @@
     
     <div class="mastHead">
         
-        <nav class="navbar navbar-expand-lg fixed-top bg-dark" id="mainNav"> <!-- TODO : remettre : bg-dark -->
+        <nav class="navbar navbar-expand-lg fixed-top" id="mainNav"> <!-- TODO : remettre : bg-dark (quand il n'y a plus d'erreur)-->
             
             <div class="container">
                 
@@ -17,7 +17,7 @@
                     {
                         echo '<div class="logMessage" ><a class="logOutButton btn btn-danger" href="index.php?controller=user&action=logout">Déconnexion</a>';
                         echo '<a class="btn btn-warning ml-2" href="index.php?controller=user&action=profile&idUser=' . $_SESSION["idUser"] . '">profile</a>';
-                        //echo $_SESSION['username'];
+                        //echo $_SESSION['username']; // DEBUG 
                         echo '<br><span class="logMSG">Connecté en tant que ' . $_SESSION['username'] . '</span></div>';
                     }
                     else
