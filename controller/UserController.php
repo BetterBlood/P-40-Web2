@@ -60,7 +60,7 @@ class UserController extends Controller {
             $_SESSION['isConnected'] = false;
             header('location: index.php?controller=user&action=loginForm');
         }
-        else if($user['usePassword'] == $_POST['password']){
+        else if(password_verify($password, $user['usePassword'])){
             $_SESSION['errorLogin'] = false;
             $_SESSION['isConnected'] = true;
             $_SESSION['username'] = $user['usePseudo'];
@@ -123,6 +123,7 @@ class UserController extends Controller {
                 $firstName = htmlspecialchars($_POST['firstName']);
                 $lastName = htmlspecialchars($_POST['lastName']);
                 $password = htmlspecialchars($_POST['password1']);
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                 
                 include_once($this->databasePath);
                 $database = new Database();
@@ -131,7 +132,7 @@ class UserController extends Controller {
                 $array = (array) $database;
                 if($array["\0Database\0connector"] != NULL){
                     
-                    $database->insertUser($username, $firstName, $lastName, $password);
+                    $database->insertUser($username, $firstName, $lastName, $hashed_password);
                     $_SESSION['isConnected'] = true;
                     $_SESSION['username'] = $username;
                     $_SESSION['idUser'] = $user['idUser'];

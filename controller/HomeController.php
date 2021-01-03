@@ -99,6 +99,11 @@ class HomeController extends Controller {
         $firstName = htmlspecialchars($_POST['firstName']);
         $answer = htmlspecialchars($_POST['answer']);
 
+        //Spécifier server mail avec ini
+        //$to = "p.morand.vs@gmail.com";
+        //$sender = "From: pierre@zelig.ch";
+        //mail($to,$answer,$answer,$sender);
+
         $view = file_get_contents('view/page/home/resume.php');
 
         ob_start();

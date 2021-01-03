@@ -2,7 +2,7 @@
     
     <div class="mastHead">
         
-        <nav class="navbar navbar-expand-lg fixed-top" id="mainNav"> <!-- TODO : remettre : bg-dark -->
+        <nav class="navbar navbar-expand-lg fixed-top bg-dark" id="mainNav"> <!-- TODO : remettre : bg-dark -->
             
             <div class="container">
                 
@@ -48,4 +48,4 @@
         </nav>
         
     </div>
-    <h3 class="text-muted pt-5">Menu de votre choix</h3>
+    <h3 class="text-muted pt-2">Menu de votre choix</h3>
