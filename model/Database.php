@@ -270,11 +270,16 @@ class Database {
                 'marker' => ':idUser',
                 'input' => (int)$recipe["idUser"],
                 'type' => PDO::PARAM_INT
+            ),
+            11 => array(
+                'marker' => ':recCategory',
+                'input' => $recipe["recCategory"],
+                'type' => PDO::PARAM_STR
             )
         );
 
-        $query =   'INSERT INTO t_recipe (recName, recIngredientList, recDescription, recPreparation, recPrepTime, recDifficulty, recGrade, recImage, recDate, idUser)
-                    VALUES (:recName, :recIngredientList, :recDescription, :recPreparation, :recPrepTime, :recDifficulty, :recGrade, :recImage, :recDate, :idUser)';
+        $query =   'INSERT INTO t_recipe (recName, recCategory, recIngredientList, recDescription, recPreparation, recPrepTime, recDifficulty, recGrade, recImage, recDate, idUser)
+                    VALUES (:recName, :recCategory, :recIngredientList, :recDescription, :recPreparation, :recPrepTime, :recDifficulty, :recGrade, :recImage, :recDate, :idUser)';
 
         $req = $this->queryPrepareExecute($query, $values);
 

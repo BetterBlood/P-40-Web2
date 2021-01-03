@@ -17,7 +17,8 @@
 <div class="row">
 	<table class="table table-striped table-dark">
 	<tr>
-		<th>nom</th> <!-- TODO : voir pour ajouter le bootstrap-->
+		<th>nom</th>
+		<th>catégorie</th>
 		<th>temps de préparation</th>
 		<th>difficulté</th>
 		<th>note</th>
@@ -40,6 +41,7 @@
 
 			echo '<tr>';
 				echo '<td><a class="text-white" href="index.php?controller=recipe&action=detail&id=' . htmlspecialchars($recipe['idRecipe']) . '">' . htmlspecialchars($recipe['recName']) . '</a></td>';
+				echo '<td>' . htmlspecialchars($recipe['recCategory']) . '</td>';
 				echo '<td>' . htmlspecialchars($recipe['recPrepTime']) . ' minutes</td>';
 				echo '<td>' . htmlspecialchars($recipe['recDifficulty']) . '</td>';
 				if (isset($recipe["recGrade"]))
@@ -69,7 +71,7 @@
 
 					// première partie : concerne la recette elle-même
 					$imageLink = '"resources/image/Recipes/' . htmlspecialchars($recipe['recImage']) . '"';
-					echo '<td COLSPAN="4">';
+					echo '<td COLSPAN="3">';
 						echo '<div class="card" style="width: 35rem;">';
 							echo '<img src=' . $imageLink . ' class="card-img-top d-block w-100" alt="image de profile du créateur de la recette">';
 							echo '<div class="card-body" style="color:black">';
@@ -92,7 +94,7 @@
 					//echo htmlspecialchars($recipe['recImage']);
 
 					// seconde partie : les information secondaire de la recette (avec la note la difficultée et le temps de préparation)
-					echo '<td>';
+					echo '<td COLSPAN="2">';
 						echo '<div class="card" style="width: 18rem;">';
 							echo '<div class="card-body" style="color:black">';
 								echo '<h4 class="card-title">informations</h4>';
@@ -157,6 +159,7 @@
 						//echo $user["usePseudo"];
 						//var_dump($user);
 					echo '</td>';
+					echo '<td></td>';
 				echo '</tr>';
 			}
 		}

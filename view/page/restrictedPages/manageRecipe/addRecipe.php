@@ -14,6 +14,7 @@
     {
         $recipe = array();
         $recipe["recName"] = "";
+        $recipe["recCategory"] = "";
         $recipe["recPrepTime"] = "";
         $recipe["recDifficulty"] = "";
         $recipe["recDescription"] = "";
@@ -46,6 +47,13 @@
                 <label for="recName">Nom de la recette</label>
                 <?php
                     echo '<input type="text" class="form-control" name="recName" id="recName" placeholder="Paté de cornichon en croute" value="' . $recipe["recName"] . '">';
+                ?>
+            </div>
+
+            <div class="col-md-3 mb-3 pt-n2 pb-n2">
+                <label for="recCategory">Catégorie</label>
+                <?php
+                    echo '<input type="text" class="form-control" name="recCategory" id="recCategory" placeholder="Pâtisserie" value="' . $recipe["recCategory"] . '">';
                 ?>
             </div>
 

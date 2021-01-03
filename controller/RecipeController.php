@@ -261,14 +261,25 @@ class RecipeController extends Controller {
             $firstPartError = false;
             $_SESSION["recipe"] = array();
             $_SESSION["recipe"]["recName"] = "";
-            $_SESSION["recipe"]["recPrepTime"] = $_POST["recPrepTime"];
-            $_SESSION["recipe"]["recDifficulty"] = $_POST["recDifficulty"];
-            $_SESSION["recipe"]["recDescription"] = $_POST["recDescription"];
+            $_SESSION["recipe"]["recCategory"] = "";
+            $_SESSION["recipe"]["recPrepTime"] = -1;
+            $_SESSION["recipe"]["recDifficulty"] = -1;
+            $_SESSION["recipe"]["recDescription"] = "";
             
             
-            if (array_key_exists("recName", $_POST) && trim($_POST["recName"]) != ""  && strlen($_POST["recDescription"]) <= 100)
+            if (array_key_exists("recName", $_POST) && trim($_POST["recName"]) != "" && strlen($_POST["recName"]) <= 100 && strlen($_POST["recName"]) > 1) // 2 charactère minimum
             {
                 $_SESSION["recipe"]["recName"] = $_POST["recName"];
+            }
+            else
+            {
+                $firstPart = true;
+                $firstPartError = true;
+            }
+
+            if (array_key_exists("recCategory", $_POST) && trim($_POST["recCategory"]) != "" && strlen($_POST["recCategory"]) <= 100 && strlen($_POST["recCategory"]) > 4) // 5 charactère minimum
+            {
+                $_SESSION["recipe"]["recCategory"] = $_POST["recCategory"];
             }
             else
             {
@@ -296,7 +307,7 @@ class RecipeController extends Controller {
                 $firstPartError = true;
             }
 
-            if (array_key_exists("recDescription", $_POST) && trim($_POST["recDescription"]) != "" && strlen($_POST["recDescription"]) <= 255)
+            if (array_key_exists("recDescription", $_POST) && trim($_POST["recDescription"]) != "" && strlen($_POST["recDescription"]) <= 255 && strlen($_POST["recDescription"]) > 4) // 5 charactère minimum
             {
                 $_SESSION["recipe"]["recDescription"] = $_POST["recDescription"];
             }
@@ -309,7 +320,7 @@ class RecipeController extends Controller {
             
         }
 
-        if (isset($_POST["recipeCreation2"])) // TODO : ajouter la vérification des champs
+        if (isset($_POST["recipeCreation2"]))
         {
             $firstPart = false;
             $secondPartError = false;
@@ -317,6 +328,7 @@ class RecipeController extends Controller {
 
             $recipe["idUser"] = $_SESSION["idUser"];
             $recipe["recName"] = $_SESSION["recipe"]["recName"];
+            $recipe["recCategory"] = $_SESSION["recipe"]["recCategory"];
             $recipe["recPrepTime"] = (int)$_SESSION["recipe"]["recPrepTime"];
             $recipe["recDifficulty"] = (int)$_SESSION["recipe"]["recDifficulty"];
             $recipe["recDescription"] = $_SESSION["recipe"]["recDescription"];
