@@ -133,9 +133,9 @@ class UserController extends Controller {
                 if($array["\0Database\0connector"] != NULL){
                     
                     $database->insertUser($username, $firstName, $lastName, $hashed_password);
-                    $_SESSION['isConnected'] = true;
-                    $_SESSION['username'] = $username;
-                    $_SESSION['idUser'] = $user['idUser'];
+                    $_SESSION['isConnected'] = false;
+                    //$_SESSION['username'] = $username;
+                    //$_SESSION['idUser'] = $user['idUser']; // l'id n'existe pas puisque il n'y a pas de get du dernier user ajouter a la database
                     header('location: index.php');
                     //TODO
                     //rediriger vers une page de confirmation/erreur
@@ -144,6 +144,11 @@ class UserController extends Controller {
         }
     }
 
+    /**
+     * permet d'accèder à la page de profile de l'utilisateur
+     *
+     * @return string
+     */
     private function profileAction(){
         include_once($this->databasePath);
         $database = new Database();
@@ -181,7 +186,7 @@ class UserController extends Controller {
                         {
                             if ($userProfile["useImage"] != "defaultUserPicture.png" && file_exists("resources/image/Users/" . $userProfile["useImage"]))
                             {
-                                unlink ("resources/image/Users/" . $userProfile["useImage"]); // suppression de l'ancienne image
+                                unlink("resources/image/Users/" . $userProfile["useImage"]); // suppression de l'ancienne image
                             }
 
                             $imgName = date("YmdHis") . "_" . $_FILES["image"]["name"];
@@ -259,23 +264,5 @@ class UserController extends Controller {
         return $content;
     }
 
-    private function extensionOk($imageName)
-    {
-        $extensionIsOk = false;
-        $ext = pathinfo($imageName, PATHINFO_EXTENSION);
-
-        switch ($ext)
-        {
-            case "png":
-            case "jpg":
-            case "gif":
-                $extensionIsOk = true; // remplacer en return true; ?
-                break;
-            default:
-                $extensionIsOk = false; // remplacer en return false; ?
-                break;
-        }
-
-        return $extensionIsOk;
-    }
+    
 }

@@ -364,10 +364,14 @@ class RecipeController extends Controller {
 
         if (array_key_exists("fileUpdate", $_POST)) // modification de l'image
         {
-            if(!empty($_FILES["image"]["name"]))
+            if(!empty($_FILES["image"]["name"]) && $this->extensionOk($_FILES["image"]["name"])) // TODO : faire de meilleures vérifications (ex: nom de fichier trop long... )
             {
-                // do stuff
-                $imgName = date("YmdHis") . "_" . $_FILES["image"]["name"]; // TODO : ne pas oublier de supprimer l'ancienne image !!!! (si différente de celle par défaut) 
+                if ($recipe["recImage"] != "defaultRecipePicture.jpg" && file_exists("resources/image/Recipes/" . $recipe["recImage"]))
+                {
+                    unlink("resources/image/Recipes/" . $recipe["recImage"]); // suppression de l'ancienne image
+                }
+                
+                $imgName = date("YmdHis") . "_" . $_FILES["image"]["name"];
                 move_uploaded_file($_FILES["image"]["tmp_name"], "resources/image/Recipes/" . $imgName);
                 $recipe["recImage"] = $imgName;
                 
@@ -395,7 +399,14 @@ class RecipeController extends Controller {
 
         if ($database->RecipeExist($_GET["id"]))
         {
-            if ($database->getOneRecipe($_GET["id"])["idUser"] == $_SESSION["idUser"])
+            $recipe = $database->getOneRecipe($_GET["id"]);
+
+            if ($recipe["recImage"] != "defaultRecipePicture.jpg" && file_exists("resources/image/Recipes/" . $recipe["recImage"]))
+            {
+                unlink("resources/image/Recipes/" . $recipe["recImage"]); // suppression de l'ancienne image
+            }
+
+            if ($recipe["idUser"] == $_SESSION["idUser"])
             {
                 $database->deleteRecipe($_GET["id"]); // suppression dans la base de donnée
             }

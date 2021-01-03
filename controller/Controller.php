@@ -25,5 +25,31 @@ abstract class Controller {
 
         $this->$page();
     }
+
+    /**
+     * permet de vérifier que l'extension du fichier passé en param est une image (gif, png ou jpg)
+     *
+     * @param string $imageName
+     * @return bool si $imageName a une extension correspondante
+     */
+    protected function extensionOk($imageName)
+    {
+        $extensionIsOk = false;
+        $ext = pathinfo($imageName, PATHINFO_EXTENSION);
+
+        switch ($ext)
+        {
+            case "png":
+            case "jpg":
+            case "gif":
+                $extensionIsOk = true; // remplacer en return true; ?
+                break;
+            default:
+                $extensionIsOk = false; // remplacer en return false; ?
+                break;
+        }
+
+        return $extensionIsOk;
+    }
     
 }
