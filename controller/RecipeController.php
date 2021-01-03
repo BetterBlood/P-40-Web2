@@ -255,7 +255,7 @@ class RecipeController extends Controller {
         
         $firstPart = true;
 
-        if (isset($_POST["recipeCreation1"])) // TODO : ajouter la vérification des champs
+        if (isset($_POST["recipeCreation1"]))
         {
             $firstPart = false;
             $firstPartError = false;
@@ -311,6 +311,8 @@ class RecipeController extends Controller {
 
         if (isset($_POST["recipeCreation2"])) // TODO : ajouter la vérification des champs
         {
+            $firstPart = false;
+            $secondPartError = false;
             $recipe = array();
 
             $recipe["idUser"] = $_SESSION["idUser"];
@@ -327,16 +329,16 @@ class RecipeController extends Controller {
 
                 for ($i = 0; $i < $numberOfIngredients; $i++)
                 {
-                    if (isset($_POST["nbrIngredient" . ($i + 1)]) && isset($_POST["ingredient" . ($i + 1)]))
+                    if (isset($_POST["nbrIngredient" . ($i + 1)]) && trim($_POST["nbrIngredient" . ($i + 1)]) != "" && isset($_POST["ingredient" . ($i + 1)]) && strlen(trim($_POST["ingredient" . ($i + 1)])) >= 1)
                     {
-                        $ingredients .= $_POST["nbrIngredient" . ($i + 1)] . ' x ';
+                        $ingredients .= $_POST["nbrIngredient" . ($i + 1)] . ' x '; // TODO : [pas obligatoire] on pourrait faire une modif ici (mais il faudrait ajouter un champ au form (unity) et faire un if pour savoir quelle unitée est séléctionnée et faire une autre table ? => bof....)
                     }
                     else
                     {
                         continue;
                     }
 
-                    if (isset($_POST["ingredient" . ($i + 1)]))
+                    if (isset($_POST["ingredient" . ($i + 1)]) && trim($_POST["ingredient" . ($i + 1)]) != "")
                     {
                         $ingredients .= $_POST["ingredient" . ($i + 1)];
 
@@ -345,6 +347,11 @@ class RecipeController extends Controller {
                             $ingredients .= ',';
                         }
                     }
+                }
+
+                if (trim($ingredients) == "" || empty($ingredients) || strlen($ingredients) > 255 || strlen($ingredients) < 5) // "1 x n" 5 charactères minimum
+                {
+                    $secondPartError = true;
                 }
             }
             
@@ -370,6 +377,11 @@ class RecipeController extends Controller {
                         }
                     }
                 }
+
+                if (trim($preparationStep) == "" || empty($preparationStep) || strlen($preparationStep) > 255 || strlen($preparationStep) < 5) // 5 aussi comme minimum (c'est arbitraire)
+                {
+                    $secondPartError = true;
+                }
             }
             
             $recipe["recPreparation"] = $preparationStep;
@@ -382,11 +394,22 @@ class RecipeController extends Controller {
             
             $recipe["idRecipe"] = $nextId;
 
-            $database->insertRecipe($recipe); // insertion de la recette dans la base de donnée
+            if (!$secondPartError)
+            {
+                $database->insertRecipe($recipe); // insertion de la recette dans la base de donnée
+            }
+
 
             $recipe = $database->getLastRecipe(); //get la recette pour la page edit (où l'on peut ajouter une image) (on a besoin de l'id)
-            
-            $view = file_get_contents('view/page/restrictedPages/manageRecipe/editRecipe.php');
+
+            if (!$secondPartError)
+            {
+                $view = file_get_contents('view/page/restrictedPages/manageRecipe/editRecipe.php');
+            }
+            else
+            {
+                $view = file_get_contents('view/page/restrictedPages/manageRecipe/addRecipe.php');
+            }
         }
         else
         {

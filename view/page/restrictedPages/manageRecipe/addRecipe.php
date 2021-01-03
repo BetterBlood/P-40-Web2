@@ -28,6 +28,13 @@
 
 <div class="text-white">
     <h2>Page d'ajout de recette : partie 1</h2>
+    
+    <?php
+        if (isset($firstPartError) && $firstPartError)
+        {
+            echo '<p class="bg-danger rounded">il semblerait qu\'une erreur de remplissage soit arrivée, veuiller remplir à nouveau le formulaire</p>';
+        }
+    ?>
 
     <form action="index.php?controller=recipe&action=addRecipe" method="post">
         <!-- je pense qu'on va faire pointer dirrectement vers la page de modification en métant un champs spécifique dans le form pour dire qu'on vient en création -->
@@ -81,6 +88,14 @@
 
 <div class="text-white">
     <h2>Page d'ajout de recette : partie 2</h2>
+
+    <?php
+        if (isset($secondPartError) && $secondPartError)
+        {
+            echo '<p class="bg-danger rounded">il semblerait qu\'une erreur de remplissage soit arrivée, veuiller remplir à nouveau le formulaire</p>';
+        }
+    ?>
+
     <form action="index.php?controller=recipe&action=addRecipe" method="post">
         <input type="text" id="recipeCreation2" name="recipeCreation2" style="display: none;" value="true">
         
@@ -109,7 +124,7 @@
 
                 <label>Étape de préparation</label>
                 <input class="btn btn-info mb-2 ml-5" type="button" value="ajouter une étape" onclick="addStep();"> 
-                <input class="btn btn-danger mb-2 ml-2" type="button" value="deleteLast" onclick="deleteLastStep();">
+                <!--<input class="btn btn-danger mb-2 ml-2" type="button" value="deleteLast" onclick="deleteLastStep();">--><!-- ne fonctionne pas.... (pas important)-->
 
                 <div id="preparationStep">
                     <div class="form-row">
