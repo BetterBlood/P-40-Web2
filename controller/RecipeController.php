@@ -130,10 +130,9 @@ class RecipeController extends Controller {
      * permet d'ajouter ou de modifier sa note pour une recette
      *
      * @param int $idRecipe
-     * @return void
+     * @return string
      */
-    private function rateAction()
-    {
+    private function rateAction() {
         include_once($this->databasePath);
         $database = new Database();
 
@@ -248,8 +247,7 @@ class RecipeController extends Controller {
      *
      * @return string
      */
-    private function addRecipeAction()
-    {
+    private function addRecipeAction() {
         include_once($this->databasePath);
         $database = new Database();
         
@@ -436,8 +434,7 @@ class RecipeController extends Controller {
      *
      * @return string
      */
-    private function editRecipeAction()
-    {
+    private function editRecipeAction() {
         include_once($this->databasePath);
         $database = new Database();
 
@@ -502,8 +499,7 @@ class RecipeController extends Controller {
      *
      * @return string
      */
-    private function deleteRecipeAction()
-    {
+    private function deleteRecipeAction() {
         include_once($this->databasePath);
         $database = new Database();
 
@@ -549,8 +545,7 @@ class RecipeController extends Controller {
      * @param int $lengthRecipe
      * @return int
      */
-    private function normalize($get, $lengthRecipe)
-    {
+    private function normalize($get, $lengthRecipe) {
         //var_dump($get - $lengthRecipe);
 
         if ($get%$lengthRecipe != 0) // si le get n'est pas un nombre parfait au sens qu'il donne une page précise et pas une page entre-deux
@@ -571,8 +566,7 @@ class RecipeController extends Controller {
      * @param int $lengthRecipe
      * @return void
      */
-    private function normalizeStartIndex(&$startIndex, $database, $lengthRecipe)
-    {
+    private function normalizeStartIndex(&$startIndex, $database, $lengthRecipe) {
         $recipeNumber = $database->CountRecipes();
         $_SESSION["recipesNumber"] = $recipeNumber;
 
