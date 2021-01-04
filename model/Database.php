@@ -287,19 +287,6 @@ class Database {
     }
 
     /**
-     * permet d'obtenir le prochain id qui devrait être utilisé (ne fonctionne pas avec les droits actuels)
-     *
-     * @return array
-     */
-    public function getNextRecipeId() // on a pas les accès avec cet utilisateur en fait....
-    {
-        $query = 'SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = "$GLOBALS[\'MM_CONFIG\'][\'database\'][\'dbName\']" AND TABLE_NAME = "t_recipe"';
-        $req = $this->queryPrepareExecute($query, null);
-        $nextId = $this->formatData($req);
-        return $nextId;
-    }
-
-    /**
      * permet d'obtenir la date et l'heure du moment
      *
      * @return string

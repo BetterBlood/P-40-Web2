@@ -39,8 +39,11 @@ abstract class Controller {
 
         switch ($ext)
         {
+            case "PNG":
             case "png":
+            case "JPG":
             case "jpg":
+            case "GIF":
             case "gif":
                 $extensionIsOk = true; // remplacer en return true; ?
                 break;

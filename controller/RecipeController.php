@@ -97,7 +97,7 @@ class RecipeController extends Controller {
         $database = new Database();
 
         $startIndex = 0;
-        $lengthRecipe = 20; // UTIL : modifier si on veut pouvoir modifier le nombre de recette affichée
+        $lengthRecipe = 5; // UTIL : modifier si on veut pouvoir modifier le nombre de recette affichée
         $_SESSION["recipesPerPage"] = $lengthRecipe;
 
         if (array_key_exists("start", $_GET) && $_GET["start"] > 0) // si le paramettre de start n'est pas négatif
@@ -151,11 +151,12 @@ class RecipeController extends Controller {
             $ratings = $database->getAllRatingsForThisRecipe($idRecipe);
         }
 
-        if (array_key_exists("ratGrade", $_POST))
+        if (array_key_exists("ratGrade", $_POST) && ($_POST["ratGrade"] == -1 || ($_POST["ratGrade"] >= 1 && $_POST["ratGrade"] <= 5))) // (on laisse la possibilité de mettre un chiffre à virgule artificiellement)
         {
             $ratGrade = $_POST["ratGrade"];
         }
-        if (array_key_exists("ratComment", $_POST))
+
+        if (array_key_exists("ratComment", $_POST) && !empty(trim($_POST["ratComment"]))) // la valeur par défaut "noComment" et attribuée dans le cas contraire
         {
             $ratComment = $_POST["ratComment"];
         }

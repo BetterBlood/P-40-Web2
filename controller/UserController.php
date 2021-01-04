@@ -199,14 +199,17 @@ class UserController extends Controller {
 
                             switch (pathinfo($imgName, PATHINFO_EXTENSION))
                             {
+                                case "PNG":
                                 case "png":
                                     $image = imagecreatefrompng($_FILES["image"]["tmp_name"]); // prépare la compression
                                     break;
             
+                                case "JPG":
                                 case "jpg":
                                     $image = imagecreatefromjpeg($_FILES["image"]["tmp_name"]); // prépare la compression
                                     break;
-                                    
+                                
+                                case "GIF":
                                 case "gif":
                                     $image = imagecreatefromgif($_FILES["image"]["tmp_name"]); // prépare la compression
                                     break;
