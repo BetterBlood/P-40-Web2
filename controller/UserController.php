@@ -123,7 +123,7 @@ class UserController extends Controller {
             }
 
             if($error == false){
-                //TODO vérification
+                //TODO : si le temps le permet : vérification
                 $username = htmlspecialchars($_POST['username']);
                 $firstName = htmlspecialchars($_POST['firstName']);
                 $lastName = htmlspecialchars($_POST['lastName']);
@@ -141,8 +141,7 @@ class UserController extends Controller {
                     $_SESSION['isConnected'] = false;
                     //$_SESSION['username'] = $username;
                     //$_SESSION['idUser'] = $user['idUser']; // l'id n'existe pas puisque il n'y a pas de get du dernier user ajouter a la database
-                    header('location: index.php');
-                    //TODO
+                    header('location: index.php'); // redirection vers l'index
                     //rediriger vers une page de confirmation/erreur
                 }
             }
@@ -181,13 +180,13 @@ class UserController extends Controller {
 
                 if (isset($_POST) && !empty($_POST))
                 {
-                    // TODO : vérification du form ??
+                    // TODO : si le temps le permet : vérification du form 
                     
                     $user["idUser"] = $_SESSION["idUser"];
 
                     if (array_key_exists("fileUpdate", $_POST)) // form just pour update l'image
                     {
-                        if (!empty($_FILES["image"]["name"]) && $_FILES["image"]["name"] != "" && $this->extensionOk($_FILES["image"]["name"])) // vérifie qu'il y a bien un fichier de séléctionné // TODO : vérifier le type de fichier + gérer fichier vide (!= "" ne fonctionne pas)
+                        if (!empty($_FILES["image"]["name"]) && $_FILES["image"]["name"] != "" && $this->extensionOk($_FILES["image"]["name"])) // vérifie qu'il y a bien un fichier de séléctionné // TODO : si le temps le permet : gérer fichier vide (!= "" ne fonctionne pas)
                         {
                             if ($userProfile["useImage"] != "defaultUserPicture.png" && file_exists("resources/image/Users/" . $userProfile["useImage"]))
                             {
@@ -233,7 +232,7 @@ class UserController extends Controller {
                     {
                         if (array_key_exists("usePassword", $_POST) && array_key_exists("confirmePassword", $_POST))
                         {
-                            if ($_POST["usePassword"] === $_POST["confirmePassword"]) // TODO : ajouter des validation pour le mot de passe
+                            if ($_POST["usePassword"] === $_POST["confirmePassword"]) // TODO : si le temps le permet : ajouter des validation pour le mot de passe
                             {
                                 $user["usePassword"] = password_hash($_POST["usePassword"], PASSWORD_DEFAULT);
                             }
@@ -249,7 +248,7 @@ class UserController extends Controller {
                     }
                     else 
                     {
-                        // TODO : faire la vérification de champ (ptetre faire une méthode, étant donné que l'on doit aussi l'utiliser pour l'inscription)
+                        // TODO : si le temps le permet : faire la vérification de champ (ptetre faire une méthode, étant donné que l'on doit aussi l'utiliser pour l'inscription)
                         $user["usePseudo"] = $_POST["pseudo"];
                         $user["useFirstname"] = $_POST["useFirstname"];
                         $user["useName"] = $_POST["useName"];
@@ -258,7 +257,7 @@ class UserController extends Controller {
 
                     }
 
-                    if (!$passwordModifFailed && !$imageEmpty) // TODO : ajouter les autre erreur ici afin que cela ne modifie pas la database s'il y a une erreur de form
+                    if (!$passwordModifFailed && !$imageEmpty) // TODO : (à vérifier à la fin du projet) ajouter les autre erreur ici afin que cela ne modifie pas la database s'il y a une erreur de form
                     {
                         $modificationDone = true;
                         $database->updateUser($user);

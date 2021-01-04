@@ -132,9 +132,8 @@ class RecipeController extends Controller {
      * @param int $idRecipe
      * @return void
      */
-    private function rateAction() // TODO : finir cette méthode
+    private function rateAction()
     {
-        // TODO : vérifier l'intégrité des données (genre que la note est bien >= à 1 et <= 5, et commentaire pas vide)
         include_once($this->databasePath);
         $database = new Database();
 
@@ -402,9 +401,6 @@ class RecipeController extends Controller {
             $date = $database->getDate();
             $recipe["recDate"] = $date["currentTime"];
             $recipe["recImage"] = "defaultRecipePicture.jpg";
-            
-            //$nextId = $database->getNextRecipeId(); // récupération du prochain id // TODO : vérifier si c'est bon pour enlever cette méthode qui normalement n'est pas utile
-            //$recipe["idRecipe"] = $nextId;
 
             if (!$secondPartError)
             {
@@ -451,7 +447,7 @@ class RecipeController extends Controller {
 
         if (array_key_exists("fileUpdate", $_POST)) // modification de l'image
         {
-            if(!empty($_FILES["image"]["name"]) && $this->extensionOk($_FILES["image"]["name"])) // TODO : faire de meilleures vérifications (ex: nom de fichier trop long... )
+            if(!empty($_FILES["image"]["name"]) && $this->extensionOk($_FILES["image"]["name"])) // TODO : si le temps le permet : faire de meilleures vérifications (ex: nom de fichier trop long... )
             {
                 if ($recipe["recImage"] != "defaultRecipePicture.jpg" && file_exists("resources/image/Recipes/" . $recipe["recImage"]))
                 {

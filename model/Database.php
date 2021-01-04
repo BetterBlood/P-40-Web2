@@ -44,8 +44,8 @@ class Database {
     /**
      * Execute une requête
      *
-     * @param [type] $query
-     * @param [type] $binds
+     * @param string $query
+     * @param string $binds
      * @return PDOStatement
      */
     private function queryPrepareExecute($query, $binds){
@@ -63,7 +63,7 @@ class Database {
     /**
      * Transforme en tableau associatif les données
      *
-     * @param [type] $req
+     * @param PDOStatement $req
      * @return void
      */
     private function formatData($req){
@@ -74,7 +74,7 @@ class Database {
     /**
      * vider la requete
      *
-     * @param [type] $req
+     * @param PDOStatement $req
      * @return void
      */
     private function unsetData($req){
@@ -82,16 +82,15 @@ class Database {
         $req->closeCursor();
     }
 
-    // Termine la liaison avec la BD
-    // TODO à checker si les deux lignes sont nécessaires
+    /**
+     * ferme la connexion
+     *
+     * @param PDOStatement $req
+     * @return void
+     */
     private function closeConnection($req){
-
-        $this->connector = null;
-        unset($this->connector);
+        $this->connector = null; // TODO : à checker si les deux lignes sont nécessaires => ba merci pour le module 151.... 
     }
-
-
-
 
 
 
@@ -101,9 +100,9 @@ class Database {
 
 
     /**
-     * Undocumented function
+     * compte les recettes
      *
-     * @return void
+     * @return int
      */
     public function CountRecipes()
     {
@@ -112,6 +111,12 @@ class Database {
         return $recipes[0]['Count(idRecipe)'];
     }
 
+    /**
+     * vérifie si la recette existe
+     *
+     * @param int $idRecipe
+     * @return bool
+     */
     public function RecipeExist($idRecipe)
     {
         $req = $this->queryPrepareExecute('SELECT * FROM t_recipe', null);// appeler la méthode pour executer la requète
@@ -132,7 +137,9 @@ class Database {
     /**
      * récupère tous les recettes de la database
      *
-     * @return void
+     * @param int $start
+     * @param int $length
+     * @return array
      */
     public function getAllRecipes($start = 0, $length = 5){
         
@@ -148,8 +155,8 @@ class Database {
     /**
      * permet d'obtenir une recette spécifique
      *
-     * @param [type] $id
-     * @return void
+     * @param int $id
+     * @return array
      */
     public function getOneRecipe($id){
 
@@ -199,6 +206,11 @@ class Database {
         return $recipes[0];
     }
 
+    /**
+     * obtient la recette la plus facile
+     *
+     * @return array
+     */
     public function getEasiestRecipe()
     {
         $querry = 'SELECT * FROM t_recipe ORDER BY recDifficulty LIMIT 1';
@@ -388,7 +400,12 @@ class Database {
         $this->unsetData($req);
     }
 
-    
+    /**
+     * supprime une recette
+     *
+     * @param int $idRecipe
+     * @return void
+     */
     public function deleteRecipe($idRecipe)
     {
         $values = array(
@@ -445,6 +462,15 @@ class Database {
         return false;
     }
 
+    /**
+     * ajoute une évaluation
+     *
+     * @param int $idUser
+     * @param int $idRecipe
+     * @param int $grade
+     * @param string $comment
+     * @return void
+     */
     public function insertRating($idUser, $idRecipe, $grade, $comment)
     {
         $query = "INSERT INTO t_rating (ratGrade, ratComment, idRecipe, idUser) VALUES (:ratGrade, :ratComment, :idRecipe, :idUser)";
@@ -477,6 +503,15 @@ class Database {
         $this->unsetData($req);
     }
 
+    /**
+     * permet de modifier une évaluation
+     *
+     * @param int $idUser
+     * @param int $idRecipe
+     * @param int $ratGrade
+     * @param string $ratComment
+     * @return void
+     */
     public function editRating($idUser, $idRecipe, $ratGrade, $ratComment)
     {
         $idRating = -1;
@@ -532,7 +567,6 @@ class Database {
         $this->unsetData($req);
     }
 
-
     /**
      * Undocumented function
      *
@@ -571,7 +605,7 @@ class Database {
 
     /**
      * Récupère tous les noms d'utilisateur
-     * @return $usernames
+     * @return array
      */
     public function getAllUsernames(){
 
@@ -585,7 +619,7 @@ class Database {
     /**
      * Récupère les données d'un utilisateur par l'username
      * @param $username
-     * @return $user
+     * @return array
      */
     public function getOneUser($username){
 
@@ -610,7 +644,7 @@ class Database {
     /**
      * Récupère les données d'un utilisateur par son id
      * @param $username
-     * @return $user
+     * @return array
      */
     public function getOneUserById($userId){
 
@@ -656,15 +690,13 @@ class Database {
 
         $req = $this->queryPrepareExecute($query, $values);
         $this->unsetData($req);
-
-        return;
     }
 
     /**
      * vérifie dans la database si l'id utilisateur existe
      *
      * @param int $idUser
-     * @return void
+     * @return bool
      */
     public function userExist($idUser)
     {
@@ -683,6 +715,12 @@ class Database {
         return false;
     }
 
+    /**
+     * permet de modifier un utilisateur
+     *
+     * @param array $user
+     * @return void
+     */
     public function updateUser($user){
 
         if (isset($user["useImage"]))
@@ -763,9 +801,5 @@ class Database {
 
         $this->unsetData($req);
     }
-    
-
- }
-
-
+}
 ?>
