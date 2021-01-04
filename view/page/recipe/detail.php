@@ -20,7 +20,7 @@
 			<div class="pl-5" style="display:flex;">
 				Difficulté de préparation : 
 				<div class="progress ml-3 mb-3" style="width:160px;height:32px;background-color: grey;">
-					<div role="progressbar" style="width:<?php echo $recipe['recDifficulty']*20; ?>%;background-color: white;">
+					<div role="progressbar" style="width:<?php echo $recipe['recDifficulty']*20; ?>%;background-color: white;"> <!-- obligé de passer en style pour la width car il faudrait faire une infinité de classe sinon -->
 						<div class="bg-difficulty"></div> <!-- src="resources/image/icone/difficulty.png" style="width:160px;height:32px;" alt="icone d'évaluation transparent"-->
 					</div>
 				</div>

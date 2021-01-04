@@ -75,6 +75,11 @@ class UserController extends Controller {
 
     }
 
+    /**
+     * gère la déconnexion
+     *
+     * @return void
+     */
     private function logoutAction() {
         session_destroy();
         header('location: index.php');
@@ -220,15 +225,14 @@ class UserController extends Controller {
                         {
                             $imageEmpty = true;
                         }
-                        
                     }
-                    else if (array_key_exists("modifPasswordForm", $_POST))
+                    else if (array_key_exists("modifPasswordForm", $_POST)) // gère la modification du password
                     {
                         if (array_key_exists("usePassword", $_POST) && array_key_exists("confirmePassword", $_POST))
                         {
                             if ($_POST["usePassword"] === $_POST["confirmePassword"]) // TODO : ajouter des validation pour le mot de passe
                             {
-                                $user["usePassword"] = $_POST["usePassword"];
+                                $user["usePassword"] = password_hash($_POST["usePassword"], PASSWORD_DEFAULT);
                             }
                             else
                             {
@@ -248,13 +252,17 @@ class UserController extends Controller {
                         $user["useName"] = $_POST["useName"];
                         $user["useMail"] = $_POST["mail"];
                         $user["useTelephone"] = $_POST["phone"]; 
+
                     }
 
-                    if (!$passwordModifFailed && !$imageEmpty) // TODO ajouter les autre erreur ici afin que cela ne modifie pas la database s'il y a une erreur de form
+                    if (!$passwordModifFailed && !$imageEmpty) // TODO : ajouter les autre erreur ici afin que cela ne modifie pas la database s'il y a une erreur de form
                     {
                         $modificationDone = true;
                         $database->updateUser($user);
+                        $userProfile = $database->getOneUserById($_SESSION["idUser"]); // permet d'afficher directement les modifications
                     }
+
+                    $view = file_get_contents('view/page/restrictedPages/userPage.php');
                 }
             }
         }
@@ -262,11 +270,11 @@ class UserController extends Controller {
         {
             $userProfile = $database->getOneUserById($_SESSION["idUser"]);
             $view = file_get_contents('view/page/restrictedPages/userPage.php');
-            $selfPage = true;
+            $selfPage = false;
 
-            if (isset($_POST) && !empty($_POST))
+            if (array_key_exists("idUser", $_GET) && array_key_exists("idUser", $_SESSION) && $_GET["idUser"] == $_SESSION["idUser"])
             {
-                
+                $selfPage = true;
             }
         }
         else 
@@ -274,9 +282,6 @@ class UserController extends Controller {
             $userProfile = null;
             $view = file_get_contents('view/page/restrictedPages/loginRegister/loginForm.php');
         }
-
-
-        //$view = file_get_contents('view/page/restrictedPages/userPage.php');
 
         ob_start();
         eval('?>' . $view);
