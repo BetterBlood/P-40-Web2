@@ -5,7 +5,7 @@
 			// redirection si la recette n'existe pas
 			if (isset($recipe))
 			{
-				echo $recipe['recName'];
+				echo $recipe['recName'] . ', dans la catégorie : ' . $recipe["recCategory"];
 			}
 			else 
 			{

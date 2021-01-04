@@ -2,7 +2,7 @@
     
     <div class="mastHead">
         
-        <nav class="navbar navbar-expand-lg fixed-top" id="mainNav"> <!-- TODO : remettre : bg-dark (quand il n'y a plus d'erreur)-->
+        <nav class="navbar navbar-expand-lg fixed-top bg-dark" id="mainNav"> <!-- TODO : remettre : bg-dark (quand il n'y a plus d'erreur)-->
             
             <div class="container">
                 

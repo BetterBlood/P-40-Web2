@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Dim 03 Janvier 2021 à 17:13
+-- Généré le :  Lun 04 Janvier 2021 à 14:55
 -- Version du serveur :  5.7.11
 -- Version de PHP :  7.0.3
 
@@ -113,9 +113,9 @@ CREATE TABLE `t_user` (
 --
 
 INSERT INTO `t_user` (`idUser`, `usePseudo`, `useFirstname`, `useName`, `usePassword`, `useMail`, `useTelephone`, `useImage`) VALUES
-(1, 'Dahïr', 'Dahïr', 'Peter', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', 'jmt-1018@hotmail.com', NULL, 'defaultUserPicture.png'),
-(2, 'test', 'testfirstname', 'testname', 'test', NULL, NULL, 'test.png'),
-(3, 'test2', 'test2', 'test2', 'test2', NULL, NULL, '20210103123527_feu.gif'),
+(1, 'Dahïr', 'Dahïr', 'Peter', '$2y$10$tGj5KNf7dL.R8/KKf0VQY.uRdWP.r3k1kztaeeohHp.5uIrKhEEAa', 'jmt-1018@hotmail.com', '', 'defaultUserPicture.png'),
+(2, 'test', 'testfirstname', 'testname', '$2y$10$RMdnFfFhU14T5Bv4mLpmI.8qLd9lujzmuVOwq5TfLSgwgqEiVQkTe', NULL, NULL, '20210104140025_test.png'),
+(3, 'test2', 'test2', 'test2', '$2y$10$qeXzrtQn6kL.3r3ozzNfQOcoLVJ5.uY2ugMAj4P2so54QgaaZAZYm', NULL, NULL, '20210103123527_feu.gif'),
 (4, 'test3', 'test3', 'test3', '$2y$10$dOrWnxEwBJrvkvUWQD7hYuT1StzLdiNfGjRua.szTD0cGPUCho8Vy', NULL, NULL, '20210103181125_test2.png');
 
 --
@@ -164,7 +164,7 @@ ALTER TABLE `t_recipe`
 -- AUTO_INCREMENT pour la table `t_user`
 --
 ALTER TABLE `t_user`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Contraintes pour les tables exportées
 --
