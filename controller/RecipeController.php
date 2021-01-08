@@ -24,13 +24,14 @@ class RecipeController extends Controller {
 
         $database = new Database();
 
+        // gestion des erreurs de lien
         if (!array_key_exists("action", $_GET))
         {
             $action = "listAction";
         }
         else 
         {
-            switch($_GET["action"])
+            switch($_GET["action"]) 
             {
                 case "list":
                 case "rate":

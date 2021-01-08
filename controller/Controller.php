@@ -17,13 +17,12 @@ abstract class Controller {
     }
 
     /**
-     * Méthode permettant d'appeler l'action 
+     * Méthode permettant d'appeler l'action
      *
      * @return mixed
      */
     public function display() 
     {
-
         $page = $_GET['action'] . "Display";
 
         $this->$page();
@@ -50,6 +49,7 @@ abstract class Controller {
             case "gif":
                 $extensionIsOk = true; // remplacer en return true; ?
                 break;
+                
             default:
                 $extensionIsOk = false; // remplacer en return false; ?
                 break;

@@ -21,6 +21,7 @@ class UserController extends Controller
 
         $database = new Database();
 
+        // gestion des erreurs de lien
         if (!array_key_exists("action", $_GET))
         {
             $action = "loginFormAction";

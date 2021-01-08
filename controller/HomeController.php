@@ -19,6 +19,7 @@ class HomeController extends Controller {
 
         $action = "indexAction";
 
+        // gestion des erreurs de lien
         if (!array_key_exists("action", $_GET))
         {
             $action = "indexAction";
