@@ -133,5 +133,5 @@
     <br><br>
     <div class="text-light">
       <h1>Bienvenue sur Swedish Tortilla</h1>
-      <p>Ce site a pour but de recensé les tous types de recettes. Nous vous invitions à toutes les essayer afin de les évaluer selon vos compétences en cuisine. Nous sommes tous des explorateurs des papilles gustatives.</p>
+      <p>Ce site a pour but de recenser tous types de recettes. Nous vous invitions à toutes les essayer afin de les évaluer selon vos compétences en cuisine. Nous sommes tous des explorateurs des papilles gustatives.</p>
     </div>

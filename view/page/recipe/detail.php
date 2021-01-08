@@ -28,7 +28,7 @@
 
 			</div>
 			<?php
-				$imageLink = '"resources/image/Recipes/' . htmlspecialchars($recipe['recImage']) . '"';
+				$imageLink = '"resources/image/Recipes/' . htmlspecialchars($recipe['recImage']) . '"'; // HTMLSPECIALCHARS
 				echo '<img class="d-block w-100" src=' . $imageLink . ' alt="image d\'illustration de la recette">';
 				echo '<p>Description : ' . $recipe['recDescription'] . '</p>';
 			?>

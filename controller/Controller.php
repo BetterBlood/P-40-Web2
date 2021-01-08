@@ -1,7 +1,7 @@
 <?php
 /**
- * Auteur : Cindy Hardegger
- * Date: 22.01.2019
+ * Auteur : Cindy Hardegger, Jeremiah Steiner
+ * Date: 22.01.2019, 27.12.2020
  * Contrôleur principal
  */
 

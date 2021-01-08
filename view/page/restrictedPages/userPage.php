@@ -38,93 +38,96 @@
         if (isset($selfPage) && $selfPage) // page de l'utilisateur en accès propriétaire 
         {
 
-        echo '<form action="index.php?controller=user&action=profile&idUser=' . $userProfile["idUser"] . '" method="post" enctype="multipart/form-data">';
-            ?>
-            <input type="text" id="fileUpdate" name="fileUpdate" style="display: none;" value="true">
-            <div class="form-group">
-                <p>
-                    <label for="image">Fichier à télécharger</label>
-                    <input type="file" name="image" id="image" />
-                    <input class="btn btn-primary mb-2" type="submit" value="Modifier" />
-                    <?php
-                    if (isset($imageEmpty) && $imageEmpty)
-                    {
-                        echo 'l\'image séléctionnée n\'est pas valide';
-                    }
-                    ?>
-                </p>
-            </div>
-        </form>
-
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-info" style="height: fit-content" data-toggle="modal" data-target="#modifPassword">modifier le mot de passe</button>
-        
-        <?php 
-            if (isset($passwordModifFailed) && $passwordModifFailed) // message d'erreur
-            {
+            echo '<form action="index.php?controller=user&action=profile&idUser=' . $userProfile["idUser"] . '" method="post" enctype="multipart/form-data">';
                 ?>
-                    <p>un problème est surevenu lors de la modification du mot de passe</p>
-                <?php
-            }
-        ?>
-            <!-- Modal -->
-        <div class="modal fade" id="modifPassword" tabindex="-1" role="dialog" aria-labelledby="modifPasswordForm" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content bg-secondary">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Modifier le Mot de Passe</h5>
-                        
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-
-                    <?php
-
-                        echo '<form action="index.php?controller=user&action=profile&idUser=' . $userProfile["idUser"] . '" method="POST">';
+                <input type="text" id="fileUpdate" name="fileUpdate" style="display: none;" value="true">
+                <div class="form-group">
+                    <p>
+                        <label for="image">Fichier à télécharger</label>
+                        <input type="file" name="image" id="image" />
+                        <input class="btn btn-primary mb-2" type="submit" value="Modifier" />
+                        <?php
+                        if (isset($imageEmpty) && $imageEmpty)
+                        {
+                            echo 'l\'image séléctionnée n\'est pas valide';
+                        }
                         ?>
-                        <input type="text" id="modifPasswordForm" name="modifPasswordForm" style="display: none;" value="true">
-                        <div class="modal-body">
-                            
-                            <div class="form-group col-md-4 mb-3 pt-n2 pb-n2">
-                                <label for="usePassword">mot de passe</label>
-                                <?php
-                                    echo '<input type="password" class="form-control" name="usePassword" id="usePassword" placeholder="Amanda17" ' . 'value="" ';
-                                    if (!$selfPage)
-                                    {
-                                        echo 'disabled="disabled"';
-                                    }
-                                    echo '>';
-                                ?>
-                            </div>
+                    </p>
+                </div>
+            </form>
 
-                            <div class="form-group col-md-4 mb-3">
-                                <label for="confirmePassword">confirmation</label>
-                                <?php
-                                    echo '<input type="password" class="form-control" name="confirmePassword" id="confirmePassword" placeholder="Amanda17" ' . 'value="" ';
-                                    if (!$selfPage)
-                                    {
-                                        echo 'disabled="disabled"';
-                                    }
-                                    echo '>';
-                                ?>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-info" style="height: fit-content" data-toggle="modal" data-target="#modifPassword">modifier le mot de passe</button>
+            
+            <?php 
+                if (isset($passwordModifFailed) && $passwordModifFailed) // message d'erreur
+                {
+                    ?>
+                        <p>un problème est surevenu lors de la modification du mot de passe</p>
+                    <?php
+                }
+            ?>
+            
+            <!-- Modal de modification de mot de passe -->
+            <div class="modal fade" id="modifPassword" tabindex="-1" role="dialog" aria-labelledby="modifPasswordForm" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content bg-secondary">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Modifier le Mot de Passe</h5>
+                            
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <?php
+
+                            echo '<form action="index.php?controller=user&action=profile&idUser=' . $userProfile["idUser"] . '" method="POST">';
+                            ?>
+                            <input type="text" id="modifPasswordForm" name="modifPasswordForm" style="display: none;" value="true">
+                            <div class="modal-body">
+                                
+                                <div class="form-group col-md-4 mb-3 pt-n2 pb-n2">
+                                    <label for="usePassword">mot de passe</label>
+                                    <?php
+                                        echo '<input type="password" class="form-control" name="usePassword" id="usePassword" placeholder="Amanda17" ' . 'value="" ';
+                                        if (!$selfPage)
+                                        {
+                                            echo 'disabled="disabled"';
+                                        }
+                                        echo '>';
+                                    ?>
+                                </div>
+
+                                <div class="form-group col-md-4 mb-3">
+                                    <label for="confirmePassword">confirmation</label>
+                                    <?php
+                                        echo '<input type="password" class="form-control" name="confirmePassword" id="confirmePassword" placeholder="Amanda17" ' . 'value="" ';
+                                        if (!$selfPage)
+                                        {
+                                            echo 'disabled="disabled"';
+                                        }
+                                        echo '>';
+                                    ?>
+                                </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Abandonner</button>
-                            <button type="submit" class="btn btn-success">Enregistrer le mot de passe</button>
-                        </div>
-                    </form>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Abandonner</button>
+                                <button type="submit" class="btn btn-success">Enregistrer le mot de passe</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
 
         <?php
         }
-            if (isset($selfPage) && $selfPage)
-            {
-                echo '<form action="index.php?controller=user&action=profile&idUser=' . $userProfile["idUser"] . '" method="post">';
-            }
+
+        if (isset($selfPage) && $selfPage)
+        {
+            echo '<form action="index.php?controller=user&action=profile&idUser=' . $userProfile["idUser"] . '" method="post">';
+        }
+
         ?>
 
         <div class="form-row" style="height: fit-content">
@@ -207,7 +210,6 @@
                 <?php
                 echo '</form>';
             }
-
         ?>
     </div>
 

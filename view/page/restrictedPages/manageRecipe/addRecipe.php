@@ -23,7 +23,7 @@
         $recipe["idUser"] = "";
     }
 
-    if (isset($firstPart) && $firstPart)
+    if (isset($firstPart) && $firstPart) // première partie de l'ajout de recette
     {
 ?>
 
@@ -58,14 +58,14 @@
             </div>
 
             <div class="form-row col-md-4 mb-3 pt-n2 pb-n2">
-                <div class="mx-auto">
+                <div class="mx-auto col-md-9">
                     <label for="recPrepTime">Temps de préparation</label>
                     <?php
                         echo '<input type="number" class="form-control" style="width:fit-content;" name="recPrepTime" id="recPrepTime" placeholder="[minutes]" min="10" value="' . $recipe["recPrepTime"] . '">';
                     ?>
                 </div>
 
-                <div class="mx-auto">
+                <div class="mx-auto col-md-3">
                     <label for="recDifficulty">Difficultée</label>
                     <?php
                         echo '<input type="number" class="form-control" style="width:fit-content;" name="recDifficulty" id="recDifficulty" placeholder="2" min="1" max="5" value="' . $recipe["recDifficulty"] . '">';
@@ -90,7 +90,7 @@
 
 <?php
     }
-    else
+    else // partie 2 de l'ajout de recette
     {
 ?>
 
@@ -114,6 +114,7 @@
                 
                 <label>Liste d'ingrédients</label>
                 <input class="btn btn-info mb-2 ml-5" type="button" value="ajouter un ingrédient" onclick="addIngredient();"> 
+                 <!--<input class="btn btn-danger mb-2 ml-2" type="button" value="deleteLast" onclick="deleteLastIngredients();">--><!-- TODO : suppression d'ingrédient, ne fonctionne pas.... (pas important)-->
                 
                 <div id="ingredients">
                     <div class="form-row">
@@ -132,7 +133,7 @@
 
                 <label>Étape de préparation</label>
                 <input class="btn btn-info mb-2 ml-5" type="button" value="ajouter une étape" onclick="addStep();"> 
-                <!--<input class="btn btn-danger mb-2 ml-2" type="button" value="deleteLast" onclick="deleteLastStep();">--><!-- ne fonctionne pas.... (pas important)-->
+                <!--<input class="btn btn-danger mb-2 ml-2" type="button" value="deleteLast" onclick="deleteLastStep();">--><!-- TODO : suppression d'étape, ne fonctionne pas.... (pas important)-->
 
                 <div id="preparationStep">
                     <div class="form-row">
@@ -155,6 +156,5 @@
 </div>
 
 <?php
-    }
-       
+    } 
 ?>
