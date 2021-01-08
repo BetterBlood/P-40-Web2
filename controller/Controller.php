@@ -9,8 +9,11 @@ abstract class Controller {
 
     protected $databasePath;
 
+    /**
+     * constructeur de Controller (initialise le $databasePath)
+     */
     public function __construct() {
-        $this->databasePath = "model\Database.php";
+        $this->databasePath = "model/Database.php";
     }
 
     /**

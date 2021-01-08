@@ -35,7 +35,7 @@
         <?php
         echo '<img style="width:100px;" src=' . $imageProfilLink . ' alt="image de profile">';
         
-        if (isset($selfPage) && $selfPage)
+        if (isset($selfPage) && $selfPage) // page de l'utilisateur en accès propriétaire 
         {
 
         echo '<form action="index.php?controller=user&action=profile&idUser=' . $userProfile["idUser"] . '" method="post" enctype="multipart/form-data">';
@@ -60,7 +60,7 @@
         <button type="button" class="btn btn-info" style="height: fit-content" data-toggle="modal" data-target="#modifPassword">modifier le mot de passe</button>
         
         <?php 
-            if (isset($passwordModifFailed) && $passwordModifFailed)
+            if (isset($passwordModifFailed) && $passwordModifFailed) // message d'erreur
             {
                 ?>
                     <p>un problème est surevenu lors de la modification du mot de passe</p>
@@ -281,7 +281,7 @@
                         echo '<td class="icon-column">';
                         if (isset($selfPage) && $selfPage)
                         {
-                            echo '<a onclick="return confirm(\'Voulez-vous vraiment supprimer définitivement cette recette ?\')" href="index.php?controller=recipe&action=deleteRecipe&id=' . htmlspecialchars($recipe['idRecipe']) . '"><div class="bg-iconTrash"></div></a>'; // TODO : modifier le lien pour la suppression
+                            echo '<a onclick="return confirm(\'Voulez-vous vraiment supprimer définitivement cette recette ?\')" href="index.php?controller=recipe&action=deleteRecipe&id=' . htmlspecialchars($recipe['idRecipe']) . '"><div class="bg-iconTrash"></div></a>';
                         }
                         echo '</td>';
                     
@@ -299,7 +299,7 @@
                         echo '<td class="icon-column">';
                         if (isset($selfPage) && $selfPage)
                         {
-                            echo '<a onclick="return confirm(\'Voulez-vous vraiment supprimer définitivement cette recette ?\')" href="index.php?controller=recipe&action=deleteRecipe&id=' . htmlspecialchars($recipe['idRecipe']) . '"><div class="bg-iconTrash"></div></a>'; // TODO : modifier le lien pour la suppression
+                            echo '<a onclick="return confirm(\'Voulez-vous vraiment supprimer définitivement cette recette ?\')" href="index.php?controller=recipe&action=deleteRecipe&id=' . htmlspecialchars($recipe['idRecipe']) . '"><div class="bg-iconTrash"></div></a>';
                         }
                         echo '</td>';
                     }
@@ -386,7 +386,7 @@
                                     echo '<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>';
                                     if (array_key_exists("isConnected", $_SESSION) && $_SESSION["isConnected"])
                                     {
-                                        echo '<a href="index.php?controller=user&action=profile&idUser=' . $user["idUser"] .  '" class="btn btn-warning">Voir l\'auteur</a>'; // TODO : lier a la page du créateur de la recette
+                                        echo '<a href="index.php?controller=user&action=profile&idUser=' . $user["idUser"] .  '" class="btn btn-warning">Voir l\'auteur</a>';
                                     }
                                     else 
                                     {

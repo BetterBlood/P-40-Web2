@@ -4,7 +4,7 @@ use function PHPSTORM_META\elementType;
 
 /**
  * ETML
- * Auteur : Moi
+ * Auteur : Arthur Wallef, Pierre Morand, Jeremiah Steiner
  * Date: 02.10.2020
  * Controler pour gérer les recettes
  */

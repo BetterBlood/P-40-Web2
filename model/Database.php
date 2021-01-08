@@ -1,10 +1,9 @@
 <?php
 
 /**
- * Auteur : Jeremiah Steiner
+ * Auteur : Pierre Morand,  Jeremiah Steiner
  * Date: 13.11.2020
  * contient les méthode permettant d'accèder a la database
- * TODO : plugin : PHP DocBlocker
  */
 
 include './data/config.php';
@@ -17,7 +16,8 @@ class Database {
     /**
      * Connexion à la DB par PDO
      */
-    public function __construct(){
+    public function __construct()
+    {
         $dbName = $GLOBALS['MM_CONFIG']['database']['dbName'];
         $user = $GLOBALS['MM_CONFIG']['database']['username'];
         $password = $GLOBALS['MM_CONFIG']['database']['password'];
@@ -34,8 +34,8 @@ class Database {
      * @param [type] $query
      * @return void
      */
-    private function querySimpleExecute($query){
-
+    private function querySimpleExecute($query)
+    {
         $req = $this->connector->query($query);
 
         return $req;
@@ -48,15 +48,20 @@ class Database {
      * @param string $binds
      * @return PDOStatement
      */
-    private function queryPrepareExecute($query, $binds){
-        
+    private function queryPrepareExecute($query, $binds)
+    {
         $req = $this->connector->prepare($query);
-        if(isset($binds)){
-            foreach($binds as $bind){
+
+        if(isset($binds))
+        {
+            foreach($binds as $bind)
+            {
                 $req->bindValue($bind['marker'], $bind['input'], $bind['type']);
             }
         }
+
         $req->execute();
+
         return $req;
     }
 
@@ -66,8 +71,8 @@ class Database {
      * @param PDOStatement $req
      * @return void
      */
-    private function formatData($req){
-
+    private function formatData($req)
+    {
         return $req->fetchALL(PDO::FETCH_ASSOC);
     }
 
@@ -77,8 +82,8 @@ class Database {
      * @param PDOStatement $req
      * @return void
      */
-    private function unsetData($req){
-        
+    private function unsetData($req)
+    {
         $req->closeCursor();
     }
 
@@ -88,8 +93,9 @@ class Database {
      * @param PDOStatement $req
      * @return void
      */
-    private function closeConnection($req){
-        $this->connector = null; // TODO : à checker si les deux lignes sont nécessaires => ba merci pour le module 151.... 
+    private function closeConnection($req)
+    {
+        $this->connector = null; // NOTE : à checker si les deux lignes sont nécessaires => ba merci pour le module 151.... 
     }
 
 
@@ -141,8 +147,8 @@ class Database {
      * @param int $length
      * @return array
      */
-    public function getAllRecipes($start = 0, $length = 5){
-        
+    public function getAllRecipes($start = 0, $length = 5)
+    { 
         $req = $this->queryPrepareExecute('SELECT * FROM t_recipe LIMIT '.  $start . ', ' . $length , null);// appeler la méthode pour executer la requète
 
         $recipes = $this->formatData($req);// appeler la méthode pour avoir le résultat sous forme de tableau
@@ -158,8 +164,8 @@ class Database {
      * @param int $id
      * @return array
      */
-    public function getOneRecipe($id){
-
+    public function getOneRecipe($id)
+    {
         $req = $this->queryPrepareExecute('SELECT * FROM t_recipe WHERE idRecipe = ' . $id, null); // appeler la méthode pour executer la requète
 
         $recipes = $this->formatData($req);// appeler la méthode pour avoir le résultat sous forme de tableau
@@ -380,7 +386,7 @@ class Database {
             9 => array(
                 'marker' => ':recDate',
                 'input' => $recipe["recDate"],
-                'type' => PDO::PARAM_STR // TODO : pour date on met string ??
+                'type' => PDO::PARAM_STR
             ),
             10 => array(
                 'marker' => ':idUser',

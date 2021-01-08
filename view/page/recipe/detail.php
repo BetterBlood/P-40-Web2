@@ -184,7 +184,7 @@
 					echo '<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>';
 					if (array_key_exists("isConnected", $_SESSION) && $_SESSION["isConnected"])
 					{
-						echo '<a href="index.php?controller=user&action=profile&idUser=' . $recipeCreator["idUser"] . '" class="btn btn-warning">Voir l\'auteur</a>'; // TODO : lier a la page du créateur de la recette
+						echo '<a href="index.php?controller=user&action=profile&idUser=' . $recipeCreator["idUser"] . '" class="btn btn-warning">Voir l\'auteur</a>';
 					}
 					else 
 					{

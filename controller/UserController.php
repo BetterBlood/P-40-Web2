@@ -1,8 +1,8 @@
 <?php
 /**
  * ETML
- * Auteur : Cindy Hardegger
- * Date: 22.01.2019
+ * Auteur : Arthur Wallef, Pierre Morand & Jeremiah Steiner
+ * Date: 25.12.2020
  * Controler pour gérer les clients
  */
 
@@ -257,7 +257,7 @@ class UserController extends Controller {
 
                     }
 
-                    if (!$passwordModifFailed && !$imageEmpty) // TODO : (à vérifier à la fin du projet) ajouter les autre erreur ici afin que cela ne modifie pas la database s'il y a une erreur de form
+                    if (!$passwordModifFailed && !$imageEmpty) // NOTE : (à vérifier à la fin du projet) ajouter les autre erreur ici afin que cela ne modifie pas la database s'il y a une erreur de form
                     {
                         $modificationDone = true;
                         $database->updateUser($user);
