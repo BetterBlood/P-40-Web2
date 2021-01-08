@@ -69,7 +69,7 @@ class Database {
      * Transforme en tableau associatif les données
      *
      * @param PDOStatement $req
-     * @return void
+     * @return PDOStatement
      */
     private function formatData($req)
     {

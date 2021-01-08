@@ -6,6 +6,8 @@
  * Controler pour gérer les pages classiques
  */
 
+include_once("model/Database.php");
+
 class HomeController extends Controller {
 
     /**
@@ -46,8 +48,6 @@ class HomeController extends Controller {
      * @return string
      */
     private function indexAction() {
-
-        include_once($this->databasePath);
         $database = new Database();
 
         $lastRecipe = $database->getLastRecipe();
@@ -113,3 +113,5 @@ class HomeController extends Controller {
         return $content;
     }
 }
+
+?>

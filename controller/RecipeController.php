@@ -9,7 +9,8 @@ use function PHPSTORM_META\elementType;
  * Controler pour gérer les recettes
  */
 
-//include_once 'model/RecetteRepository.php'; // ça je crois balek il va falloir enlever mais vérifier avant
+//include_once 'model/RecetteRepository.php';
+include_once("model/Database.php");
 
 class RecipeController extends Controller {
 
@@ -19,12 +20,10 @@ class RecipeController extends Controller {
      * @return mixed
      */
     public function display() {
-
         $action = $_GET['action'] . "Action";
 
         $action = "listAction";
 
-        include_once($this->databasePath);
         $database = new Database();
 
         if (!array_key_exists("action", $_GET))
@@ -90,10 +89,8 @@ class RecipeController extends Controller {
      * @return string
      */
     private function listAction() {
-
         // Instancie le modèle et va chercher les informations
 
-        include_once($this->databasePath);
         $database = new Database();
 
         $startIndex = 0;
@@ -133,7 +130,6 @@ class RecipeController extends Controller {
      * @return string
      */
     private function rateAction() {
-        include_once($this->databasePath);
         $database = new Database();
 
         $recipe = array();
@@ -211,8 +207,6 @@ class RecipeController extends Controller {
      * @return string
      */
     private function detailAction() {
-
-        include_once($this->databasePath);
         $database = new Database();
 
         $recipe = $database->getOneRecipe($_GET['id']);
@@ -248,7 +242,6 @@ class RecipeController extends Controller {
      * @return string
      */
     private function addRecipeAction() {
-        include_once($this->databasePath);
         $database = new Database();
         
         $firstPart = true;
@@ -435,7 +428,6 @@ class RecipeController extends Controller {
      * @return string
      */
     private function editRecipeAction() {
-        include_once($this->databasePath);
         $database = new Database();
 
         $recipe = $database->getOneRecipe($_GET["id"]);
@@ -500,7 +492,6 @@ class RecipeController extends Controller {
      * @return string
      */
     private function deleteRecipeAction() {
-        include_once($this->databasePath);
         $database = new Database();
 
         if ($database->RecipeExist($_GET["id"]))

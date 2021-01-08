@@ -6,15 +6,17 @@
  * Controler pour gérer les clients
  */
 
-class UserController extends Controller {
+include_once("model/Database.php");
 
+class UserController extends Controller 
+{
     /**
      * Permet de choisir l'action à effectuer
      *
      * @return mixed
      */
-    public function display() {
-
+    public function display() 
+    {
         $action = $_GET['action'] . "Action";
 
         return call_user_func(array($this, $action));
@@ -25,8 +27,8 @@ class UserController extends Controller {
      *
      * @return string
      */
-    private function loginFormAction() {
-
+    private function loginFormAction() 
+    {
         $view = file_get_contents('view/page/restrictedPages/loginRegister/loginForm.php');
         
         ob_start();
@@ -40,12 +42,11 @@ class UserController extends Controller {
      * Login utilisateur
      *
      */
-    private function loginAction() {
-
+    private function loginAction() 
+    {
         $username = htmlspecialchars($_POST['username']);
         $password = htmlspecialchars($_POST['password']);
 
-        include_once($this->databasePath);
         $database = new Database();
 
         //Vérifie le connecteur
@@ -80,7 +81,8 @@ class UserController extends Controller {
      *
      * @return void
      */
-    private function logoutAction() {
+    private function logoutAction() 
+    {
         session_destroy();
         header('location: index.php');
     }
@@ -90,8 +92,8 @@ class UserController extends Controller {
      *
      * @return string
      */
-    private function registerFormAction() {
-
+    private function registerFormAction() 
+    {
         $view = file_get_contents('view/page/restrictedPages/loginRegister/registerForm.php');
         
         ob_start();
@@ -105,8 +107,8 @@ class UserController extends Controller {
      * Création d'un utilisateur
      *
      */
-    private function registerAction(){
-
+    private function registerAction()
+    {
         $error = false;
         //Vérification de l'existence des champs
         if(key_exists("username", $_POST) && key_exists("firstName", $_POST) && key_exists("lastName", $_POST) && key_exists("password1", $_POST) && key_exists("password2", $_POST)){
@@ -153,8 +155,8 @@ class UserController extends Controller {
      *
      * @return string
      */
-    private function profileAction(){
-        include_once($this->databasePath);
+    private function profileAction()
+    {
         $database = new Database();
 
         $userProfile = array();
@@ -292,5 +294,4 @@ class UserController extends Controller {
         return $content;
     }
 
-    
 }
