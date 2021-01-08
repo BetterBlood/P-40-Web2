@@ -17,7 +17,42 @@ class UserController extends Controller
      */
     public function display() 
     {
-        $action = $_GET['action'] . "Action";
+        $action = "loginFormAction";
+
+        $database = new Database();
+
+        if (!array_key_exists("action", $_GET))
+        {
+            $action = "loginFormAction";
+        }
+        else
+        {
+            switch($_GET["action"])
+            {
+                case "loginForm":
+                case "login":
+                case "logout":
+                case "registerForm":
+                case "register":
+                    $action = $_GET['action'] . "Action";
+                    break;
+
+                case "profile":
+                    if (array_key_exists("idUser", $_GET) && $database->userExist($_GET["idUser"]))
+                    {
+                        $action = $_GET['action'] . "Action";
+                    }
+                    else 
+                    {
+                        $action = "loginFormAction";
+                    }
+                    break;
+
+                default :
+                    $action = "loginFormAction";
+                    break;
+            }
+        }
 
         return call_user_func(array($this, $action));
     }
@@ -272,6 +307,7 @@ class UserController extends Controller
         }
         else if (array_key_exists("idUser", $_SESSION))
         {
+            $recipes = $database->getRecipesByUserId($_SESSION["idUser"]);
             $userProfile = $database->getOneUserById($_SESSION["idUser"]);
             $view = file_get_contents('view/page/restrictedPages/userPage.php');
             $selfPage = false;

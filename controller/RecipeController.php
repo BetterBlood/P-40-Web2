@@ -20,8 +20,6 @@ class RecipeController extends Controller {
      * @return mixed
      */
     public function display() {
-        $action = $_GET['action'] . "Action";
-
         $action = "listAction";
 
         $database = new Database();
